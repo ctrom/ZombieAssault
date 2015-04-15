@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace ZombieAssault
 {
+    //class that controls all sprites in game
     class SpriteManager : Microsoft.Xna.Framework.DrawableGameComponent
     {
         SpriteBatch spriteBatch;
@@ -19,8 +20,9 @@ namespace ZombieAssault
         List<Sprite> spriteList = new List<Sprite>();
 
         PlayerControlledSprite jack;
-        Zombie zombie;
+        Zombie zombie;//incomplete, experimenting with zombie spawning, likely going to be deleted
 
+        //experimental zombie spawn counter
         int timeSinceLastSpawn = 0;
         int millisecondsTilSpawn = 10000;
 
@@ -39,24 +41,27 @@ namespace ZombieAssault
         {
             spriteBatch = new SpriteBatch(Game.GraphicsDevice);
 
-            jack = new PlayerControlledSprite(Game.Content.Load<Texture2D>(@"Images/Jack_SpriteSheet"), new Vector2(720, 720), 1f, .375f, (float)Math.PI / 2);
+            jack = new PlayerControlledSprite(Game.Content.Load<Texture2D>(@"Images/Jack_SpriteSheet"), new Vector2(720, 720), 1f, .375f, (float)Math.PI / 2);//creates player unit
 
+            //adds zombies to sprite list
             spriteList.Add(new Zombie(Game.Content.Load<Texture2D>(@"Images/Zombie_SpriteSheet"), new Vector2(240, 240), .5f, .375f, 0));
             spriteList.Add(new Zombie(Game.Content.Load<Texture2D>(@"Images/Zombie_SpriteSheet"), new Vector2(0, 0), .5f, .375f, (float)Math.PI));
             spriteList.Add(new Zombie(Game.Content.Load<Texture2D>(@"Images/Zombie_SpriteSheet"), new Vector2(480, 480), .5f, .375f, (float)Math.PI / 2));
-            spriteList.Add(jack);
+
+            spriteList.Add(jack);//adds player unit to sprite list
+
             spriteList.Add(new StaticSprite(Game.Content.Load<Texture2D>(@"Images/House_Layout(40x40 tiles, 960x960 resolution)"), 
-                Vector2.Zero, 1f, 0));
+                Vector2.Zero, 1f, 0));//adds game map
 
             base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
         {
-            foreach(Sprite s in spriteList)
+            foreach(Sprite s in spriteList)//runs update method of each sprite in the list
             {
                 s.Update(gameTime, Game.Window.ClientBounds);
-                if(s.GetType() == typeof(Zombie))
+                if(s.GetType() == typeof(Zombie))//if sprite is a zombie, updates destination to player unit position
                 {
                     Zombie temp = (Zombie)s;
                     temp.Destination = new Vector2(jack.Position.X / 24, jack.Position.Y / 24);

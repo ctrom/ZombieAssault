@@ -12,11 +12,9 @@ using Microsoft.Xna.Framework.Media;
 
 namespace ZombieAssault
 {
+    //Instantiable object for basic zombies
     class Zombie : AnimatedSprite
     {
-        
-        
-        private MouseState prevMouseState = Mouse.GetState();
 
         public Zombie(Texture2D textureImage, Vector2 position, float speed, float scale, float rotation)
             : base(textureImage, position, new Point(64,64), new Point(0,0), new Point(3,1), scale, rotation, speed, 0, new Vector2(0,0), 500)
@@ -31,6 +29,7 @@ namespace ZombieAssault
 
         public override void Update(GameTime gameTime, Rectangle clientBounds)
         {
+            //algorithm for traversing spritesheet
             currentFrame.Y = 0;
             if (position != destination)
             {
