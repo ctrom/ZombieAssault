@@ -7,16 +7,17 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ZombieAssault
 {
+    //Parent class for all mobile sprites
     abstract class AnimatedSprite : Sprite
     {
-        Point frameSize;
+        Point frameSize;//dimensions of individual animation frames on sprite sheet
 
         protected Vector2 destination;
         protected Point currentFrame;
-        protected Point sheetSize;
+        protected Point sheetSize;//number of animation frames on the sprite sheet, example 3 across and 2 down or Point(3,2)
         protected int timeSinceLastFrame = 0;
         protected int millisecondsPerFrame;
-        protected float rotation;
+        protected float rotation;//in radians
         protected Vector2 direction;
         float speed;
 
@@ -25,6 +26,7 @@ namespace ZombieAssault
             get;
         }
 
+        //Destination property, multiplies desired tile indexes by 24 to get coordinates
         public virtual Vector2 Destination
         {
             get { return destination; }
@@ -46,9 +48,10 @@ namespace ZombieAssault
 
         public override void Update(GameTime gameTime, Rectangle clientBounds)
         {
-            if (position != destination)
+            //Main movement code, controls how the sprite translates each update
+            if (position != destination)//checks if sprite is at destination
             {
-                if (Math.Abs(Destination.X - position.X) < Math.Abs(Destination.Y - position.Y))
+                if (Math.Abs(Destination.X - position.X) < Math.Abs(Destination.Y - position.Y))//compares magnitude of differences of x and y
                 {
                     if (position.X < Destination.X)
                         direction.X = Math.Abs(((float)Destination.X - position.X) / (Destination.Y - position.Y) * speed);

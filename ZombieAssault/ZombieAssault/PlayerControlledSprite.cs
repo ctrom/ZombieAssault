@@ -8,9 +8,10 @@ using Microsoft.Xna.Framework.Input;
 
 namespace ZombieAssault
 {
+    //Instantiable class for player units
     class PlayerControlledSprite : AnimatedSprite
     {
-
+        //variables for tracking mouse inputs
         private MouseState previousState;
         private MouseState currentState;
 

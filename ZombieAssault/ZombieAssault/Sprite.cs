@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace ZombieAssault
 {
+    //Parent class for all sprites
     abstract class Sprite
     {
         protected Texture2D textureImage;
