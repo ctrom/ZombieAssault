@@ -49,16 +49,21 @@ namespace ZombieAssault
         public override void Update(GameTime gameTime, Rectangle clientBounds)
         {
             //Main movement code, controls how the sprite translates each update
+            //rough implementation, could use cleaning up/simplification
             if (position != destination)//checks if sprite is at destination
             {
-                if (Math.Abs(Destination.X - position.X) < Math.Abs(Destination.Y - position.Y))//compares magnitude of differences of x and y
+                if (Math.Abs(Destination.X - position.X) < Math.Abs(Destination.Y - position.Y))//executes if magnitude of y difference is greater than that of x
                 {
+                    //Checks if x requires translation, either positive, negative or none
+                    //multiplied by factor of speed
                     if (position.X < Destination.X)
                         direction.X = Math.Abs(((float)Destination.X - position.X) / (Destination.Y - position.Y) * speed);
                     else if (position.X > Destination.X)
                         direction.X = -Math.Abs(((float)Destination.X - position.X) / (Destination.Y - position.Y) * speed);
                     else
                         direction.X = 0;
+                    //checks if y requires translation, either positive, negative, or none
+                    //multiplied by factor of speed
                     if (position.Y < Destination.Y)
                         direction.Y = 1 * speed;
                     else if (position.Y > Destination.Y)
@@ -66,14 +71,18 @@ namespace ZombieAssault
                     else
                         direction.Y = 0;
                 }
-                else if (Math.Abs(Destination.X - position.X) > Math.Abs(Destination.Y - position.Y))
+                else if (Math.Abs(Destination.X - position.X) > Math.Abs(Destination.Y - position.Y))//executes if magnitude of x difference is greater than that of y
                 {
+                    //Checks if x requires translation, either positive, negative or none
+                    //multiplied by factor of speed
                     if (position.X < Destination.X)
                         direction.X = 1 * speed;
                     else if (position.X > Destination.X)
                         direction.X = -1 * speed;
                     else
                         direction.X = 0;
+                    //checks if y requires translation, either positive, negative, or none
+                    //multiplied by factor of speed
                     if (position.Y < Destination.Y)
                         direction.Y = Math.Abs(((float)Destination.Y - position.Y) / (Destination.X - position.X) * speed);
                     else if (position.Y > Destination.Y)
@@ -81,14 +90,16 @@ namespace ZombieAssault
                     else
                         direction.Y = 0;
                 }
-                else
+                else//executes if magnitudes are the same
                 {
+                    //determines if x translation is positive, negative, or none
                     if (position.X < Destination.X)
                         direction.X = 1 / (float)Math.Sqrt(2) * speed;
                     else if (position.X > Destination.X)
                         direction.X = -1 / (float)Math.Sqrt(2) * speed;
                     else
                         direction.X = 0;
+                    //determines if y translation is positive, negative, or none
                     if (position.Y < Destination.Y)
                         direction.Y = 1 / (float)Math.Sqrt(2) * speed;
                     else if (position.Y > Destination.Y)
@@ -98,10 +109,11 @@ namespace ZombieAssault
                 }
             }
             else
-                direction = Vector2.Zero;
+                direction = Vector2.Zero;//sets to no translation on update
 
-            rotation = (float)(Math.Atan2(Destination.Y - position.Y, Destination.X - position.X)) + (float)Math.PI / 2;
+            rotation = (float)(Math.Atan2(Destination.Y - position.Y, Destination.X - position.X)) + (float)Math.PI / 2;//calculates angle of rotation so sprite faces destination
 
+            //sets position to destination if within 1 pixel in both x and y to prevent sprite from stuttering
             if (Math.Abs(position.X - Destination.X) < 1 && Math.Abs(position.Y - Destination.Y) < 1)
                 position = destination;
             else
