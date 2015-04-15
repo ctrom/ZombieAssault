@@ -17,7 +17,7 @@ namespace ZombieAssault
     {
         protected Texture2D textureImage;
         protected Vector2 position;
-        protected float scale;
+        protected float scale;//factor to scale sprite image to coincide with game map resolution, example .375 to scale 64x64 pixel image to 24x24 tile size
         protected int collisionOffset;
 
         public Vector2 Position

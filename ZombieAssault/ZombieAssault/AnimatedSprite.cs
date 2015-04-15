@@ -27,6 +27,7 @@ namespace ZombieAssault
         }
 
         //Destination property, multiplies desired tile indexes by 24 to get coordinates
+        //use only for setting desination based on index of tile rather than pixel coordinate
         public virtual Vector2 Destination
         {
             get { return destination; }
@@ -139,6 +140,7 @@ namespace ZombieAssault
                 1);
         }
 
+        //holdover from lab code, not sure how it works or what it does
         public Rectangle collisionRectangle
         {
             get

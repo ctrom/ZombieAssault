@@ -18,7 +18,7 @@ namespace ZombieAssault
         public PlayerControlledSprite(Texture2D textureImage, Vector2 position, float speed, float scale, float rotation)
             : base (textureImage, position, new Point(64,64), new Point(0,0), new Point(3,2), scale, rotation, speed, 0, new Vector2(0,0), 250)
         {
-            destination = position;
+            destination = position;//initializes destination as starting position
         }
 
         public override Vector2 Direction
@@ -28,29 +28,32 @@ namespace ZombieAssault
 
         public override void Update(GameTime gameTime, Rectangle clientBounds)
         {
-            currentFrame.Y = 0;
+            //algorithm for traversing sprite sheet
+            currentFrame.Y = 0;//initializes as idle animation
             if (position != destination)
             {
                 timeSinceLastFrame += gameTime.ElapsedGameTime.Milliseconds;
                 if (timeSinceLastFrame > millisecondsPerFrame)
                 {
                     timeSinceLastFrame = 0;
-                    ++currentFrame.X;
+                    ++currentFrame.X;//increments to next frame on sheet
                     if (currentFrame.X >= sheetSize.X)
                     {
-                        currentFrame.X = 1;
+                        currentFrame.X = 1;//resets frame to start of walk animation
                     }
                 }
             }
             else
-                currentFrame.X = 0;
+                currentFrame.X = 0;//sets current frame to idle animation
 
+            //polls mouse state
             previousState = currentState;
             currentState = Mouse.GetState();
             
+            //checks if mouse was right clicked
             if(previousState.RightButton == ButtonState.Released && currentState.RightButton == ButtonState.Pressed)
             {
-                destination = new Vector2(currentState.X, currentState.Y);
+                destination = new Vector2(currentState.X, currentState.Y);//sets destination to mouse position
             }
 
             base.Update(gameTime, clientBounds);
