@@ -52,8 +52,6 @@ namespace ZombieAssault
                 }
             }
 
-            this.IsMouseVisible = true;
-
             base.Initialize();
         }
 

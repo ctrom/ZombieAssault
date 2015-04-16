@@ -22,6 +22,9 @@ namespace ZombieAssault
         PlayerControlledSprite jack;
         Zombie zombie;//incomplete, experimenting with zombie spawning, likely going to be deleted
 
+        private Texture2D cursorTexture;
+        private Vector2 cursorPosition;
+
         //experimental zombie spawn counter
         int timeSinceLastSpawn = 0;
         int millisecondsTilSpawn = 10000;
@@ -48,6 +51,9 @@ namespace ZombieAssault
             spriteList.Add(new Zombie(Game.Content.Load<Texture2D>(@"Images/Zombie_SpriteSheet"), new Vector2(0, 0), .5f, .375f, (float)Math.PI));
             spriteList.Add(new Zombie(Game.Content.Load<Texture2D>(@"Images/Zombie_SpriteSheet"), new Vector2(480, 480), .5f, .375f, (float)Math.PI / 2));
 
+            cursorTexture = Game.Content.Load<Texture2D>(@"Images/Cursor_Sprite");
+
+
             spriteList.Add(jack);//adds player unit to sprite list
 
             spriteList.Add(new StaticSprite(Game.Content.Load<Texture2D>(@"Images/House_Layout(40x40 tiles, 960x960 resolution)"), 
@@ -67,6 +73,8 @@ namespace ZombieAssault
                     temp.Destination = new Vector2(jack.Position.X / 24, jack.Position.Y / 24);
                 }
             }
+
+            cursorPosition = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
             
             base.Update(gameTime);
         }
@@ -77,6 +85,7 @@ namespace ZombieAssault
             
             foreach (Sprite s in spriteList)
                 s.Draw(gameTime, spriteBatch);
+            spriteBatch.Draw(cursorTexture,cursorPosition, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
 
             spriteBatch.End();
             base.Draw(gameTime);
