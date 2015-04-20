@@ -24,6 +24,7 @@ namespace ZombieAssault
 
         private Texture2D mapTexture;
         private Texture2D cursorTexture;
+        private Texture2D highlightTexture;
         private Vector2 cursorPosition;
 
         //experimental zombie spawn counter
@@ -54,7 +55,7 @@ namespace ZombieAssault
 
             cursorTexture = Game.Content.Load<Texture2D>(@"Images/Cursor_Sprite");
             mapTexture = Game.Content.Load<Texture2D>(@"Images/House_Layout(40x40 tiles, 960x960 resolution)");
-
+            highlightTexture = Game.Content.Load<Texture2D>(@"Images/Highlight_Sprite");
 
             spriteList.Add(jack);//adds player unit to sprite list
 
@@ -86,7 +87,8 @@ namespace ZombieAssault
                 s.Draw(gameTime, spriteBatch);
             spriteBatch.Draw(cursorTexture,cursorPosition, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
             spriteBatch.Draw(mapTexture, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-
+            spriteBatch.Draw(highlightTexture, new Vector2(((int)cursorPosition.X / 24) * 24, ((int)cursorPosition.Y / 24) * 24), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
+            
             spriteBatch.End();
             base.Draw(gameTime);
         }
