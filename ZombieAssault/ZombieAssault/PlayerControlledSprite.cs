@@ -21,6 +21,18 @@ namespace ZombieAssault
             destination = position;//initializes destination as starting position
         }
 
+        public override Vector2 Destination
+        {
+            get
+            {
+                return base.Destination;
+            }
+            set
+            {
+                destination = new Vector2((value.X * 24)-20, (value.Y * 24)-20);
+            }
+        }
+
         public override Vector2 Direction
         {
             get { return direction; }
@@ -53,7 +65,8 @@ namespace ZombieAssault
             //checks if mouse was right clicked
             if(previousState.RightButton == ButtonState.Released && currentState.RightButton == ButtonState.Pressed)
             {
-                destination = new Vector2(currentState.X - 32, currentState.Y - 32);//sets destination to mouse position
+                Destination = new Vector2((((int)currentState.X)/24), (((int)currentState.Y)/24));//sets destination to mouse position
+                Console.Write(this.Destination);
             }
 
             base.Update(gameTime, clientBounds);
