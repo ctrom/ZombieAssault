@@ -66,7 +66,6 @@ namespace ZombieAssault
             if(previousState.RightButton == ButtonState.Released && currentState.RightButton == ButtonState.Pressed)
             {
                 Destination = new Vector2((((int)currentState.X)/24), (((int)currentState.Y)/24));//sets destination to mouse position
-                Console.Write(this.Destination);
             }
 
             base.Update(gameTime, clientBounds);
