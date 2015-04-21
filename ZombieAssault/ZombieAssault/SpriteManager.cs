@@ -64,14 +64,9 @@ namespace ZombieAssault
             foreach(Sprite s in spriteList)//runs update method of each sprite in the list
             {
                 s.Update(gameTime, Game.Window.ClientBounds);
-                //if(s.GetType() == typeof(Zombie))//if sprite is a zombie, updates destination to player unit position
-                //{
-                //    Zombie temp = (Zombie)s;
-                    
-                //}
             }
 
-            zombieController.Update(gameTime, Game.Window.ClientBounds);
+            zombieController.Update(gameTime, Game.Window.ClientBounds, jack.Position);//updates zombie spawner
 
             cursorPosition = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
             
@@ -84,11 +79,11 @@ namespace ZombieAssault
             
             foreach (Sprite s in spriteList)
                 s.Draw(gameTime, spriteBatch);
-            spriteBatch.Draw(cursorTexture,cursorPosition, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
-            spriteBatch.Draw(mapTexture, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            spriteBatch.Draw(highlightTexture, new Vector2(((int)cursorPosition.X / 24) * 24, ((int)cursorPosition.Y / 24) * 24), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, .2f);
+            spriteBatch.Draw(cursorTexture,cursorPosition, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);//draws cursor
+            spriteBatch.Draw(mapTexture, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);//draws map
+            spriteBatch.Draw(highlightTexture, new Vector2(((int)cursorPosition.X / 24) * 24, ((int)cursorPosition.Y / 24) * 24), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, .2f);//draws tile highlight
 
-            foreach (Sprite s in zombieController.ZombieList)
+            foreach (Sprite s in zombieController.ZombieList)//drawns zombies in the spawner's list
                 s.Draw(gameTime, spriteBatch);
             
             spriteBatch.End();

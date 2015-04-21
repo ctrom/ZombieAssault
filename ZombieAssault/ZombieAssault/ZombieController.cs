@@ -42,21 +42,21 @@ namespace ZombieAssault
             this.millisecondsTilSpawn = millisecondsTilSpawn;
         }
 
-        public void Update(GameTime gameTime, Rectangle clientBounds)
+        public void Update(GameTime gameTime, Rectangle clientBounds, Vector2 target)
         {
             timeSinceLastSpawn += gameTime.ElapsedGameTime.Milliseconds;
             if (timeSinceLastSpawn > millisecondsTilSpawn)//checks if required time between spawns has passed
             {
                 timeSinceLastSpawn = 0;//resets spawn timer
 
-                for(int i = 0; i < 10; i++)
+                for(int i = 0; i < 10; i++)//adds 10 zombies to the list at position (0,0)
                 {
                     zombieList.Add(new Zombie(zombieTexture, Vector2.Zero, .5f, .375f, 0));
                 }
             }
 
             foreach (Zombie z in zombieList)
-                z.Update(gameTime, clientBounds);
+                z.Update(gameTime, clientBounds, target);
         }
     }
 }

@@ -27,7 +27,7 @@ namespace ZombieAssault
             get { return direction; }
         }
 
-        public override void Update(GameTime gameTime, Rectangle clientBounds)
+        public void Update(GameTime gameTime, Rectangle clientBounds, Vector2 target)
         {
             //algorithm for traversing spritesheet
             currentFrame.Y = 0;
@@ -47,7 +47,7 @@ namespace ZombieAssault
             else
                 currentFrame.X = 0;
 
-            //Destination = new Vector2(target.X / 24, target.Y / 24);
+            Destination = new Vector2(target.X / 24, target.Y / 24);
 
             base.Update(gameTime, clientBounds);
         }
