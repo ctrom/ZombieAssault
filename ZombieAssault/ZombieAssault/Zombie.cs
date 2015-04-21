@@ -47,6 +47,8 @@ namespace ZombieAssault
             else
                 currentFrame.X = 0;
 
+            //Destination = new Vector2(target.X / 24, target.Y / 24);
+
             base.Update(gameTime, clientBounds);
         }
     }

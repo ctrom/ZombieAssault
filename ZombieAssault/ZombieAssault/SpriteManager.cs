@@ -43,7 +43,7 @@ namespace ZombieAssault
             spriteBatch = new SpriteBatch(Game.GraphicsDevice);
 
             jack = new PlayerControlledSprite(Game.Content.Load<Texture2D>(@"Images/Jack_SpriteSheet"), new Vector2(720, 720), 1f, .375f, (float)Math.PI / 2);//creates player unit
-            zombieController = new ZombieController(Game.Content.Load<Texture2D>(@"Images/Zombie_Sprite"));
+            zombieController = new ZombieController(Game.Content.Load<Texture2D>(@"Images/Zombie_SpriteSheet"));
 
             ////adds zombies to sprite list
             //spriteList.Add(new Zombie(Game.Content.Load<Texture2D>(@"Images/Zombie_SpriteSheet"), new Vector2(240, 240), .5f, .375f, 0));
@@ -64,14 +64,14 @@ namespace ZombieAssault
             foreach(Sprite s in spriteList)//runs update method of each sprite in the list
             {
                 s.Update(gameTime, Game.Window.ClientBounds);
-                if(s.GetType() == typeof(Zombie))//if sprite is a zombie, updates destination to player unit position
-                {
-                    Zombie temp = (Zombie)s;
-                    temp.Destination = new Vector2(jack.Position.X / 24, jack.Position.Y / 24);
-                }
+                //if(s.GetType() == typeof(Zombie))//if sprite is a zombie, updates destination to player unit position
+                //{
+                //    Zombie temp = (Zombie)s;
+                    
+                //}
             }
 
-            zombieController.Update(gameTime);
+            zombieController.Update(gameTime, Game.Window.ClientBounds);
 
             cursorPosition = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
             
@@ -87,6 +87,9 @@ namespace ZombieAssault
             spriteBatch.Draw(cursorTexture,cursorPosition, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
             spriteBatch.Draw(mapTexture, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             spriteBatch.Draw(highlightTexture, new Vector2(((int)cursorPosition.X / 24) * 24, ((int)cursorPosition.Y / 24) * 24), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, .2f);
+
+            foreach (Sprite s in zombieController.ZombieList)
+                s.Draw(gameTime, spriteBatch);
             
             spriteBatch.End();
             base.Draw(gameTime);

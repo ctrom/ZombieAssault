@@ -42,7 +42,7 @@ namespace ZombieAssault
             this.millisecondsTilSpawn = millisecondsTilSpawn;
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Rectangle clientBounds)
         {
             timeSinceLastSpawn += gameTime.ElapsedGameTime.Milliseconds;
             if (timeSinceLastSpawn > millisecondsTilSpawn)//checks if required time between spawns has passed
@@ -54,6 +54,9 @@ namespace ZombieAssault
                     zombieList.Add(new Zombie(zombieTexture, Vector2.Zero, .5f, .375f, 0));
                 }
             }
+
+            foreach (Zombie z in zombieList)
+                z.Update(gameTime, clientBounds);
         }
     }
 }
