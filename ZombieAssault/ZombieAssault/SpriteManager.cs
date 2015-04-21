@@ -27,10 +27,6 @@ namespace ZombieAssault
         private Texture2D highlightTexture;
         private Vector2 cursorPosition;
 
-        //experimental zombie spawn counter
-        int timeSinceLastSpawn = 0;
-        int millisecondsTilSpawn = 10000;
-
         public SpriteManager(Game game)
             : base(game)
         {

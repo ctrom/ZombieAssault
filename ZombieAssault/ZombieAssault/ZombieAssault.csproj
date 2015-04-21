@@ -81,6 +81,7 @@
     <Compile Include="SpriteManager.cs" />
     <Compile Include="StaticSprite.cs" />
     <Compile Include="Zombie.cs" />
+    <Compile Include="ZombieController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

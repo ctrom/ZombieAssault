@@ -20,6 +20,7 @@ namespace ZombieAssault
         SpriteBatch spriteBatch;
 
         SpriteManager spriteManager;
+        ZombieController zombieController;
 
         Vector2[,] grid;
 
