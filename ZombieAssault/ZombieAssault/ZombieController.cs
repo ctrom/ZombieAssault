@@ -18,6 +18,7 @@ namespace ZombieAssault
     class ZombieController
     {
         private List<Zombie> zombieList;//List of zombies
+        private Texture2D zombieTexture;
 
         //experimental zombie spawn counter
         private int timeSinceLastSpawn;
@@ -34,9 +35,10 @@ namespace ZombieAssault
             set { millisecondsTilSpawn = value; }
         }
 
-        public ZombieController(int millisecondsTilSpawn = 10000)
+        public ZombieController(Texture2D zombieTexture, int millisecondsTilSpawn = 10000)
         {
             zombieList = new List<Zombie>();
+            this.zombieTexture = zombieTexture;
             this.millisecondsTilSpawn = millisecondsTilSpawn;
         }
 
@@ -46,8 +48,11 @@ namespace ZombieAssault
             if (timeSinceLastSpawn > millisecondsTilSpawn)//checks if required time between spawns has passed
             {
                 timeSinceLastSpawn = 0;//resets spawn timer
-                
-                //spawn code here
+
+                for(int i = 0; i < 10; i++)
+                {
+                    zombieList.Add(new Zombie(zombieTexture, Vector2.Zero, .5f, .375f, 0));
+                }
             }
         }
     }

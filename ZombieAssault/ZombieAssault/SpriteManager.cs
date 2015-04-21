@@ -18,9 +18,9 @@ namespace ZombieAssault
         SpriteBatch spriteBatch;
 
         List<Sprite> spriteList = new List<Sprite>();
+        ZombieController zombieController;
 
         PlayerControlledSprite jack;
-        Zombie zombie;//incomplete, experimenting with zombie spawning, likely going to be deleted
 
         private Texture2D mapTexture;
         private Texture2D cursorTexture;
@@ -43,11 +43,12 @@ namespace ZombieAssault
             spriteBatch = new SpriteBatch(Game.GraphicsDevice);
 
             jack = new PlayerControlledSprite(Game.Content.Load<Texture2D>(@"Images/Jack_SpriteSheet"), new Vector2(720, 720), 1f, .375f, (float)Math.PI / 2);//creates player unit
+            zombieController = new ZombieController(Game.Content.Load<Texture2D>(@"Images/Zombie_Sprite"));
 
-            //adds zombies to sprite list
-            spriteList.Add(new Zombie(Game.Content.Load<Texture2D>(@"Images/Zombie_SpriteSheet"), new Vector2(240, 240), .5f, .375f, 0));
-            spriteList.Add(new Zombie(Game.Content.Load<Texture2D>(@"Images/Zombie_SpriteSheet"), new Vector2(0, 0), .5f, .375f, (float)Math.PI));
-            spriteList.Add(new Zombie(Game.Content.Load<Texture2D>(@"Images/Zombie_SpriteSheet"), new Vector2(480, 480), .5f, .375f, (float)Math.PI / 2));
+            ////adds zombies to sprite list
+            //spriteList.Add(new Zombie(Game.Content.Load<Texture2D>(@"Images/Zombie_SpriteSheet"), new Vector2(240, 240), .5f, .375f, 0));
+            //spriteList.Add(new Zombie(Game.Content.Load<Texture2D>(@"Images/Zombie_SpriteSheet"), new Vector2(0, 0), .5f, .375f, (float)Math.PI));
+            //spriteList.Add(new Zombie(Game.Content.Load<Texture2D>(@"Images/Zombie_SpriteSheet"), new Vector2(480, 480), .5f, .375f, (float)Math.PI / 2));
 
             cursorTexture = Game.Content.Load<Texture2D>(@"Images/Cursor_Sprite");
             mapTexture = Game.Content.Load<Texture2D>(@"Images/House_Layout(40x40 tiles, 960x960 resolution)");
@@ -69,6 +70,8 @@ namespace ZombieAssault
                     temp.Destination = new Vector2(jack.Position.X / 24, jack.Position.Y / 24);
                 }
             }
+
+            zombieController.Update(gameTime);
 
             cursorPosition = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
             
