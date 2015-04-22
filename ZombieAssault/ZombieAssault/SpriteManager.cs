@@ -45,11 +45,6 @@ namespace ZombieAssault
             jack = new PlayerControlledSprite(Game.Content.Load<Texture2D>(@"Images/Jack_SpriteSheet"), new Vector2(720, 720), 1f, .375f, (float)Math.PI / 2);//creates player unit
             zombieController = new ZombieController(Game.Content.Load<Texture2D>(@"Images/Zombie_SpriteSheet"));
 
-            ////adds zombies to sprite list
-            //spriteList.Add(new Zombie(Game.Content.Load<Texture2D>(@"Images/Zombie_SpriteSheet"), new Vector2(240, 240), .5f, .375f, 0));
-            //spriteList.Add(new Zombie(Game.Content.Load<Texture2D>(@"Images/Zombie_SpriteSheet"), new Vector2(0, 0), .5f, .375f, (float)Math.PI));
-            //spriteList.Add(new Zombie(Game.Content.Load<Texture2D>(@"Images/Zombie_SpriteSheet"), new Vector2(480, 480), .5f, .375f, (float)Math.PI / 2));
-
             cursorTexture = Game.Content.Load<Texture2D>(@"Images/Cursor_Sprite");
             mapTexture = Game.Content.Load<Texture2D>(@"Images/House_Layout(40x40 tiles, 960x960 resolution)");
             highlightTexture = Game.Content.Load<Texture2D>(@"Images/Highlight_Sprite");
@@ -80,10 +75,9 @@ namespace ZombieAssault
             foreach (Sprite s in spriteList)
                 s.Draw(gameTime, spriteBatch);
             spriteBatch.Draw(cursorTexture,cursorPosition, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);//draws cursor
-            spriteBatch.Draw(mapTexture, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);//draws map
+            spriteBatch.Draw(mapTexture, Vector2.Zero, null, Color.White, 0, Vector2.Zero, Game.Window.ClientBounds.Height/960f, SpriteEffects.None, 0);//draws map
             spriteBatch.Draw(highlightTexture, new Vector2(((int)cursorPosition.X / 24) * 24, ((int)cursorPosition.Y / 24) * 24), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, .2f);//draws tile highlight
-
-            foreach (Sprite s in zombieController.ZombieList)//drawns zombies in the spawner's list
+            foreach (Sprite s in zombieController.ZombieList)//draws zombies in the spawner's list
                 s.Draw(gameTime, spriteBatch);
             
             spriteBatch.End();
