@@ -27,8 +27,8 @@ namespace ZombieAssault
         {
             graphics = new GraphicsDeviceManager(this);
             graphics.IsFullScreen = false;
-            graphics.PreferredBackBufferHeight = 960;
-            graphics.PreferredBackBufferWidth = 960;
+            graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height-100;
+            graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height-100;
             Content.RootDirectory = "Content";
         }
 

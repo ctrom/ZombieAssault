@@ -22,6 +22,7 @@ namespace ZombieAssault
 
         PlayerControlledSprite jack;
 
+        private float scaleFactor;
         private Texture2D mapTexture;
         private Texture2D cursorTexture;
         private Texture2D highlightTexture;
@@ -30,7 +31,8 @@ namespace ZombieAssault
         public SpriteManager(Game game)
             : base(game)
         {
-
+            scaleFactor = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height/960f;
+            Console.Write(scaleFactor);
         }
 
         public override void Initialize()
@@ -42,7 +44,7 @@ namespace ZombieAssault
         {
             spriteBatch = new SpriteBatch(Game.GraphicsDevice);
 
-            jack = new PlayerControlledSprite(Game.Content.Load<Texture2D>(@"Images/Jack_SpriteSheet"), new Vector2(720, 720), 1f, .375f, (float)Math.PI / 2);//creates player unit
+            jack = new PlayerControlledSprite(Game.Content.Load<Texture2D>(@"Images/Jack_SpriteSheet"), new Vector2(720*scaleFactor, 720*scaleFactor), 1f, scaleFactor*.375f, (float)Math.PI / 2);//creates player unit
             zombieController = new ZombieController(Game.Content.Load<Texture2D>(@"Images/Zombie_SpriteSheet"));
 
             cursorTexture = Game.Content.Load<Texture2D>(@"Images/Cursor_Sprite");
