@@ -29,7 +29,7 @@ namespace ZombieAssault
         {
             this.textureImage = textureImage;
             this.position = position;
-            this.scale = scale;
+            this.scale = scale*SpriteManager.scaleFactor;
             this.collisionOffset = collisionOffset;
         }
 

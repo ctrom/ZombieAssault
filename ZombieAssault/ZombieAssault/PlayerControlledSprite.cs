@@ -16,7 +16,7 @@ namespace ZombieAssault
         private MouseState currentState;
 
         public PlayerControlledSprite(Texture2D textureImage, Vector2 position, float speed, float scale, float rotation)
-            : base (textureImage, position, new Point(64,64), new Point(0,0), new Point(3,2), scale, rotation, speed, 0, new Vector2(0,0), 250)
+            : base (textureImage, position, new Point(64, 64), new Point(0,0), new Point(3,2), scale, rotation, speed, 0, new Vector2(0,0), 250)
         {
             destination = position;//initializes destination as starting position
         }

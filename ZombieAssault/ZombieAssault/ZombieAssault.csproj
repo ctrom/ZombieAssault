@@ -79,7 +79,6 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="SpriteManager.cs" />
-    <Compile Include="StaticSprite.cs" />
     <Compile Include="Zombie.cs" />
     <Compile Include="ZombieController.cs" />
   </ItemGroup>
