@@ -28,7 +28,7 @@ namespace ZombieAssault
         public Sprite(Texture2D textureImage, Vector2 position, float scale, int collisionOffset)
         {
             this.textureImage = textureImage;
-            this.position = position;
+            this.position = position*SpriteManager.scaleFactor;
             this.scale = scale*SpriteManager.scaleFactor;
             this.collisionOffset = collisionOffset;
         }

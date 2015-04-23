@@ -18,7 +18,7 @@ namespace ZombieAssault
         public PlayerControlledSprite(Texture2D textureImage, Vector2 position, float speed, float scale, float rotation)
             : base (textureImage, position, new Point(64, 64), new Point(0,0), new Point(3,2), scale, rotation, speed, 0, new Vector2(0,0), 250)
         {
-            destination = position;//initializes destination as starting position
+            destination = position*SpriteManager.scaleFactor;//initializes destination as starting position
         }
 
         public override Vector2 Destination
@@ -29,7 +29,7 @@ namespace ZombieAssault
             }
             set
             {
-                destination = new Vector2((value.X * SpriteManager.tileSize)-20, (value.Y * SpriteManager.tileSize)-20);
+                destination = new Vector2((value.X * SpriteManager.tileSize)-Math.Abs(64-SpriteManager.tileSize)/2, (value.Y * SpriteManager.tileSize)-Math.Abs(64-SpriteManager.tileSize)/2);
             }
         }
 
@@ -65,7 +65,7 @@ namespace ZombieAssault
             //checks if mouse was right clicked
             if(previousState.RightButton == ButtonState.Released && currentState.RightButton == ButtonState.Pressed)
             {
-                Destination = new Vector2((((int)currentState.X)/24), (((int)currentState.Y)/24));//sets destination to mouse position
+                Destination = new Vector2((((int)currentState.X)/SpriteManager.tileSize), (((int)currentState.Y)/SpriteManager.tileSize));//sets destination to mouse position
             }
 
             base.Update(gameTime, clientBounds);
