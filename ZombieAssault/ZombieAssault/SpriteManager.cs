@@ -23,6 +23,8 @@ namespace ZombieAssault
         PlayerControlledSprite jack;//player unit
 
         public static readonly float scaleFactor = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height/960f;//factor by which sprites will be scaled to, based on resolution
+        public static readonly int tileSize = (int)(scaleFactor * 24);
+
         private Texture2D mapTexture;
         private Texture2D cursorTexture;
         private Texture2D highlightTexture;
@@ -76,8 +78,8 @@ namespace ZombieAssault
             foreach (Sprite s in spriteList)
                 s.Draw(gameTime, spriteBatch);
             spriteBatch.Draw(cursorTexture,cursorPosition, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);//draws cursor
-            spriteBatch.Draw(mapTexture, Vector2.Zero, null, Color.White, 0, Vector2.Zero, scaleFactor*(Game.Window.ClientBounds.Height/960f), SpriteEffects.None, 0);//draws map
-            spriteBatch.Draw(highlightTexture, new Vector2(((int)cursorPosition.X / 24) * 24, ((int)cursorPosition.Y / 24) * 24), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, .2f);//draws tile highlight
+            spriteBatch.Draw(mapTexture, Vector2.Zero, null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, 0);//draws map
+            spriteBatch.Draw(highlightTexture, new Vector2(((int)cursorPosition.X / tileSize) * tileSize, ((int)cursorPosition.Y / tileSize) * tileSize), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, .2f);//draws tile highlight
             foreach (Sprite s in zombieController.ZombieList)//draws zombies in the spawner's list
                 s.Draw(gameTime, spriteBatch);
             

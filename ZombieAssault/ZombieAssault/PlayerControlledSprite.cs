@@ -29,7 +29,7 @@ namespace ZombieAssault
             }
             set
             {
-                destination = new Vector2((value.X * 24)-20, (value.Y * 24)-20);
+                destination = new Vector2((value.X * SpriteManager.tileSize)-20, (value.Y * SpriteManager.tileSize)-20);
             }
         }
 

@@ -54,6 +54,7 @@ namespace ZombieAssault
             if (position != destination)//checks if sprite is at destination
             {
                 rotation = (float)(Math.Atan2(Destination.Y - position.Y, Destination.X - position.X)) + (float)Math.PI / 2;//calculates angle of rotation so sprite faces destination
+
                 if (Math.Abs(Destination.X - position.X) < Math.Abs(Destination.Y - position.Y))//executes if magnitude of y difference is greater than that of x
                 {
                     //Checks if x requires translation, either positive, negative or none
