@@ -50,7 +50,7 @@ namespace ZombieAssault
         public override void Update(GameTime gameTime, Rectangle clientBounds)
         {
             //Main movement code, controls how the sprite translates each update
-            //rough implementation, could use cleaning up/simplification
+            //rough implementation, needs to be redone to work with window scaling and to create more uniform speed regardless of walk angle
             if (position != destination)//checks if sprite is at destination
             {
                 rotation = (float)(Math.Atan2(Destination.Y - position.Y, Destination.X - position.X)) + (float)Math.PI / 2;//calculates angle of rotation so sprite faces destination
