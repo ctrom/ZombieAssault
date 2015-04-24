@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
+
 namespace ZombieAssault
 {
     /**
@@ -51,7 +52,26 @@ namespace ZombieAssault
 
                 for(int i = 0; i < 10; i++)//adds 10 zombies to the list at position (0,0)
                 {
-                    zombieList.Add(new Zombie(zombieTexture, Vector2.Zero, .5f, .375f, 0));
+                    Random rand = new Random();
+                    int x = rand.Next(0, 4);
+                    Vector2 position = Vector2.Zero;
+                    switch(x)
+                    {
+                        case 0:
+                            position = new Vector2(rand.Next(0, 41)*SpriteManager.tileSize, -1*SpriteManager.tileSize);
+                            break;
+                        case 1:
+                            position = new Vector2(41*SpriteManager.tileSize, rand.Next(0, 41)*SpriteManager.tileSize);
+                            break;
+                        case 2:
+                            position = new Vector2(rand.Next(0, 41)*SpriteManager.tileSize, 41*SpriteManager.tileSize);
+                            break;
+                        case 3:
+                            position = new Vector2(-1 * SpriteManager.tileSize, rand.Next(0, 41) * SpriteManager.tileSize);
+                            break;
+                    }
+                    Console.Write(position);
+                    zombieList.Add(new Zombie(zombieTexture, position, .5f, .375f, 0));
                 }
             }
 

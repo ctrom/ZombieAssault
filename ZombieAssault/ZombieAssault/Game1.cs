@@ -48,7 +48,7 @@ namespace ZombieAssault
             {
                 for(int j = 0; j < 40; j++)
                 {
-                    grid[i,j] = new Vector2((i*24), (j*24));
+                    grid[i,j] = new Vector2((i*24)*SpriteManager.scaleFactor, (j*24)*SpriteManager.scaleFactor);
                 }
             }
 
