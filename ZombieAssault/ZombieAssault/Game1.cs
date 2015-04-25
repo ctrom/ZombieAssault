@@ -23,12 +23,16 @@ namespace ZombieAssault
 
         Vector2[,] grid;
 
+        public readonly static int resHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+        public readonly static int resWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+        public readonly static int resOffset = (resWidth - resHeight) / 2;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             graphics.IsFullScreen = true;
-            graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-            graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            graphics.PreferredBackBufferHeight = resHeight;
+            graphics.PreferredBackBufferWidth = resWidth;
             Content.RootDirectory = "Content";
         }
 

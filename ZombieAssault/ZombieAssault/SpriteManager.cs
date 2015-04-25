@@ -22,8 +22,9 @@ namespace ZombieAssault
 
         PlayerControlledSprite jack;//player unit
 
-        public static readonly float scaleFactor = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height/960f;//factor by which sprites will be scaled to, based on resolution
+        public static readonly float scaleFactor = Game1.resHeight/960f;//factor by which sprites will be scaled to, based on resolution
         public static readonly float tileSize = scaleFactor * 24;
+        public static readonly float gridOffset = ((float)Game1.resHeight / Game1.resWidth) * tileSize;
 
         private Texture2D mapTexture;
         private Texture2D cursorTexture;
@@ -33,7 +34,7 @@ namespace ZombieAssault
         public SpriteManager(Game game)
             : base(game)
         {
-
+            Console.Write(gridOffset);
         }
 
         public override void Initialize()
@@ -78,8 +79,8 @@ namespace ZombieAssault
             foreach (Sprite s in spriteList)
                 s.Draw(gameTime, spriteBatch);
             spriteBatch.Draw(cursorTexture,cursorPosition, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);//draws cursor
-            spriteBatch.Draw(mapTexture, Vector2.Zero, null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, 0);//draws map
-            spriteBatch.Draw(highlightTexture, new Vector2((int)(cursorPosition.X / tileSize) * tileSize, (int)(cursorPosition.Y / tileSize) * tileSize), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, .2f);//draws tile highlight
+            spriteBatch.Draw(mapTexture, new Vector2(Game1.resOffset, 0), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, 0);//draws map
+            spriteBatch.Draw(highlightTexture, new Vector2((int)((cursorPosition.X - gridOffset) / tileSize) * tileSize + gridOffset, (int)(cursorPosition.Y / tileSize) * tileSize), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, .2f);//draws tile highlight
             foreach (Sprite s in zombieController.ZombieList)//draws zombies in the spawner's list
                 s.Draw(gameTime, spriteBatch);
             

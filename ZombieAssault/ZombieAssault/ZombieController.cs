@@ -49,26 +49,25 @@ namespace ZombieAssault
             
             if (timeSinceLastSpawn > millisecondsTilSpawn)//checks if required time between spawns has passed
             {
-                zombieList.Clear();
                 timeSinceLastSpawn = 0;//resets spawn timer
                 Random rand = new Random();
-                int x = rand.Next(0, 4);
+                int x = 1;//rand.Next(0, 4);
                 for(int i = 0; i < 10; i++)//adds 10 zombies to the list at random position off the screen
                 {
                     Vector2 position = Vector2.Zero;
                     switch(x)
                     {
                         case 0:
-                            position = new Vector2(rand.Next(0, 41)*SpriteManager.tileSize, -2*SpriteManager.tileSize);
+                            position = new Vector2(rand.Next(0, 41)*SpriteManager.tileSize + Game1.resOffset, -2*SpriteManager.tileSize);
                             break;
                         case 1:
-                            position = new Vector2(42*SpriteManager.tileSize, rand.Next(0, 41)*SpriteManager.tileSize);
+                            position = new Vector2(42 * SpriteManager.tileSize + Game1.resOffset, rand.Next(0, 41) * SpriteManager.tileSize);
                             break;
                         case 2:
-                            position = new Vector2(rand.Next(0, 41)*SpriteManager.tileSize, 42*SpriteManager.tileSize);
+                            position = new Vector2(rand.Next(0, 41) * SpriteManager.tileSize + Game1.resOffset, 42 * SpriteManager.tileSize);
                             break;
                         case 3:
-                            position = new Vector2(-2 * SpriteManager.tileSize, rand.Next(0, 41) * SpriteManager.tileSize);
+                            position = new Vector2(-2 * SpriteManager.tileSize + Game1.resOffset, rand.Next(0, 41) * SpriteManager.tileSize);
                             break;
                     }
                     Console.Write(position + "\n");

@@ -29,7 +29,7 @@ namespace ZombieAssault
             }
             set
             {
-                destination = new Vector2((value.X * SpriteManager.tileSize)-Math.Abs(64-SpriteManager.tileSize)/2, (value.Y * SpriteManager.tileSize)-Math.Abs(64-SpriteManager.tileSize)/2);
+                destination = new Vector2((value.X * SpriteManager.tileSize)-Math.Abs(64-SpriteManager.tileSize)/2 - (SpriteManager.tileSize - SpriteManager.gridOffset), (value.Y * SpriteManager.tileSize)-Math.Abs(64-SpriteManager.tileSize)/2);
             }
         }
 
@@ -65,7 +65,7 @@ namespace ZombieAssault
             //checks if mouse was right clicked
             if(previousState.RightButton == ButtonState.Released && currentState.RightButton == ButtonState.Pressed)
             {
-                Destination = new Vector2(((int)((currentState.X)/SpriteManager.tileSize)), ((int)((currentState.Y)/SpriteManager.tileSize)));//sets destination to mouse position
+                Destination = new Vector2(((int)((currentState.X + SpriteManager.gridOffset)/SpriteManager.tileSize)), ((int)((currentState.Y)/SpriteManager.tileSize)));//sets destination to mouse position
             }
 
             base.Update(gameTime, clientBounds);
