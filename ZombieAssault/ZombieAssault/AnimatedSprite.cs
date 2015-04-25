@@ -26,17 +26,16 @@ namespace ZombieAssault
             get;
         }
 
-        //Destination property, multiplies desired tile indexes by 24 to get coordinates
+        //Destination property, multiplies desired tile indexes by tile size to get coordinates
         //use only for setting desination based on index of tile rather than pixel coordinate
         public virtual Vector2 Destination
         {
             get { return destination; }
-            set { destination = new Vector2((value.X * 24), (value.Y * 24)); }
+            set { destination = new Vector2((value.X * SpriteManager.tileSize), (value.Y * SpriteManager.tileSize)); }
         }
 
-        public AnimatedSprite(Texture2D textureImage, Vector2 position, Point frameSize, Point currentFrame, Point sheetSize,
-            float scale, float rotation, float speed, int collisionOffset, Vector2 direction, int millisecondsPerFrame)
-            : base(textureImage, position, scale, collisionOffset)
+        public AnimatedSprite(Texture2D textureImage, Vector2 position, Point frameSize, Point currentFrame, Point sheetSize, float rotation, float speed, int collisionOffset, Vector2 direction, int millisecondsPerFrame)
+            : base(textureImage, position, collisionOffset)
         {
             this.frameSize = frameSize;
             this.currentFrame = currentFrame;
@@ -129,7 +128,7 @@ namespace ZombieAssault
         {
             Vector2 origin = new Vector2(frameSize.X / 2, frameSize.Y / 2);
             spriteBatch.Draw(textureImage,
-                position + origin,
+                new Rectangle((int)position.X, (int)(position.Y + SpriteManager.tileSize/2), (int)SpriteManager.tileSize, (int)SpriteManager.tileSize),
                 new Rectangle(currentFrame.X * frameSize.X,
                 currentFrame.Y * frameSize.Y,
                 frameSize.X,
@@ -137,7 +136,6 @@ namespace ZombieAssault
                 Color.White, 
                 rotation,
                 origin,
-                scale,
                 SpriteEffects.None, 
                 .5f);
         }

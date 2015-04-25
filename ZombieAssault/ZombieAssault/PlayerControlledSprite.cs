@@ -15,23 +15,23 @@ namespace ZombieAssault
         private MouseState previousState;
         private MouseState currentState;
 
-        public PlayerControlledSprite(Texture2D textureImage, Vector2 position, float speed, float scale, float rotation)
-            : base (textureImage, position, new Point(64, 64), new Point(0,0), new Point(3,2), scale, rotation, speed, 0, new Vector2(0,0), 250)
+        public PlayerControlledSprite(Texture2D textureImage, Vector2 position, float speed, float rotation)
+            : base (textureImage, position, new Point(64, 64), new Point(0,0), new Point(3,2), rotation, speed, 0, new Vector2(0,0), 250)
         {
             destination = position*SpriteManager.scaleFactor;//initializes destination as starting position
         }
 
-        public override Vector2 Destination
-        {
-            get
-            {
-                return base.Destination;
-            }
-            set
-            {
-                destination = new Vector2((value.X * SpriteManager.tileSize)-Math.Abs(64-SpriteManager.tileSize)/2 - (SpriteManager.tileSize - SpriteManager.gridOffset), (value.Y * SpriteManager.tileSize)-Math.Abs(64-SpriteManager.tileSize)/2);
-            }
-        }
+        //public override Vector2 Destination
+        //{
+        //    get
+        //    {
+        //        return base.Destination;
+        //    }
+        //    set
+        //    {
+        //        destination = new Vector2((value.X * SpriteManager.tileSize)-Math.Abs(64-SpriteManager.tileSize)/2 - (SpriteManager.tileSize - SpriteManager.gridOffset), (value.Y * SpriteManager.tileSize)-Math.Abs(64-SpriteManager.tileSize)/2);
+        //    }
+        //}
 
         public override Vector2 Direction
         {
@@ -66,6 +66,7 @@ namespace ZombieAssault
             if(previousState.RightButton == ButtonState.Released && currentState.RightButton == ButtonState.Pressed)
             {
                 Destination = new Vector2(((int)((currentState.X + SpriteManager.gridOffset)/SpriteManager.tileSize)), ((int)((currentState.Y)/SpriteManager.tileSize)));//sets destination to mouse position
+                Console.WriteLine(Destination+"*1*");
             }
 
             base.Update(gameTime, clientBounds);

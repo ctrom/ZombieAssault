@@ -17,7 +17,6 @@ namespace ZombieAssault
     {
         protected Texture2D textureImage;
         protected Vector2 position;
-        protected float scale;//factor to scale sprite image to coincide with game map resolution, example .375 to scale 64x64 pixel image to 24x24 tile size
         protected int collisionOffset;
 
         public Vector2 Position
@@ -25,11 +24,10 @@ namespace ZombieAssault
             get { return position; }
         }
 
-        public Sprite(Texture2D textureImage, Vector2 position, float scale, int collisionOffset)
+        public Sprite(Texture2D textureImage, Vector2 position, int collisionOffset)
         {
             this.textureImage = textureImage;
             this.position = position*SpriteManager.scaleFactor;
-            this.scale = scale*SpriteManager.scaleFactor;
             this.collisionOffset = collisionOffset;
         }
 
@@ -41,11 +39,10 @@ namespace ZombieAssault
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(textureImage,
-                position,
+                new Rectangle((int)position.X, (int)position.Y, (int)SpriteManager.tileSize, (int)SpriteManager.tileSize),
                 null,
                 Color.White, 0,
                 Vector2.Zero,
-                scale,
                 SpriteEffects.None,
                 0);
         }

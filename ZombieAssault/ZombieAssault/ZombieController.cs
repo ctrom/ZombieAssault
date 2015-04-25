@@ -36,7 +36,7 @@ namespace ZombieAssault
             set { millisecondsTilSpawn = value; }
         }
 
-        public ZombieController(Texture2D zombieTexture, int millisecondsTilSpawn = 10000)
+        public ZombieController(Texture2D zombieTexture, int millisecondsTilSpawn = 3000)
         {
             zombieList = new List<Zombie>();
             this.zombieTexture = zombieTexture;
@@ -45,16 +45,18 @@ namespace ZombieAssault
 
         public void Update(GameTime gameTime, Rectangle clientBounds, Vector2 target)
         {
+            foreach (Zombie z in zombieList)
+                z.Update(gameTime, clientBounds, target);
             timeSinceLastSpawn += gameTime.ElapsedGameTime.Milliseconds;
             
             if (timeSinceLastSpawn > millisecondsTilSpawn)//checks if required time between spawns has passed
             {
                 timeSinceLastSpawn = 0;//resets spawn timer
                 Random rand = new Random();
-                int x = 1;//rand.Next(0, 4);
                 for(int i = 0; i < 10; i++)//adds 10 zombies to the list at random position off the screen
                 {
                     Vector2 position = Vector2.Zero;
+                    int x = 1;// rand.Next(0, 4);
                     switch(x)
                     {
                         case 0:
@@ -70,12 +72,11 @@ namespace ZombieAssault
                             position = new Vector2(-2 * SpriteManager.tileSize + Game1.resOffset, rand.Next(0, 41) * SpriteManager.tileSize);
                             break;
                     }
-                    Console.Write(position + "\n");
-                    zombieList.Add(new Zombie(zombieTexture, position, .5f, .375f, 0));
+                    Console.WriteLine(position);
+                    zombieList.Add(new Zombie(zombieTexture, position, .5f, 0));
                 }
+                Console.WriteLine(Game1.resOffset + ":" + SpriteManager.tileSize + ":" + SpriteManager.gridOffset + ":" + SpriteManager.scaleFactor);
             }
-            foreach (Zombie z in zombieList)
-                z.Update(gameTime, clientBounds, target);
         }
     }
 }

@@ -16,8 +16,8 @@ namespace ZombieAssault
     class Zombie : AnimatedSprite
     {
 
-        public Zombie(Texture2D textureImage, Vector2 position, float speed, float scale, float rotation)
-            : base(textureImage, position, new Point(64,64), new Point(0,0), new Point(3,1), scale, rotation, speed, 0, new Vector2(0,0), 500)
+        public Zombie(Texture2D textureImage, Vector2 position, float speed, float rotation)
+            : base(textureImage, position, new Point(64,64), new Point(0,0), new Point(3,1), rotation, speed, 0, new Vector2(0,0), 500)
         {
 
         }
@@ -47,7 +47,7 @@ namespace ZombieAssault
             else
                 currentFrame.X = 0;
 
-            Destination = new Vector2(target.X / 24, target.Y / 24);
+            Destination = new Vector2(target.X / SpriteManager.tileSize, target.Y / SpriteManager.tileSize);
 
             base.Update(gameTime, clientBounds);
         }
