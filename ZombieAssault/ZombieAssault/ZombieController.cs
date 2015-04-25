@@ -56,7 +56,7 @@ namespace ZombieAssault
                 for(int i = 0; i < 10; i++)//adds 10 zombies to the list at random position off the screen
                 {
                     Vector2 position = Vector2.Zero;
-                    int x = 1;// rand.Next(0, 4);
+                    int x = rand.Next(0, 4);
                     switch(x)
                     {
                         case 0:
@@ -72,7 +72,6 @@ namespace ZombieAssault
                             position = new Vector2(-2 * SpriteManager.tileSize + Game1.resOffset, rand.Next(0, 41) * SpriteManager.tileSize);
                             break;
                     }
-                    Console.WriteLine(position);
                     zombieList.Add(new Zombie(zombieTexture, position, .5f, .375f, 0));
                 }
                 Console.WriteLine(Game1.resOffset + ":" + SpriteManager.tileSize + ":" + SpriteManager.gridOffset + ":" + SpriteManager.scaleFactor);

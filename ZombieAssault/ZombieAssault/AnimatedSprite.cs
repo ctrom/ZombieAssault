@@ -117,7 +117,9 @@ namespace ZombieAssault
 
             //sets position to destination if within 1 pixel in both x and y to prevent sprite from stuttering
             if (Math.Abs(position.X - Destination.X) < 1 && Math.Abs(position.Y - Destination.Y) < 1)
+            {
                 position = destination;
+            }
             else
                 position += direction;
 
