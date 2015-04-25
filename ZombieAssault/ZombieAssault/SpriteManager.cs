@@ -39,7 +39,6 @@ namespace ZombieAssault
         public override void Initialize()
         {
             base.Initialize();
-            Console.Write(scaleFactor + ":1");
         }
 
         protected override void LoadContent()
