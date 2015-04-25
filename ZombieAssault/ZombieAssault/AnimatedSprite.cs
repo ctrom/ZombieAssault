@@ -128,7 +128,7 @@ namespace ZombieAssault
         {
             Vector2 origin = new Vector2(frameSize.X / 2, frameSize.Y / 2);
             spriteBatch.Draw(textureImage,
-                position + new Vector2(1, SpriteManager.tileSize/2),
+                position + new Vector2(2, SpriteManager.tileSize/2),
                 new Rectangle(currentFrame.X * frameSize.X,
                 currentFrame.Y * frameSize.Y,
                 frameSize.X,

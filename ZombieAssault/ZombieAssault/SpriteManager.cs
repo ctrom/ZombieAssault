@@ -24,7 +24,7 @@ namespace ZombieAssault
 
         public static readonly float scaleFactor = Game1.resHeight/960f;//factor by which sprites will be scaled to, based on resolution
         public static readonly float tileSize = scaleFactor * 24;
-        public static readonly float gridOffset = ((float)Game1.resHeight / Game1.resWidth) * tileSize;
+        public static readonly float gridOffset = ((float)Game1.resHeight / Game1.resWidth) * tileSize + 1;
 
         private Texture2D mapTexture;
         private Texture2D cursorTexture;
