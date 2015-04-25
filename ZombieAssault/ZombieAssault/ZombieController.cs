@@ -73,7 +73,7 @@ namespace ZombieAssault
                             break;
                     }
                     Console.WriteLine(position);
-                    zombieList.Add(new Zombie(zombieTexture, position, .5f, 0));
+                    zombieList.Add(new Zombie(zombieTexture, position, .5f, .375f, 0));
                 }
                 Console.WriteLine(Game1.resOffset + ":" + SpriteManager.tileSize + ":" + SpriteManager.gridOffset + ":" + SpriteManager.scaleFactor);
             }

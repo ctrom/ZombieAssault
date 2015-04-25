@@ -17,6 +17,7 @@ namespace ZombieAssault
     {
         protected Texture2D textureImage;
         protected Vector2 position;
+        protected float scale;
         protected int collisionOffset;
 
         public Vector2 Position
@@ -24,10 +25,11 @@ namespace ZombieAssault
             get { return position; }
         }
 
-        public Sprite(Texture2D textureImage, Vector2 position, int collisionOffset)
+        public Sprite(Texture2D textureImage, Vector2 position, float scale, int collisionOffset)
         {
             this.textureImage = textureImage;
             this.position = position*SpriteManager.scaleFactor;
+            this.scale = scale;
             this.collisionOffset = collisionOffset;
         }
 
@@ -39,10 +41,11 @@ namespace ZombieAssault
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(textureImage,
-                new Rectangle((int)position.X, (int)position.Y, (int)SpriteManager.tileSize, (int)SpriteManager.tileSize),
+                position,
                 null,
                 Color.White, 0,
                 Vector2.Zero,
+                scale,
                 SpriteEffects.None,
                 0);
         }

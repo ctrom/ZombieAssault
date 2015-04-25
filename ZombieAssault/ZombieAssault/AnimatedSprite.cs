@@ -34,8 +34,8 @@ namespace ZombieAssault
             set { destination = new Vector2((value.X * SpriteManager.tileSize), (value.Y * SpriteManager.tileSize)); }
         }
 
-        public AnimatedSprite(Texture2D textureImage, Vector2 position, Point frameSize, Point currentFrame, Point sheetSize, float rotation, float speed, int collisionOffset, Vector2 direction, int millisecondsPerFrame)
-            : base(textureImage, position, collisionOffset)
+        public AnimatedSprite(Texture2D textureImage, Vector2 position, Point frameSize, Point currentFrame, Point sheetSize, float rotation, float speed, float scale, int collisionOffset, Vector2 direction, int millisecondsPerFrame)
+            : base(textureImage, position, scale, collisionOffset)
         {
             this.frameSize = frameSize;
             this.currentFrame = currentFrame;
@@ -128,7 +128,7 @@ namespace ZombieAssault
         {
             Vector2 origin = new Vector2(frameSize.X / 2, frameSize.Y / 2);
             spriteBatch.Draw(textureImage,
-                new Rectangle((int)position.X, (int)(position.Y + SpriteManager.tileSize/2), (int)SpriteManager.tileSize, (int)SpriteManager.tileSize),
+                position + new Vector2(1, SpriteManager.tileSize/2),
                 new Rectangle(currentFrame.X * frameSize.X,
                 currentFrame.Y * frameSize.Y,
                 frameSize.X,
@@ -136,6 +136,7 @@ namespace ZombieAssault
                 Color.White, 
                 rotation,
                 origin,
+                scale,
                 SpriteEffects.None, 
                 .5f);
         }

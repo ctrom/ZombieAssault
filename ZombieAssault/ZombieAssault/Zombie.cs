@@ -16,8 +16,8 @@ namespace ZombieAssault
     class Zombie : AnimatedSprite
     {
 
-        public Zombie(Texture2D textureImage, Vector2 position, float speed, float rotation)
-            : base(textureImage, position, new Point(64,64), new Point(0,0), new Point(3,1), rotation, speed, 0, new Vector2(0,0), 500)
+        public Zombie(Texture2D textureImage, Vector2 position, float speed, float scale, float rotation)
+            : base(textureImage, position, new Point(64,64), new Point(0,0), new Point(3,1), rotation, speed, scale, 0, new Vector2(0,0), 500)
         {
 
         }
