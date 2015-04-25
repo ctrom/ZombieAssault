@@ -21,18 +21,6 @@ namespace ZombieAssault
             destination = position;//initializes destination as starting position
         }
 
-        //public override Vector2 Destination
-        //{
-        //    get
-        //    {
-        //        return base.Destination;
-        //    }
-        //    set
-        //    {
-        //        destination = new Vector2((value.X * SpriteManager.tileSize)-Math.Abs(64-SpriteManager.tileSize)/2 - (SpriteManager.tileSize - SpriteManager.gridOffset), (value.Y * SpriteManager.tileSize)-Math.Abs(64-SpriteManager.tileSize)/2);
-        //    }
-        //}
-
         public override Vector2 Direction
         {
             get { return direction; }
