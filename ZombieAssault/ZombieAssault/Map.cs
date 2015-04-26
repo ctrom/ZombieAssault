@@ -56,21 +56,6 @@ namespace ZombieAssault
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
         };
 
-        public MapNode[,] Nodes
-        {
-            get
-            {
-                MapNode[,] temp = new MapNode[40,40];
-                for(int i = 0; i < 40; i++)
-                {
-                    for(int j = 0; j < 40; j++)
-                    {
-                        temp[i,j] = new MapNode(new Vector2(i,j),)
-                    }
-                }
-            }
-        }
-
         /// <summary>
         /// The width of the map.
         /// </summary>
@@ -92,14 +77,6 @@ namespace ZombieAssault
         public Map()
         {
 
-        }
-
-        /// <summary>
-        /// Sets the textures for the map to draw.
-        /// </summary>
-        public void SetTextures(List<Texture2D> textures)
-        {
-            this.textures = textures;
         }
 
         /// <summary>
