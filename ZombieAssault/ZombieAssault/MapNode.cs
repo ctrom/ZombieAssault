@@ -7,13 +7,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ZombieAssault
 {
-    class SearchNode
+    class MapNode
     {
         private Vector2 position;
 
-        private List<SearchNode> neighbors;
+        private List<MapNode> neighbors;
 
-        public SearchNode(Vector2 index)
+        public MapNode(Vector2 index)
         {
             position = new Vector2(index.X * SpriteManager.tileSize + Game1.resOffset, index.Y * SpriteManager.tileSize);
         }
