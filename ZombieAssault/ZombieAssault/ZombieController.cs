@@ -60,19 +60,20 @@ namespace ZombieAssault
                     switch(x)
                     {
                         case 0:
-                            position = new Vector2(rand.Next(0, 41)*SpriteManager.tileSize + Game1.resOffset, -2*SpriteManager.tileSize);
+                            position = new Vector2(rand.Next(2, 42), 0);
                             break;
                         case 1:
-                            position = new Vector2(42 * SpriteManager.tileSize + Game1.resOffset, rand.Next(0, 41) * SpriteManager.tileSize);
+                            position = new Vector2(42, rand.Next(2, 42));
                             break;
                         case 2:
-                            position = new Vector2(rand.Next(0, 41) * SpriteManager.tileSize + Game1.resOffset, 42 * SpriteManager.tileSize);
+                            position = new Vector2(rand.Next(2, 42), 42);
                             break;
                         case 3:
-                            position = new Vector2(-2 * SpriteManager.tileSize + Game1.resOffset, rand.Next(0, 41) * SpriteManager.tileSize);
+                            position = new Vector2(0, rand.Next(2, 42));
                             break;
                     }
-                    zombieList.Add(new Zombie(zombieTexture, position, .5f, .375f, 0));
+                    Console.WriteLine(position);
+                    zombieList.Add(new Zombie(zombieTexture, Map.getNode(position), .5f, .375f, 0));
                 }
             }
         }

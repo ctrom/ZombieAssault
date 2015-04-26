@@ -18,10 +18,10 @@ namespace ZombieAssault
         private PlayerControlledSprite prevTarget;
         private PlayerControlledSprite currTarget;
 
-        public Zombie(Texture2D textureImage, Vector2 position, float speed, float scale, float rotation)
+        public Zombie(Texture2D textureImage, MapNode position, float speed, float scale, float rotation)
             : base(textureImage, position, new Point(64,64), new Point(0,0), new Point(3,1), rotation, speed, scale, 0, new Vector2(0,0), 500)
         {
-
+            destination = position;
         }
 
         public override Vector2 Direction
@@ -33,7 +33,7 @@ namespace ZombieAssault
         {
             //algorithm for traversing spritesheet
             currentFrame.Y = 0;
-            if (position != destination)
+            if (position.Position != destination.Position)
             {
                 timeSinceLastFrame += gameTime.ElapsedGameTime.Milliseconds;
                 if (timeSinceLastFrame > millisecondsPerFrame)
@@ -55,8 +55,8 @@ namespace ZombieAssault
             {
                 if (prevTarget == null)
                     prevTarget = s;
-                if (Math.Sqrt(Math.Pow(position.X - s.Position.X, 2) + Math.Pow(position.Y - s.Position.Y, 2)) < 
-                    Math.Sqrt(Math.Pow(position.X - prevTarget.Position.X, 2) + Math.Pow(position.Y - prevTarget.Position.Y, 2)))
+                if (Math.Sqrt(Math.Pow(position.Position.X - s.Position.Position.X, 2) + Math.Pow(position.Position.Y - s.Position.Position.Y, 2)) < 
+                    Math.Sqrt(Math.Pow(position.Position.X - prevTarget.Position.Position.X, 2) + Math.Pow(position.Position.Y - prevTarget.Position.Position.Y, 2)))
                     currTarget = s;
                 if (currTarget == null)
                     currTarget = s;

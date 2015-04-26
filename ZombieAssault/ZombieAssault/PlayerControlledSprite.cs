@@ -22,7 +22,7 @@ namespace ZombieAssault
             }
         }
 
-        public PlayerControlledSprite(Texture2D textureImage, Vector2 position, float speed, float scale, float rotation, int unitNumber)
+        public PlayerControlledSprite(Texture2D textureImage, MapNode position, float speed, float scale, float rotation, int unitNumber)
             : base (textureImage, position, new Point(64, 64), new Point(0,0), new Point(3,2), rotation, speed, scale, 0, new Vector2(0,0), 250)
         {
             destination = position;//initializes destination as starting position

@@ -29,12 +29,13 @@ namespace ZombieAssault
         public Vector2 Position
         {
             get { return position; }
+            set { position = value; }
         }
 
         public MapNode(Vector2 index, int type)
         {
             this.index = index;
-            position = new Vector2(index.X * SpriteManager.tileSize + Game1.resOffset + SpriteManager.gridOffset - 3, index.Y * SpriteManager.tileSize);
+            position = new Vector2(index.X * SpriteManager.tileSize + Game1.resOffset + SpriteManager.gridOffset - 3 - 2*SpriteManager.tileSize, index.Y * SpriteManager.tileSize - 2* SpriteManager.tileSize);
             this.type = type;
         }
     }
