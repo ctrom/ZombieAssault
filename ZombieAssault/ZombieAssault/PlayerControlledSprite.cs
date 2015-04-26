@@ -11,9 +11,7 @@ namespace ZombieAssault
     //Instantiable class for player units
     class PlayerControlledSprite : AnimatedSprite
     {
-        //variables for tracking mouse inputs
-        private MouseState previousState;
-        private MouseState currentState;
+        
         private int unitNumber;
 
         public int UnitNumber
@@ -56,15 +54,9 @@ namespace ZombieAssault
             else
                 currentFrame.X = 0;//sets current frame to idle animation
 
-            //polls mouse state
-            previousState = currentState;
-            currentState = Mouse.GetState();
             
-            //checks if mouse was right clicked
-            if(previousState.RightButton == ButtonState.Released && currentState.RightButton == ButtonState.Pressed)
-            {
-                Destination = new Vector2(((int)((currentState.X + SpriteManager.gridOffset - 4)/SpriteManager.tileSize)), ((int)((currentState.Y)/SpriteManager.tileSize)));//sets destination to mouse position
-            }
+            
+            
 
             base.Update(gameTime, clientBounds);
         }
