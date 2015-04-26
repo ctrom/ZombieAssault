@@ -47,7 +47,7 @@ namespace ZombieAssault
         protected override void Initialize()
         {
 
-            map = new Map(Content.Load<Texture2D>(@"Images/Highlight_Sprite"));
+            map = new Map();
             spriteManager = new SpriteManager(this);
             Components.Add(spriteManager);
 
