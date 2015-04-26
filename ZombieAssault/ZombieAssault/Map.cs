@@ -12,7 +12,7 @@ namespace ZombieAssault
     /// </summary>
     public class Map
     {
-        private MapNode[,] nodes;
+        private static MapNode[,] nodes = new MapNode[40,40];
 
         private int[,] layout = new int[,]
         {
@@ -36,8 +36,8 @@ namespace ZombieAssault
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1}, 
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1}, 
-            {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 2, 0, 0, 0, 2, 0, 0, 0, 2, 2, 0, 2, 2, 2, 2, 2, 2, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, 
-            {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 2, 2, 2, 0, 2, 2, 2, 0, 2, 2, 1, 2, 2, 2, 2, 2, 2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 3, 0, 0, 0, 3, 0, 0, 0, 2, 2, 0, 2, 2, 2, 2, 2, 2, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, 
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 2, 2, 2, 0, 2, 2, 2, 0, 2, 2, 3, 2, 2, 2, 2, 2, 2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 2, 2, 2, 0, 2, 2, 2, 0, 2, 2, 0, 2, 2, 2, 2, 2, 2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, 
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 2, 2, 2, 0, 2, 2, 2, 0, 3, 0, 0, 2, 2, 2, 2, 2, 2, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, 
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 2, 2, 2, 0, 2, 2, 2, 0, 2, 2, 0, 0, 2, 2, 2, 2, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, 
@@ -82,14 +82,35 @@ namespace ZombieAssault
         }
 
         /// <summary>
-        /// Returns the tile index for the given cell.
+        /// Returns the node for a given index.
         /// </summary>
-        public int GetIndex(int cellX, int cellY)
+        public static MapNode getNode(Vector2 index)
         {
-            if (cellX < 0 || cellX > Width - 1 || cellY < 0 || cellY > Height - 1)
-                return 0;
+            return nodes[(int)index.X, (int)index.Y];
+        }
 
-            return layout[cellY, cellX];
+        public MapNode[,] Nodes
+        {
+            get
+            {
+                return nodes;
+            }
+        }
+
+        public List<MapNode> neighborList(MapNode node)
+        {
+            List<MapNode> temp = new List<MapNode>();
+            for (int i = 0; i < 40; i++)
+            {
+                for (int j = 0; j < 40; j++)
+                {
+                    if (Math.Abs(nodes[i, j].Index.X - node.Index.X) <= 5 && Math.Abs(nodes[i, j].Index.Y - node.Index.Y) <= 5)
+                    {
+                        temp.Add(nodes[i, j]);
+                    }
+                }
+            }
+            return temp;
         }
 
         private void populateMap()
@@ -98,31 +119,35 @@ namespace ZombieAssault
             {
                 for(int j = 0; j < 40; j++)
                 {
-                    nodes[i, j] = new MapNode(new Vector2(i, j), layout[i,j]);
+                    nodes[i, j] = new MapNode(new Vector2(i, j), layout[j,i]);
                 }
             }
         }
 
-        /// <summary>
-        /// Draws the map.
-        /// </summary>
-        //public void Draw(SpriteBatch spriteBatch)
+        // //<summary>
+        // //Draws the map.
+        // //</summary>
+        //public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         //{
-        //    if (textures == null)
-        //    {
-        //        return;
-        //    }
-
+        //    spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
         //    for (int x = 0; x < Width; x++)
         //    {
         //        for (int y = 0; y < Height; y++)
         //        {
         //            int index = layout[y, x];
 
-        //            spriteBatch.Draw(textures[index], new Vector2(x, y) 
-        //                * SpriteManager.tileSize, Color.White);
+        //            if (layout[y, x] == 1)
+        //                spriteBatch.Draw(texture, new Vector2(x, y)
+        //                    * SpriteManager.tileSize, Color.White);
+        //            else if (layout[y, x] == 0)
+        //                spriteBatch.Draw(texture, new Vector2(x, y) * SpriteManager.tileSize, Color.Black);
+        //            else if (layout[y, x] == 2)
+        //                spriteBatch.Draw(texture, new Vector2(x, y) * SpriteManager.tileSize, Color.Blue);
+        //            else if (layout[y, x] == 3)
+        //                spriteBatch.Draw(texture, new Vector2(x, y) * SpriteManager.tileSize, Color.Pink);
         //        }
         //    }
+        //    spriteBatch.End();
         //}
     }
 }

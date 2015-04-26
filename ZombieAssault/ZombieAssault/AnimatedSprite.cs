@@ -31,7 +31,18 @@ namespace ZombieAssault
         public virtual Vector2 Destination
         {
             get { return destination; }
-            set { destination = new Vector2((value.X * SpriteManager.tileSize), (value.Y * SpriteManager.tileSize)); }
+            set 
+            {
+                if (value.X < 40 && value.X >= 0 && value.Y < 40 && value.Y >= 0)
+                {
+                    MapNode temp = Map.getNode(value);
+                    Console.Write(temp.Type);
+                    if (temp.Type != 0)
+                    {
+                        destination = temp.Position;
+                    }
+                }
+            }
         }
 
         public AnimatedSprite(Texture2D textureImage, Vector2 position, Point frameSize, Point currentFrame, Point sheetSize, float rotation, float speed, float scale, int collisionOffset, Vector2 direction, int millisecondsPerFrame)
