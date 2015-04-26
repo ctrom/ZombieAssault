@@ -12,7 +12,7 @@ namespace ZombieAssault
     /// </summary>
     public class Map
     {
-        private MapNode[,] nodes;
+        private MapNode[,] nodes = new MapNode[40,40];
 
         private int[,] layout = new int[,]
         {
@@ -82,14 +82,35 @@ namespace ZombieAssault
         }
 
         /// <summary>
-        /// Returns the tile index for the given cell.
+        /// Returns the node for a given index.
         /// </summary>
-        public int GetIndex(int cellX, int cellY)
+        public MapNode getNode(Vector2 index)
         {
-            if (cellX < 0 || cellX > Width - 1 || cellY < 0 || cellY > Height - 1)
-                return 0;
+            return nodes[(int)index.Y, (int)index.X];
+        }
 
-            return layout[cellY, cellX];
+        public MapNode[,] Nodes
+        {
+            get
+            {
+                return nodes;
+            }
+        }
+
+        public List<MapNode> neighborList(MapNode node)
+        {
+            List<MapNode> temp = new List<MapNode>();
+            for (int i = 0; i < 40; i++)
+            {
+                for (int j = 0; j < 40; j++)
+                {
+                    if (Math.Abs(nodes[i, j].Index.X - node.Index.X) <= 5 && Math.Abs(nodes[i, j].Index.Y - node.Index.Y) <= 5)
+                    {
+                        temp.Add(nodes[i, j]);
+                    }
+                }
+            }
+            return temp;
         }
 
         private void populateMap()

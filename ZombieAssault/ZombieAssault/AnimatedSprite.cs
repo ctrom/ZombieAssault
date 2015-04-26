@@ -31,7 +31,11 @@ namespace ZombieAssault
         public virtual Vector2 Destination
         {
             get { return destination; }
-            set { destination = new Vector2((value.X * SpriteManager.tileSize), (value.Y * SpriteManager.tileSize)); }
+            set 
+            {
+                
+                //destination = new Vector2((value.X * SpriteManager.tileSize), (value.Y * SpriteManager.tileSize)); 
+            }
         }
 
         public AnimatedSprite(Texture2D textureImage, Vector2 position, Point frameSize, Point currentFrame, Point sheetSize, float rotation, float speed, float scale, int collisionOffset, Vector2 direction, int millisecondsPerFrame)
