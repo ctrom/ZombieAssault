@@ -85,7 +85,6 @@ namespace ZombieAssault
                 previousState = currentState;
                 currentState = Mouse.GetState();
 
-                /
                 //checks if mouse was right clicked
                 if (previousState.RightButton == ButtonState.Released && currentState.RightButton == ButtonState.Pressed)
                 {

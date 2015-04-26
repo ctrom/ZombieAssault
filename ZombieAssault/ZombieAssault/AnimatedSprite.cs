@@ -66,17 +66,17 @@ namespace ZombieAssault
                 {
                     //Checks if x requires translation, either positive, negative or none
                     //multiplied by factor of speed
-                    if (position.X < Destination.X)
-                        direction.X = /*isCollision(1) * */Math.Abs(((float)Destination.X - position.X) / (Destination.Y - position.Y) * speed);
-                    else if (position.X > Destination.X)
-                        direction.X = /*isCollision(3) * */-Math.Abs(((float)Destination.X - position.X) / (Destination.Y - position.Y) * speed);
+                    if (position.X < Destination.Position.X)
+                        direction.X = /*isCollision(1) * */Math.Abs(((float)Destination.Position.X - position.X) / (Destination.Position.Y - position.Y) * speed);
+                    else if (position.X > Destination.Position.X)
+                        direction.X = /*isCollision(3) * */-Math.Abs(((float)Destination.Position.X - position.X) / (Destination.Position.Y - position.Y) * speed);
                     else
                         direction.X = 0;
                     //checks if y requires translation, either positive, negative, or none
                     //multiplied by factor of speed
-                    if (position.Y < Destination.Y)
+                    if (position.Y < Destination.Position.Y)
                         direction.Y = /*isCollision(0) * */1 * speed;
-                    else if (position.Y > Destination.Y)
+                    else if (position.Y > Destination.Position.Y)
                         direction.Y = /*isCollision(2) * */-1 * speed;
                     else
                         direction.Y = 0;
@@ -85,34 +85,34 @@ namespace ZombieAssault
                 {
                     //Checks if x requires translation, either positive, negative or none
                     //multiplied by factor of speed
-                    if (position.X < Destination.X)
+                    if (position.X < Destination.Position.X)
                         direction.X = /*isCollision(1) * */1 * speed;
-                    else if (position.X > Destination.X)
+                    else if (position.X > Destination.Position.X)
                         direction.X = /*isCollision(3) * */-1 * speed;
                     else
                         direction.X = 0;
                     //checks if y requires translation, either positive, negative, or none
                     //multiplied by factor of speed
-                    if (position.Y < Destination.Y)
-                        direction.Y = /*isCollision(0) * */Math.Abs(((float)Destination.Y - position.Y) / (Destination.X - position.X) * speed);
-                    else if (position.Y > Destination.Y)
-                        direction.Y = /*isCollision(2) * */-Math.Abs(((float)Destination.Y - position.Y) / (Destination.X - position.X) * speed);
+                    if (position.Y < Destination.Position.Y)
+                        direction.Y = /*isCollision(0) * */Math.Abs(((float)Destination.Position.Y - position.Y) / (Destination.Position.X - position.X) * speed);
+                    else if (position.Y > Destination.Position.Y)
+                        direction.Y = /*isCollision(2) * */-Math.Abs(((float)Destination.Position.Y - position.Y) / (Destination.Position.X - position.X) * speed);
                     else
                         direction.Y = 0;
                 }
                 else//executes if magnitudes are the same
                 {
                     //determines if x translation is positive, negative, or none
-                    if (position.X < Destination.X)
+                    if (position.X < Destination.Position.X)
                         direction.X = /*isCollision(1) * */1 / (float)Math.Sqrt(2) * speed;
-                    else if (position.X > Destination.X)
+                    else if (position.X > Destination.Position.X)
                         direction.X = /*isCollision(3) * */-1 / (float)Math.Sqrt(2) * speed;
                     else
                         direction.X = 0;
                     //determines if y translation is positive, negative, or none
-                    if (position.Y < Destination.Y)
+                    if (position.Y < Destination.Position.Y)
                         direction.Y = /*isCollision(0) * */1 / (float)Math.Sqrt(2) * speed;
-                    else if (position.Y > Destination.Y)
+                    else if (position.Y > Destination.Position.Y)
                         direction.Y = /*isCollision(2) * */-1 / (float)Math.Sqrt(2) * speed;
                     else
                         direction.Y = 0;
