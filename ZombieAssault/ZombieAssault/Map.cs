@@ -12,6 +12,8 @@ namespace ZombieAssault
     /// </summary>
     public class Map
     {
+        private MapNode[,] nodes;
+
         private int[,] layout = new int[,]
         {
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, 
@@ -76,7 +78,7 @@ namespace ZombieAssault
         /// </summary>
         public Map()
         {
-
+            populateMap();
         }
 
         /// <summary>
@@ -88,6 +90,17 @@ namespace ZombieAssault
                 return 0;
 
             return layout[cellY, cellX];
+        }
+
+        private void populateMap()
+        {
+            for(int i = 0; i < 40; i++)
+            {
+                for(int j = 0; j < 40; j++)
+                {
+                    nodes[i, j] = new MapNode(new Vector2(i, j), layout[i,j]);
+                }
+            }
         }
 
         /// <summary>
