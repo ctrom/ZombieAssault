@@ -19,8 +19,7 @@ namespace ZombieAssault
 
         List<Sprite> spriteList = new List<Sprite>();
         ZombieController zombieController;//zombie manager component, handles spawns and list of zombies
-
-        PlayerControlledSprite jack;//player unit
+        PlayerManager playerManager;
 
         public static readonly float scaleFactor = Game1.resHeight/960f;//factor by which sprites will be scaled to, based on resolution
         public static readonly float tileSize = scaleFactor * 24;
@@ -34,7 +33,7 @@ namespace ZombieAssault
         public SpriteManager(Game game)
             : base(game)
         {
-            Console.Write(gridOffset);
+
         }
 
         public override void Initialize()
@@ -46,14 +45,12 @@ namespace ZombieAssault
         {
             spriteBatch = new SpriteBatch(Game.GraphicsDevice);
 
-            jack = new PlayerControlledSprite(Game.Content.Load<Texture2D>(@"Images/Jack_SpriteSheet"), new Vector2(810,810), 1f, .375f, (float)Math.PI / 2);//creates player unit
+            playerManager = new PlayerManager(Game.Content.Load<Texture2D>(@"Images/Jack_SpriteSheet"));
             zombieController = new ZombieController(Game.Content.Load<Texture2D>(@"Images/Zombie_SpriteSheet"));
 
             cursorTexture = Game.Content.Load<Texture2D>(@"Images/Cursor_Sprite");
             mapTexture = Game.Content.Load<Texture2D>(@"Images/House_Layout(40x40 tiles, 960x960 resolution)");
             highlightTexture = Game.Content.Load<Texture2D>(@"Images/Highlight_Sprite");
-
-            spriteList.Add(jack);//adds player unit to sprite list
 
             base.LoadContent();
         }
@@ -65,7 +62,8 @@ namespace ZombieAssault
                 s.Update(gameTime, Game.Window.ClientBounds);
             }
 
-            zombieController.Update(gameTime, Game.Window.ClientBounds, jack.Position);//updates zombie spawner
+            playerManager.Update(gameTime, Game.Window.ClientBounds);
+            zombieController.Update(gameTime, Game.Window.ClientBounds, playerManager.UnitList);//updates zombie spawner
 
             cursorPosition = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
             
@@ -83,7 +81,10 @@ namespace ZombieAssault
             spriteBatch.Draw(highlightTexture, new Vector2((int)((cursorPosition.X - gridOffset) / tileSize) * tileSize + gridOffset, (int)(cursorPosition.Y / tileSize) * tileSize), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, .2f);//draws tile highlight
             foreach (Sprite s in zombieController.ZombieList)//draws zombies in the spawner's list
                 s.Draw(gameTime, spriteBatch);
-            
+
+            foreach (Sprite s in playerManager.UnitList)
+                s.Draw(gameTime, spriteBatch);
+
             spriteBatch.End();
             base.Draw(gameTime);
         }

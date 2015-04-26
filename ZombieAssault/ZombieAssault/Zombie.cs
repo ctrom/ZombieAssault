@@ -15,6 +15,8 @@ namespace ZombieAssault
     //Instantiable object for basic zombies
     class Zombie : AnimatedSprite
     {
+        private PlayerControlledSprite prevTarget;
+        private PlayerControlledSprite currTarget;
 
         public Zombie(Texture2D textureImage, Vector2 position, float speed, float scale, float rotation)
             : base(textureImage, position, new Point(64,64), new Point(0,0), new Point(3,1), rotation, speed, scale, 0, new Vector2(0,0), 500)
@@ -27,7 +29,7 @@ namespace ZombieAssault
             get { return direction; }
         }
 
-        public void Update(GameTime gameTime, Rectangle clientBounds, Vector2 target)
+        public void Update(GameTime gameTime, Rectangle clientBounds, List<PlayerControlledSprite> targets)
         {
             //algorithm for traversing spritesheet
             currentFrame.Y = 0;
@@ -47,7 +49,19 @@ namespace ZombieAssault
             else
                 currentFrame.X = 0;
 
-            Destination = new Vector2(target.X / SpriteManager.tileSize, target.Y / SpriteManager.tileSize);
+            //algorithm for chasing closest target
+            prevTarget = currTarget;
+            foreach(PlayerControlledSprite s in targets)
+            {
+                if (prevTarget == null)
+                    prevTarget = s;
+                if (Math.Sqrt(Math.Pow(position.X - s.Position.X, 2) + Math.Pow(position.Y - s.Position.Y, 2)) < 
+                    Math.Sqrt(Math.Pow(position.X - prevTarget.Position.X, 2) + Math.Pow(position.Y - prevTarget.Position.Y, 2)))
+                    currTarget = s;
+                if (currTarget == null)
+                    currTarget = s;
+            }
+            destination = currTarget.Position;
 
             base.Update(gameTime, clientBounds);
         }

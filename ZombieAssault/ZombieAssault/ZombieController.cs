@@ -43,10 +43,10 @@ namespace ZombieAssault
             this.millisecondsTilSpawn = millisecondsTilSpawn;
         }
 
-        public void Update(GameTime gameTime, Rectangle clientBounds, Vector2 target)
+        public void Update(GameTime gameTime, Rectangle clientBounds, List<PlayerControlledSprite> targets)
         {
             foreach (Zombie z in zombieList)
-                z.Update(gameTime, clientBounds, target);
+                z.Update(gameTime, clientBounds, targets);
             timeSinceLastSpawn += gameTime.ElapsedGameTime.Milliseconds;
             
             if (timeSinceLastSpawn > millisecondsTilSpawn)//checks if required time between spawns has passed
@@ -74,7 +74,6 @@ namespace ZombieAssault
                     }
                     zombieList.Add(new Zombie(zombieTexture, position, .5f, .375f, 0));
                 }
-                Console.WriteLine(Game1.resOffset + ":" + SpriteManager.tileSize + ":" + SpriteManager.gridOffset + ":" + SpriteManager.scaleFactor);
             }
         }
     }

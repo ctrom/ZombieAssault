@@ -30,7 +30,7 @@ namespace ZombieAssault
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.IsFullScreen = true;
+            graphics.IsFullScreen = false;
             graphics.PreferredBackBufferHeight = resHeight;
             graphics.PreferredBackBufferWidth = resWidth;
             Content.RootDirectory = "Content";
