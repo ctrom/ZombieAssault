@@ -61,7 +61,7 @@ namespace ZombieAssault
                 if (currTarget == null)
                     currTarget = s;
             }
-            //destination = currTarget.Position;
+            destination = currTarget.Position;
 
             base.Update(gameTime, clientBounds);
         }
