@@ -36,9 +36,9 @@ namespace ZombieAssault
                 if (value.Type != 0)
                 {
                     destination = value;
+                    }
                 }
             }
-        }
 
         public AnimatedSprite(Texture2D textureImage, Vector2 position, Point frameSize, Point currentFrame, Point sheetSize, float rotation, float speed, float scale, int collisionOffset, Vector2 direction, int millisecondsPerFrame)
             : base(textureImage, position, scale, collisionOffset)
@@ -66,18 +66,18 @@ namespace ZombieAssault
                 {
                     //Checks if x requires translation, either positive, negative or none
                     //multiplied by factor of speed
-                    if (position.X < Destination.Position.X)
-                        direction.X = Math.Abs(((float)Destination.Position.X - position.X) / (Destination.Position.Y - position.Y) * speed);
-                    else if (position.X > Destination.Position.X)
-                        direction.X = -Math.Abs(((float)Destination.Position.X - position.X) / (Destination.Position.Y - position.Y) * speed);
+                    if (position.X < Destination.X)
+                        direction.X = /*isCollision(1) * */Math.Abs(((float)Destination.X - position.X) / (Destination.Y - position.Y) * speed);
+                    else if (position.X > Destination.X)
+                        direction.X = /*isCollision(3) * */-Math.Abs(((float)Destination.X - position.X) / (Destination.Y - position.Y) * speed);
                     else
                         direction.X = 0;
                     //checks if y requires translation, either positive, negative, or none
                     //multiplied by factor of speed
-                    if (position.Y < Destination.Position.Y)
-                        direction.Y = 1 * speed;
-                    else if (position.Y > Destination.Position.Y)
-                        direction.Y = -1 * speed;
+                    if (position.Y < Destination.Y)
+                        direction.Y = /*isCollision(0) * */1 * speed;
+                    else if (position.Y > Destination.Y)
+                        direction.Y = /*isCollision(2) * */-1 * speed;
                     else
                         direction.Y = 0;
                 }
@@ -85,35 +85,35 @@ namespace ZombieAssault
                 {
                     //Checks if x requires translation, either positive, negative or none
                     //multiplied by factor of speed
-                    if (position.X < Destination.Position.X)
-                        direction.X = 1 * speed;
-                    else if (position.X > Destination.Position.X)
-                        direction.X = -1 * speed;
+                    if (position.X < Destination.X)
+                        direction.X = /*isCollision(1) * */1 * speed;
+                    else if (position.X > Destination.X)
+                        direction.X = /*isCollision(3) * */-1 * speed;
                     else
                         direction.X = 0;
                     //checks if y requires translation, either positive, negative, or none
                     //multiplied by factor of speed
-                    if (position.Y < Destination.Position.Y)
-                        direction.Y = Math.Abs(((float)Destination.Position.Y - position.Y) / (Destination.Position.X - position.X) * speed);
-                    else if (position.Y > Destination.Position.Y)
-                        direction.Y = -Math.Abs(((float)Destination.Position.Y - position.Y) / (Destination.Position.X - position.X) * speed);
+                    if (position.Y < Destination.Y)
+                        direction.Y = /*isCollision(0) * */Math.Abs(((float)Destination.Y - position.Y) / (Destination.X - position.X) * speed);
+                    else if (position.Y > Destination.Y)
+                        direction.Y = /*isCollision(2) * */-Math.Abs(((float)Destination.Y - position.Y) / (Destination.X - position.X) * speed);
                     else
                         direction.Y = 0;
                 }
                 else//executes if magnitudes are the same
                 {
                     //determines if x translation is positive, negative, or none
-                    if (position.X < Destination.Position.X)
-                        direction.X = 1 / (float)Math.Sqrt(2) * speed;
-                    else if (position.X > Destination.Position.X)
-                        direction.X = -1 / (float)Math.Sqrt(2) * speed;
+                    if (position.X < Destination.X)
+                        direction.X = /*isCollision(1) * */1 / (float)Math.Sqrt(2) * speed;
+                    else if (position.X > Destination.X)
+                        direction.X = /*isCollision(3) * */-1 / (float)Math.Sqrt(2) * speed;
                     else
                         direction.X = 0;
                     //determines if y translation is positive, negative, or none
-                    if (position.Y < Destination.Position.Y)
-                        direction.Y = 1 / (float)Math.Sqrt(2) * speed;
-                    else if (position.Y > Destination.Position.Y)
-                        direction.Y = -1 / (float)Math.Sqrt(2) * speed;
+                    if (position.Y < Destination.Y)
+                        direction.Y = /*isCollision(0) * */1 / (float)Math.Sqrt(2) * speed;
+                    else if (position.Y > Destination.Y)
+                        direction.Y = /*isCollision(2) * */-1 / (float)Math.Sqrt(2) * speed;
                     else
                         direction.Y = 0;
                 }
@@ -161,5 +161,63 @@ namespace ZombieAssault
                     frameSize.Y - (collisionOffset * 2));
             }
         }
+
+        /*theoretical collision detection - A
+         * the way i am thinking this could work is to call it in the 
+         * movement code. the movement code can pass in an integer that
+         * represents the direction it wants to check and it checks for 
+         * collisions in that direction. it then returns either 1 for no 
+         * collision or 0 for a collision and then we just multiply the 
+         * direction by that 1 or 0 to either have it move as normal or
+         * zero its direction. 
+         */ 
+        protected int isCollision(int whichDirection)
+        {
+            Rectangle nextPosition;
+            Rectangle otherSprite;
+            foreach (Sprite s in SpriteManager.spriteList)
+            {
+                if (this != s)
+                {
+                    otherSprite = new Rectangle((int)s.position.X, (int)s.position.Y, this.frameSize.X,
+                                this.frameSize.Y);
+                    switch (whichDirection)
+                    {
+                        case 0: //going up
+                            nextPosition = new Rectangle((int)this.position.X, (int)this.position.Y + 1, 
+                                this.frameSize.X, this.frameSize.Y);
+                            if (nextPosition.Intersects(otherSprite))
+                                return 0;
+                            else
+                                return 1;
+                        case 1: //going right
+                            nextPosition = new Rectangle((int)this.position.X + 1, (int)this.position.Y,
+                                this.frameSize.X, this.frameSize.Y);
+                            if (nextPosition.Intersects(otherSprite))
+                                return 0;
+                            else
+                                return 1;
+                        case 2: //going down
+                            nextPosition = new Rectangle((int)this.position.X, (int)this.position.Y - 1,
+                                this.frameSize.X, this.frameSize.Y);
+                            if (nextPosition.Intersects(otherSprite))
+                                return 0;
+                            else
+                                return 1;
+                        case 3: //going left
+                            nextPosition = new Rectangle((int)this.position.X - 1, (int)this.position.Y,
+                                this.frameSize.X, this.frameSize.Y);
+                            if (nextPosition.Intersects(otherSprite))
+                                return 0;
+                            else
+                                return 1;
+                        default: return 0;
+                    }                    
+                }
+                else return 0;
+            }
+            return 0;
+        }
+        
     }
 }
