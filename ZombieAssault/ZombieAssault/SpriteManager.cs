@@ -17,7 +17,7 @@ namespace ZombieAssault
     {
         SpriteBatch spriteBatch;
 
-        List<Sprite> spriteList = new List<Sprite>();
+        public static List<Sprite> spriteList = new List<Sprite>();
         ZombieController zombieController;//zombie manager component, handles spawns and list of zombies
         PlayerManager playerManager;
 

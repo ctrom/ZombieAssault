@@ -16,7 +16,7 @@ namespace ZombieAssault
     abstract class Sprite
     {
         protected Texture2D textureImage;
-        protected Vector2 position;
+        public Vector2 position;
         protected float scale;
         protected int collisionOffset;
 
