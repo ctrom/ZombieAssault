@@ -21,7 +21,7 @@ namespace ZombieAssault
 
         SpriteManager spriteManager;
 
-        
+        Map map;
 
         Vector2[,] grid;
 
@@ -32,7 +32,7 @@ namespace ZombieAssault
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.IsFullScreen = true;
+            graphics.IsFullScreen = false;
             graphics.PreferredBackBufferHeight = resHeight;
             graphics.PreferredBackBufferWidth = resWidth;
             Content.RootDirectory = "Content";
@@ -46,6 +46,8 @@ namespace ZombieAssault
         /// </summary>
         protected override void Initialize()
         {
+
+            map = new Map(Content.Load<Texture2D>(@"Images/Highlight_Sprite"));
             spriteManager = new SpriteManager(this);
             Components.Add(spriteManager);
 
@@ -105,7 +107,6 @@ namespace ZombieAssault
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
 
             base.Draw(gameTime);
         }

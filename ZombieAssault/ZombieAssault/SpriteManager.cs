@@ -33,7 +33,6 @@ namespace ZombieAssault
         public SpriteManager(Game game)
             : base(game)
         {
-
         }
 
         public override void Initialize()

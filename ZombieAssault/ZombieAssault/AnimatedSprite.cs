@@ -33,8 +33,15 @@ namespace ZombieAssault
             get { return destination; }
             set 
             {
-                
-                //destination = new Vector2((value.X * SpriteManager.tileSize), (value.Y * SpriteManager.tileSize)); 
+                if (value.X < 40 && value.X >= 0 && value.Y < 40 && value.Y >= 0)
+                {
+                    MapNode temp = Map.getNode(value);
+                    Console.Write(temp.Type);
+                    if (temp.Type != 0)
+                    {
+                        destination = temp.Position;
+                    }
+                }
             }
         }
 

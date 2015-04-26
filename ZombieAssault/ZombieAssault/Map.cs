@@ -12,7 +12,8 @@ namespace ZombieAssault
     /// </summary>
     public class Map
     {
-        private MapNode[,] nodes = new MapNode[40,40];
+        private static MapNode[,] nodes = new MapNode[40,40];
+        private Texture2D texture;
 
         private int[,] layout = new int[,]
         {
@@ -76,17 +77,18 @@ namespace ZombieAssault
         /// <summary>
         /// Constructor.
         /// </summary>
-        public Map()
+        public Map(Texture2D texture)
         {
             populateMap();
+            this.texture = texture;
         }
 
         /// <summary>
         /// Returns the node for a given index.
         /// </summary>
-        public MapNode getNode(Vector2 index)
+        public static MapNode getNode(Vector2 index)
         {
-            return nodes[(int)index.Y, (int)index.X];
+            return nodes[(int)index.X, (int)index.Y];
         }
 
         public MapNode[,] Nodes
@@ -124,26 +126,30 @@ namespace ZombieAssault
             }
         }
 
-        /// <summary>
-        /// Draws the map.
-        /// </summary>
-        //public void Draw(SpriteBatch spriteBatch)
+        // //<summary>
+        // //Draws the map.
+        // //</summary>
+        //public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         //{
-        //    if (textures == null)
-        //    {
-        //        return;
-        //    }
-
+        //    spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
         //    for (int x = 0; x < Width; x++)
         //    {
         //        for (int y = 0; y < Height; y++)
         //        {
         //            int index = layout[y, x];
 
-        //            spriteBatch.Draw(textures[index], new Vector2(x, y) 
-        //                * SpriteManager.tileSize, Color.White);
+        //            if (layout[y, x] == 1)
+        //                spriteBatch.Draw(texture, new Vector2(x, y)
+        //                    * SpriteManager.tileSize, Color.White);
+        //            else if (layout[y, x] == 0)
+        //                spriteBatch.Draw(texture, new Vector2(x, y) * SpriteManager.tileSize, Color.Black);
+        //            else if (layout[y, x] == 2)
+        //                spriteBatch.Draw(texture, new Vector2(x, y) * SpriteManager.tileSize, Color.Blue);
+        //            else if (layout[y, x] == 3)
+        //                spriteBatch.Draw(texture, new Vector2(x, y) * SpriteManager.tileSize, Color.Pink);
         //        }
         //    }
+        //    spriteBatch.End();
         //}
     }
 }

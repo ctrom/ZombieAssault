@@ -88,7 +88,7 @@ namespace ZombieAssault
                 //checks if mouse was right clicked
                 if (previousState.RightButton == ButtonState.Released && currentState.RightButton == ButtonState.Pressed)
                 {
-                    selectedUnit.Destination = new Vector2(((int)((currentState.X + SpriteManager.gridOffset - 4) / SpriteManager.tileSize)), ((int)((currentState.Y) / SpriteManager.tileSize)));//sets destination to mouse position
+                    selectedUnit.Destination = new Vector2(((int)(((currentState.X - 4) - Game1.resOffset) / SpriteManager.tileSize)), ((int)((currentState.Y) / SpriteManager.tileSize)));//sets destination to mouse position
                 }
             }
 
