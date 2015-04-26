@@ -16,16 +16,16 @@ namespace ZombieAssault
     abstract class Sprite
     {
         protected Texture2D textureImage;
-        protected MapNode position;
+        protected Vector2 position;
         protected float scale;
         protected int collisionOffset;
 
-        public MapNode Position
+        public Vector2 Position
         {
             get { return position; }
         }
 
-        public Sprite(Texture2D textureImage, MapNode position, float scale, int collisionOffset)
+        public Sprite(Texture2D textureImage, Vector2 position, float scale, int collisionOffset)
         {
             this.textureImage = textureImage;
             this.position = position;
@@ -41,7 +41,7 @@ namespace ZombieAssault
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(textureImage,
-                position.Position,
+                position,
                 null,
                 Color.White, 0,
                 Vector2.Zero,
