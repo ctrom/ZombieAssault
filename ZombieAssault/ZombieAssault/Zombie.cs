@@ -55,14 +55,19 @@ namespace ZombieAssault
             foreach(PlayerControlledSprite s in targets)
             {
                 if (prevTarget == null)
+                {
                     prevTarget = s;
-                if (Math.Sqrt(Math.Pow(position.X - s.Position.X, 2) + Math.Pow(position.Y - s.Position.Y, 2)) < 
+                }
+                if (Math.Sqrt(Math.Pow(position.X - s.Position.X, 2) + Math.Pow(position.Y - s.Position.Y, 2)) <
                     Math.Sqrt(Math.Pow(position.X - prevTarget.Position.X, 2) + Math.Pow(position.Y - prevTarget.Position.Y, 2)))
+                {
                     currTarget = s;
+                }
                 if (currTarget == null)
                     currTarget = s;
             }
             destination = currTarget.Position;
+            //Console.WriteLine(destination + ":" + position);
 
             base.Update(gameTime, clientBounds);
         }

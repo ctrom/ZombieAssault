@@ -16,19 +16,23 @@ namespace ZombieAssault
     abstract class Sprite
     {
         protected Texture2D textureImage;
-        public Vector2 position;
+        protected Vector2 position;
         protected float scale;
         protected int collisionOffset;
 
         public Vector2 Position
         {
             get { return position; }
+            set
+            {
+                position = value * new Vector2(SpriteManager.tileSize, SpriteManager.tileSize) + new Vector2(Game1.resOffset,0);
+            }
         }
 
         public Sprite(Texture2D textureImage, Vector2 position, float scale, int collisionOffset)
         {
             this.textureImage = textureImage;
-            this.position = position;
+            Position = position;
             this.scale = scale;
             this.collisionOffset = collisionOffset;
         }
