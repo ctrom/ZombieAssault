@@ -49,7 +49,6 @@ namespace ZombieAssault
             }
             Destination = new MapNode((currTarget.Position - new Vector2(Game1.resOffset + SpriteManager.gridOffset, 0))/new Vector2(SpriteManager.tileSize, SpriteManager.tileSize) + new Vector2(2, 2), 1);
 
-            //Console.WriteLine(destination.Position + ":" + position);
 
             //algorithm for traversing spritesheet
             currentFrame.Y = 0;
