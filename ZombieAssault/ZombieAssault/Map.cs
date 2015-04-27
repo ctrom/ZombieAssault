@@ -101,7 +101,7 @@ namespace ZombieAssault
             }
         }
 
-        public List<MapNode> neighborList(MapNode node)
+        public static List<MapNode> neighborList(MapNode node)
         {
             List<MapNode> temp = new List<MapNode>();
             for (int i = 0; i < 44; i++)

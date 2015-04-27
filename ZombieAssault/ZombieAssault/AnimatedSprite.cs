@@ -52,6 +52,27 @@ namespace ZombieAssault
             this.millisecondsPerFrame = millisecondsPerFrame;
         }
 
+        protected virtual List<MapNode> findPath(MapNode currentNode, MapNode destinationNode)
+        {
+            List<MapNode> path = new List<MapNode>();
+            List<MapNode> searchList = Map.neighborList(currentNode);
+
+            if (currentNode.Type == 1 && destinationNode.Type == 1)
+            {
+                
+            }
+            else if(currentNode.Type == 2 && destinationNode.Type == 2)
+            {
+
+            }
+            else
+            {
+
+            }
+
+            return path;
+        }
+
         public override void Update(GameTime gameTime, Rectangle clientBounds)
         {
             if(Destination == null)
