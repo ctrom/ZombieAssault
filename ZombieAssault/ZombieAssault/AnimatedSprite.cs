@@ -52,25 +52,20 @@ namespace ZombieAssault
             this.millisecondsPerFrame = millisecondsPerFrame;
         }
 
-        protected virtual List<MapNode> findPath(MapNode currentNode, MapNode destinationNode)
+        public virtual List<MapNode> FindPath(MapNode destNode)
         {
             List<MapNode> path = new List<MapNode>();
-            List<MapNode> searchList = Map.neighborList(currentNode);
-
-            if (currentNode.Type == 1 && destinationNode.Type == 1)
-            {
-                
-            }
-            else if(currentNode.Type == 2 && destinationNode.Type == 2)
+            List<MapNode> nodes = Map.nodeList();
+            if(Map.getNode(findIndex(position)).Type == 1 && destNode.Type == 2)//Actor is outside and destination is inside
             {
 
             }
-            else
-            {
-
-            }
-
             return path;
+        }
+
+        private Vector2 findIndex(Vector2 pos)
+        {
+            return new Vector2(((int)(((pos.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2), ((int)((pos.Y) / SpriteManager.tileSize) + 2));
         }
 
         public override void Update(GameTime gameTime, Rectangle clientBounds)
