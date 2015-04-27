@@ -163,11 +163,15 @@ namespace ZombieAssault
                 else
                     direction = Vector2.Zero;//sets to no translation on update
 
+                Vector2 diff = new Vector2(Math.Abs(position.X - path.ElementAt(0).Position.X), Math.Abs(position.Y - path.ElementAt(0).Position.Y));
+
+                //Console.WriteLine(Destination.Index + ":" + diff + ":" + path.Count);
                 //sets position to destination if within 1 pixel in both x and y to prevent sprite from stuttering
                 if (Math.Abs((float)position.X - path.ElementAt(0).Position.X) < 1 && Math.Abs((float)position.Y - path.ElementAt(0).Position.Y) < 1)
                 {
                     position = path.ElementAt(0).Position;
                     path.Remove(path.ElementAt(0));
+                   
                 }
                 else
                     position += direction;
