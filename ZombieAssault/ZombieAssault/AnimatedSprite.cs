@@ -31,14 +31,14 @@ namespace ZombieAssault
         public virtual MapNode Destination
         {
             get { return destination; }
-            set 
+            set
             {
                 if (value.Type != 0)
                 {
                     destination = value;
-                    }
                 }
             }
+        }
 
         public AnimatedSprite(Texture2D textureImage, Vector2 position, Point frameSize, Point currentFrame, Point sheetSize, float rotation, float speed, float scale, int collisionOffset, Vector2 direction, int millisecondsPerFrame)
             : base(textureImage, position, scale, collisionOffset)

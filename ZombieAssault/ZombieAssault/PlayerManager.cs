@@ -88,8 +88,8 @@ namespace ZombieAssault
                 //checks if mouse was right clicked
                 if (previousState.RightButton == ButtonState.Released && currentState.RightButton == ButtonState.Pressed)
                 {
-                    //selectedUnit.Destination = Map.getNode(new Vector2(((int)(((currentState.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2), ((int)((currentState.Y) / SpriteManager.tileSize) + 2)));//sets destination to mouse position
-                    selectedUnit.Destination = Map.getNode(new Vector2((currentState.X - Game1.resOffset)/ SpriteManager.tileSize + 2, currentState.Y/SpriteManager.tileSize + 2));
+                    selectedUnit.Destination = Map.getNode(new Vector2(((int)(((currentState.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2), ((int)((currentState.Y) / SpriteManager.tileSize) + 2)));//sets destination to mouse position
+                    Console.WriteLine(selectedUnit.Destination.Index+":1");
                 }
             }
 

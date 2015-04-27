@@ -54,10 +54,6 @@ namespace ZombieAssault
             else
                 currentFrame.X = 0;//sets current frame to idle animation
 
-            
-            
-            
-
             base.Update(gameTime, clientBounds);
         }
     }

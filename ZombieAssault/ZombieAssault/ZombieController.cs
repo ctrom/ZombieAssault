@@ -72,6 +72,7 @@ namespace ZombieAssault
                             position = new Vector2(0, rand.Next(2, 42));
                             break;
                     }
+                    Console.WriteLine(position);
                     zombieList.Add(new Zombie(zombieTexture, position, .2f, .375f, 0));
                 }
             }
