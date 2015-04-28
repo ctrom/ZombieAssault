@@ -20,6 +20,9 @@ namespace ZombieAssault
         private List<PlayerControlledSprite> unitList;
         private PlayerControlledSprite selectedUnit;
 
+        Map map = new Map();
+        private Pathfinder pathfinder;
+
         //variables for tracking mouse inputs
         private MouseState previousState;
         private MouseState currentState;
@@ -35,6 +38,8 @@ namespace ZombieAssault
         public PlayerManager(Texture2D jackTexture)
         {
             unitList = new List<PlayerControlledSprite>();
+
+            pathfinder = new Pathfinder(map);
 
             unitList.Add(new PlayerControlledSprite(jackTexture, new Vector2(20, 20), 1f, .375f, 0, 1));
             unitList.Add(new PlayerControlledSprite(jackTexture, new Vector2(10, 10), 1f, .375f, 0, 2));
@@ -88,7 +93,11 @@ namespace ZombieAssault
                 //checks if mouse was right clicked
                 if (previousState.RightButton == ButtonState.Released && currentState.RightButton == ButtonState.Pressed)
                 {
+                    MapNode startPoint = Map.getNode(new Vector2(((int)(((selectedUnit.Position.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2), ((int)((selectedUnit.Position.Y) / SpriteManager.tileSize) + 2)));
                     selectedUnit.Destination = Map.getNode(new Vector2(((int)(((currentState.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2), ((int)((currentState.Y) / SpriteManager.tileSize) + 2)));//sets destination to mouse position
+                    List<Vector2> path = pathfinder.FindPath(new Point((int)startPoint.Index.X, (int)startPoint.Index.Y), new Point((int)selectedUnit.Destination.Index.X, (int)selectedUnit.Destination.Index.Y));
+                    foreach (Vector2 v in path)
+                        Console.WriteLine(v);
                 }
             }
 

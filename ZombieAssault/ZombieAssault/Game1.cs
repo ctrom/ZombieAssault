@@ -21,8 +21,6 @@ namespace ZombieAssault
 
         SpriteManager spriteManager;
 
-        Map map;
-
         Vector2[,] grid;
 
         public readonly static int resHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
@@ -46,8 +44,6 @@ namespace ZombieAssault
         /// </summary>
         protected override void Initialize()
         {
-
-            map = new Map();
             spriteManager = new SpriteManager(this);
             Components.Add(spriteManager);
 

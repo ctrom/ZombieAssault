@@ -14,7 +14,7 @@ namespace ZombieAssault
     {
         private static MapNode[,] nodes = new MapNode[44,44];
 
-        private int[,] layout = new int[,]
+        private static int[,] layout = new int[,]
         {
             {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2}, 
             {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
@@ -77,7 +77,7 @@ namespace ZombieAssault
             get { return layout.GetLength(0); }
         }
 
-        public int[,] Matrix
+        public static int[,] Matrix
         {
             get
             {
