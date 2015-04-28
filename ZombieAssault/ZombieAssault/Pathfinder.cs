@@ -183,8 +183,8 @@ namespace ZombieAssault
             List<Vector2> finalPath = new List<Vector2>();
             for (int i = closedList.Count - 1; i >= 0; i--)
             {
-                finalPath.Add(new Vector2(closedList[i].Position.X * SpriteManager.tileSize,
-                                          closedList[i].Position.Y * SpriteManager.tileSize));
+                finalPath.Add(new Vector2(closedList[i].Position.X * SpriteManager.tileSize + Game1.resOffset - SpriteManager.gridOffset - SpriteManager.tileSize,
+                                          closedList[i].Position.Y * SpriteManager.tileSize - 2 * SpriteManager.tileSize));
             }
 
             return finalPath;

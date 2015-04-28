@@ -12,7 +12,7 @@ namespace ZombieAssault
     {
         Point frameSize;//dimensions of individual animation frames on sprite sheet
 
-        protected MapNode destination;
+        protected Vector2 destination;
         protected Point currentFrame;
         protected Point sheetSize;//number of animation frames on the sprite sheet, example 3 across and 2 down or Point(3,2)
         protected int timeSinceLastFrame = 0;
@@ -28,15 +28,12 @@ namespace ZombieAssault
 
         //Destination property, multiplies desired tile indexes by tile size to get coordinates
         //use only for setting desination based on index of tile rather than pixel coordinate
-        public virtual MapNode Destination
+        public virtual Vector2 Destination
         {
             get { return destination; }
             set
             {
-                if (value.Type != 0)
-                {
-                    destination = value;
-                }
+                destination = value;
             }
         }
 
@@ -94,67 +91,67 @@ namespace ZombieAssault
 
             if(Destination == null)
             {
-                Destination = new MapNode(Vector2.Zero, 1);
+                Destination = position + new Vector2(Game1.resOffset, Game1.resOffset);
             }
-            if (Position != Destination.Position)
+            if (Position != Destination)
             {
                 //Main movement code, controls how the sprite translates each update
                 //rough implementation, needs to be redone to work with window scaling and to create more uniform speed regardless of walk angle
-                if (position != Destination.Position)//checks if sprite is at destination
+                if (position != Destination)//checks if sprite is at destination
                 {
-                    rotation = (float)(Math.Atan2(Destination.Position.Y - position.Y, Destination.Position.X - position.X)) + (float)Math.PI / 2;//calculates angle of rotation so sprite faces destination
+                    rotation = (float)(Math.Atan2(Destination.Y - position.Y, Destination.X - position.X)) + (float)Math.PI / 2;//calculates angle of rotation so sprite faces destination
 
-                    if (Math.Abs(Destination.Position.X - position.X) < Math.Abs(Destination.Position.Y - position.Y))//executes if magnitude of y difference is greater than that of x
+                    if (Math.Abs(Destination.X - position.X) < Math.Abs(Destination.Y - position.Y))//executes if magnitude of y difference is greater than that of x
                     {
                         //Checks if x requires translation, either positive, negative or none
                         //multiplied by factor of speed
-                        if (position.X < Destination.Position.X)
-                            direction.X = /*isCollision(1) * */Math.Abs(((float)Destination.Position.X - position.X) / (Destination.Position.Y - position.Y) * speed);
-                        else if (position.X > Destination.Position.X)
-                            direction.X = /*isCollision(3) * */-Math.Abs(((float)Destination.Position.X - position.X) / (Destination.Position.Y - position.Y) * speed);
+                        if (position.X < Destination.X)
+                            direction.X = /*isCollision(1) * */Math.Abs(((float)Destination.X - position.X) / (Destination.Y - position.Y) * speed);
+                        else if (position.X > Destination.X)
+                            direction.X = /*isCollision(3) * */-Math.Abs(((float)Destination.X - position.X) / (Destination.Y - position.Y) * speed);
                         else
                             direction.X = 0;
                         //checks if y requires translation, either positive, negative, or none
                         //multiplied by factor of speed
-                        if (position.Y < Destination.Position.Y)
+                        if (position.Y < Destination.Y)
                             direction.Y = /*isCollision(0) * */1 * speed;
-                        else if (position.Y > Destination.Position.Y)
+                        else if (position.Y > Destination.Y)
                             direction.Y = /*isCollision(2) * */-1 * speed;
                         else
                             direction.Y = 0;
                     }
-                    else if (Math.Abs(Destination.Position.X - position.X) > Math.Abs(Destination.Position.Y - position.Y))//executes if magnitude of x difference is greater than that of y
+                    else if (Math.Abs(Destination.X - position.X) > Math.Abs(Destination.Y - position.Y))//executes if magnitude of x difference is greater than that of y
                     {
                         //Checks if x requires translation, either positive, negative or none
                         //multiplied by factor of speed
-                        if (position.X < Destination.Position.X)
+                        if (position.X < Destination.X)
                             direction.X = /*isCollision(1) * */1 * speed;
-                        else if (position.X > Destination.Position.X)
+                        else if (position.X > Destination.X)
                             direction.X = /*isCollision(3) * */-1 * speed;
                         else
                             direction.X = 0;
                         //checks if y requires translation, either positive, negative, or none
                         //multiplied by factor of speed
-                        if (position.Y < Destination.Position.Y)
-                            direction.Y = /*isCollision(0) * */Math.Abs(((float)Destination.Position.Y - position.Y) / (Destination.Position.X - position.X) * speed);
-                        else if (position.Y > Destination.Position.Y)
-                            direction.Y = /*isCollision(2) * */-Math.Abs(((float)Destination.Position.Y - position.Y) / (Destination.Position.X - position.X) * speed);
+                        if (position.Y < Destination.Y)
+                            direction.Y = /*isCollision(0) * */Math.Abs(((float)Destination.Y - position.Y) / (Destination.X - position.X) * speed);
+                        else if (position.Y > Destination.Y)
+                            direction.Y = /*isCollision(2) * */-Math.Abs(((float)Destination.Y - position.Y) / (Destination.X - position.X) * speed);
                         else
                             direction.Y = 0;
                     }
                     else//executes if magnitudes are the same
                     {
                         //determines if x translation is positive, negative, or none
-                        if (position.X < Destination.Position.X)
+                        if (position.X < Destination.X)
                             direction.X = /*isCollision(1) * */1 / (float)Math.Sqrt(2) * speed;
-                        else if (position.X > Destination.Position.X)
+                        else if (position.X > Destination.X)
                             direction.X = /*isCollision(3) * */-1 / (float)Math.Sqrt(2) * speed;
                         else
                             direction.X = 0;
                         //determines if y translation is positive, negative, or none
-                        if (position.Y < Destination.Position.Y)
+                        if (position.Y < Destination.Y)
                             direction.Y = /*isCollision(0) * */1 / (float)Math.Sqrt(2) * speed;
-                        else if (position.Y > Destination.Position.Y)
+                        else if (position.Y > Destination.Y)
                             direction.Y = /*isCollision(2) * */-1 / (float)Math.Sqrt(2) * speed;
                         else
                             direction.Y = 0;
@@ -163,12 +160,12 @@ namespace ZombieAssault
                 else
                     direction = Vector2.Zero;//sets to no translation on update
 
-                Vector2 diff = new Vector2(Math.Abs(position.X - Destination.Position.X), Math.Abs(position.Y - Destination.Position.Y));
+                Vector2 diff = new Vector2(Math.Abs(position.X - Destination.X), Math.Abs(position.Y - Destination.Y));
 
                 //sets position to destination if within 1 pixel in both x and y to prevent sprite from stuttering
-                if (Math.Abs((float)position.X - Destination.Position.X) < 1 && Math.Abs((float)position.Y - Destination.Position.Y) < 1)
+                if (Math.Abs((float)position.X - Destination.X) < 1 && Math.Abs((float)position.Y - Destination.Y) < 1)
                 {
-                    position = Destination.Position;
+                    position = Destination;
                 }
                 else
                     position += direction;

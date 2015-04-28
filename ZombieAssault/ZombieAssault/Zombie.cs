@@ -47,12 +47,12 @@ namespace ZombieAssault
                 if (currTarget == null)
                     currTarget = s;
             }
-            Destination = new MapNode((currTarget.Position - new Vector2(Game1.resOffset + SpriteManager.gridOffset, 0))/new Vector2(SpriteManager.tileSize, SpriteManager.tileSize) + new Vector2(2, 2), 1);
+            Destination = currTarget.Position;//new MapNode((currTarget.Position - new Vector2(Game1.resOffset + SpriteManager.gridOffset, 0))/new Vector2(SpriteManager.tileSize, SpriteManager.tileSize) + new Vector2(2, 2), 1);
 
 
             //algorithm for traversing spritesheet
             currentFrame.Y = 0;
-            if (position != destination.Position)
+            if (position != destination)
             {
                 timeSinceLastFrame += gameTime.ElapsedGameTime.Milliseconds;
                 if (timeSinceLastFrame > millisecondsPerFrame)

@@ -94,10 +94,14 @@ namespace ZombieAssault
                 if (previousState.RightButton == ButtonState.Released && currentState.RightButton == ButtonState.Pressed)
                 {
                     MapNode startPoint = Map.getNode(new Vector2(((int)(((selectedUnit.Position.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2), ((int)((selectedUnit.Position.Y) / SpriteManager.tileSize) + 2)));
-                    selectedUnit.Destination = Map.getNode(new Vector2(((int)(((currentState.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2), ((int)((currentState.Y) / SpriteManager.tileSize) + 2)));//sets destination to mouse position
-                    List<Vector2> path = pathfinder.FindPath(new Point((int)startPoint.Index.X, (int)startPoint.Index.Y), new Point((int)selectedUnit.Destination.Index.X, (int)selectedUnit.Destination.Index.Y));
+                    //selectedUnit.Destination = Map.getNode(new Vector2(((int)(((currentState.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2), ((int)((currentState.Y) / SpriteManager.tileSize) + 2)));//sets destination to mouse position
+                    Point dest = new Point((((int)(((currentState.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2)), ((int)((currentState.Y) / SpriteManager.tileSize) + 2));//sets destination to mouse position
+                    List<Vector2> path = pathfinder.FindPath(new Point((int)startPoint.Index.X, (int)startPoint.Index.Y), dest);//new Point((int)selectedUnit.Destination.Index.X, (int)selectedUnit.Destination.Index.Y));
+                    selectedUnit.Path = path;
                     foreach (Vector2 v in path)
                         Console.WriteLine(v);
+                    Console.WriteLine(Game1.resOffset + ":" + SpriteManager.tileSize + ":" + new Vector2((((int)(((currentState.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2)), ((int)((currentState.Y) / SpriteManager.tileSize) + 2)));
+                    Console.WriteLine(dest);
                 }
             }
 
