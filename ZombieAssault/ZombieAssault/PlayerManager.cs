@@ -108,5 +108,26 @@ namespace ZombieAssault
             foreach (Sprite s in unitList)
                 s.Update(gameTime, clientBounds);
         }
+
+        //attempt at line of sight
+        /*
+        public bool isInLineOfSight(Vector2 targetPosition)
+        {
+            Vector3 startingPosition = new Vector3(selectedUnit.Position, 0);
+            Vector3 direction = new Vector3(selectedUnit.Position - targetPosition, 0);
+            double distance = Math.Sqrt(Math.Abs(targetPosition.X - selectedUnit.Position.X) + Math.Abs(targetPosition.Y - selectedUnit.Position.Y));
+
+            direction.Normalize();
+
+            Ray lineOfSight = new Ray(startingPosition, direction);
+
+            foreach node in the map
+            {
+                if node is impassable and lineOfSight.Intersects(node)
+                    return false
+            }
+            return true;
+        }
+        */
     }
 }
