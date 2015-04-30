@@ -24,7 +24,7 @@ namespace ZombieAssault
         }
 
         public PlayerControlledSprite(Texture2D textureImage, Vector2 position, float speed, float scale, float rotation, int unitNumber)
-            : base (textureImage, position, new Point(64, 64), new Point(0,0), new Point(3,2), rotation, speed, scale, 0, new Vector2(0,0), 200)
+            : base (textureImage, position, new Point(64, 64), new Point(0,0), new Point(3,3), rotation, speed, scale, 0, new Vector2(0,0), 200)
         {
             destination = new Vector2(position.X * SpriteManager.tileSize + Game1.resOffset - SpriteManager.gridOffset, position.Y * SpriteManager.tileSize);//initializes destination as starting position
             this.unitNumber = unitNumber;
