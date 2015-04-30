@@ -44,7 +44,7 @@ namespace ZombieAssault
         {
             spriteBatch = new SpriteBatch(Game.GraphicsDevice);
 
-            playerManager = new PlayerManager(Game.Content.Load<Texture2D>(@"Images/Jack_SpriteSheet"));
+            playerManager = new PlayerManager(Game.Content.Load<Texture2D>(@"Images/Jack_SpriteSheet"), Game.Content.Load<Texture2D>(@"Images/Eric_SpriteSheet"));
             zombieController = new ZombieController(Game.Content.Load<Texture2D>(@"Images/Zombie_SpriteSheet"));
 
             cursorTexture = Game.Content.Load<Texture2D>(@"Images/Cursor_Sprite");
