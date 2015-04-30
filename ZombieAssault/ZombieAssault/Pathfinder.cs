@@ -16,15 +16,18 @@ namespace ZombieAssault
 
         private int levelHeight;
 
-        public Pathfinder(Map map)
+        private List<int> passableTiles;
+
+        public Pathfinder(Map map, List<int> passableTiles)
         {
 
             levelWidth = map.Width;
 
             levelHeight = map.Height;
 
-            InitializeSearchNodes(map);
+            this.passableTiles = passableTiles;
 
+            InitializeSearchNodes(map);
         }
 
         private void InitializeSearchNodes(Map map)
@@ -43,7 +46,7 @@ namespace ZombieAssault
 
                     node.Position = new Point(x, y);
 
-                    node.Walkable = Map.getNode(new Vector2(x,y)).Type == 2 || Map.getNode(new Vector2(x,y)).Type == 3;
+                    node.Walkable = passableTiles.Contains(Map.getNode(new Vector2(x, y)).Type);
 
                     if (node.Walkable == true)
                     {

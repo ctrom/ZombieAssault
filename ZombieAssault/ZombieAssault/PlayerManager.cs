@@ -39,7 +39,10 @@ namespace ZombieAssault
         {
             unitList = new List<PlayerControlledSprite>();
 
-            pathfinder = new Pathfinder(map);
+            List<int> passableTiles = new List<int>();
+            passableTiles.Add(2);
+            passableTiles.Add(3);
+            pathfinder = new Pathfinder(map, passableTiles);
 
             unitList.Add(new PlayerControlledSprite(jackTexture, new Vector2(20, 20), 1f, .375f*SpriteManager.scaleFactor, 0, 1));
             unitList.Add(new PlayerControlledSprite(ericTexture, new Vector2(10, 10), 1f, .375f*SpriteManager.scaleFactor, 0, 2));
