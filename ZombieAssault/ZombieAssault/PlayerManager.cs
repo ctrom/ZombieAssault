@@ -113,24 +113,28 @@ namespace ZombieAssault
         }
 
         //attempt at line of sight
-        /*
+        
         public bool isInLineOfSight(Vector2 targetPosition)
         {
             Vector3 startingPosition = new Vector3(selectedUnit.Position, 0);
             Vector3 direction = new Vector3(selectedUnit.Position - targetPosition, 0);
-            double distance = Math.Sqrt(Math.Abs(targetPosition.X - selectedUnit.Position.X) + Math.Abs(targetPosition.Y - selectedUnit.Position.Y));
+            float distance = Math.Abs(targetPosition.X - selectedUnit.Position.X) + Math.Abs(targetPosition.Y - selectedUnit.Position.Y);
 
             direction.Normalize();
 
             Ray lineOfSight = new Ray(startingPosition, direction);
 
-            foreach node in the map
+            for(int i = 0; i < 44; i++)
             {
-                if node is impassable and lineOfSight.Intersects(node)
-                    return false
+                for(int j = 0; j < 44; j++)
+                {
+                    MapNode temp = Map.getNode(new Vector2(i,j));
+                    float tempDist = Math.Abs(temp.Position.X - selectedUnit.Position.X) + Math.Abs(temp.Position.Y - selectedUnit.Position.Y);
+                    if (Map.Matrix[i, j] != 2 && lineOfSight.Intersects(new BoundingBox(new Vector3(temp.Position.X, temp.Position.Y, 0), new Vector3(temp.Position.X + SpriteManager.tileSize, temp.Position.Y + SpriteManager.tileSize, 0))) < distance)
+                        return true;
+                }
             }
-            return true;
+            return false;
         }
-        */
     }
 }
