@@ -56,6 +56,8 @@ namespace ZombieAssault
                 }
             }
 
+            spriteManager.GameState = 0;
+
             base.Initialize();
         }
 
