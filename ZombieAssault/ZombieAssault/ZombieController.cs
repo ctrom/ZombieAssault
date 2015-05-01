@@ -18,14 +18,14 @@ namespace ZombieAssault
      */
     class ZombieController
     {
-        private List<Zombie> zombieList;//List of zombies
+        private static List<Zombie> zombieList;//List of zombies
         private Texture2D zombieTexture;
 
         //experimental zombie spawn counter
         private int timeSinceLastSpawn;
         private int millisecondsTilSpawn;
 
-        public List<Zombie> ZombieList
+        public static List<Zombie> ZombieList
         {
             get { return zombieList; }
         }
@@ -72,7 +72,7 @@ namespace ZombieAssault
                             position = new Vector2(0, rand.Next(2, 42));
                             break;
                     }
-                    zombieList.Add(new Zombie(zombieTexture, position, .2f, .375f, 0));
+                    zombieList.Add(new Zombie(zombieTexture, position, .2f * SpriteManager.scaleFactor, .375f * SpriteManager.scaleFactor, 0));
                 }
             }
         }

@@ -78,7 +78,7 @@ namespace ZombieAssault
             spriteBatch.Draw(cursorTexture,cursorPosition, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);//draws cursor
             spriteBatch.Draw(mapTexture, new Vector2(Game1.resOffset, 0), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, 0);//draws map
             spriteBatch.Draw(highlightTexture, new Vector2((int)((cursorPosition.X - gridOffset) / tileSize) * tileSize + gridOffset, (int)(cursorPosition.Y / tileSize) * tileSize), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, .2f);//draws tile highlight
-            foreach (Sprite s in zombieController.ZombieList)//draws zombies in the spawner's list
+            foreach (Sprite s in ZombieController.ZombieList)//draws zombies in the spawner's list
                 s.Draw(gameTime, spriteBatch);
 
             foreach (Sprite s in playerManager.UnitList)

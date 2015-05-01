@@ -44,10 +44,10 @@ namespace ZombieAssault
             passableTiles.Add(3);
             pathfinder = new Pathfinder(map, passableTiles);
 
-            unitList.Add(new PlayerControlledSprite(jackTexture, new Vector2(20, 20), 1f, .375f*SpriteManager.scaleFactor, 0, 1));
-            unitList.Add(new PlayerControlledSprite(ericTexture, new Vector2(10, 10), 1f, .375f*SpriteManager.scaleFactor, 0, 2));
-            unitList.Add(new PlayerControlledSprite(sarahTexture, new Vector2(30, 30), 1f, .375f*SpriteManager.scaleFactor, 0, 3));
-            unitList.Add(new PlayerControlledSprite(meganTexture, new Vector2(15, 15), 1f, .375f*SpriteManager.scaleFactor, 0, 4));
+            unitList.Add(new PlayerControlledSprite(jackTexture, new Vector2(20, 20), 1f * SpriteManager.scaleFactor, .375f*SpriteManager.scaleFactor, 0, 1));
+            unitList.Add(new PlayerControlledSprite(ericTexture, new Vector2(10, 10), 1f * SpriteManager.scaleFactor, .375f*SpriteManager.scaleFactor, 0, 2));
+            unitList.Add(new PlayerControlledSprite(sarahTexture, new Vector2(30, 30), 1f * SpriteManager.scaleFactor, .375f*SpriteManager.scaleFactor, 0, 3));
+            unitList.Add(new PlayerControlledSprite(meganTexture, new Vector2(15, 15), 1f * SpriteManager.scaleFactor, .375f*SpriteManager.scaleFactor, 0, 4));
         }
 
         public void Update(GameTime gameTime, Rectangle clientBounds)
@@ -108,8 +108,8 @@ namespace ZombieAssault
                 }
             }
 
-            foreach (Sprite s in unitList)
-                s.Update(gameTime, clientBounds);
+            foreach (PlayerControlledSprite s in unitList)
+                s.Update(gameTime, clientBounds, ZombieController.ZombieList);
         }
 
         //attempt at line of sight

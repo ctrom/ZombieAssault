@@ -15,6 +15,9 @@ namespace ZombieAssault
         private int unitNumber;
         private List<Vector2> path;
 
+        private Zombie prevTarget;
+        private Zombie currTarget;
+
         public int UnitNumber
         {
             get
@@ -45,7 +48,7 @@ namespace ZombieAssault
             }
         }
 
-        public override void Update(GameTime gameTime, Rectangle clientBounds)
+        public void Update(GameTime gameTime, Rectangle clientBounds, List<Zombie> mobList)
         {
             //algorithm for traversing sprite sheet
             currentFrame.Y = 0;//initializes as idle animation
@@ -72,6 +75,25 @@ namespace ZombieAssault
                     path.Remove(path.ElementAt(0));
                 }
             }
+
+            //Algorithm for finding closest zombie to unit
+            prevTarget = currTarget;
+            foreach (Zombie s in mobList)
+            {
+                if (prevTarget == null)
+                {
+                    prevTarget = s;
+                }
+                if (Math.Sqrt(Math.Pow(position.X - s.Position.X, 2) + Math.Pow(position.Y - s.Position.Y, 2)) <
+                    Math.Sqrt(Math.Pow(position.X - prevTarget.Position.X, 2) + Math.Pow(position.Y - prevTarget.Position.Y, 2)))
+                {
+                    currTarget = s;
+                }
+                if (currTarget == null)
+                    currTarget = s;
+            }
+            if(position == Destination && ZombieController.ZombieList.Count != 0)
+                rotation = (float)(Math.Atan2(currTarget.Position.Y - position.Y, currTarget.Position.X - position.X)) + (float)Math.PI / 2;
 
             base.Update(gameTime, clientBounds);
         }
