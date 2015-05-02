@@ -20,6 +20,7 @@ namespace ZombieAssault
         public static List<Sprite> spriteList = new List<Sprite>();
         ZombieController zombieController;//zombie manager component, handles spawns and list of zombies
         PlayerManager playerManager;
+        BreakableObjectManager breakableObjectManager;
 
         public static readonly float scaleFactor = Game1.resHeight/960f;//factor by which sprites will be scaled to, based on resolution
         public static readonly float tileSize = scaleFactor * 24;
@@ -54,6 +55,7 @@ namespace ZombieAssault
 
             playerManager = new PlayerManager(Game.Content.Load<Texture2D>(@"Images/Jack_SpriteSheet"), Game.Content.Load<Texture2D>(@"Images/Eric_SpriteSheet"), Game.Content.Load<Texture2D>(@"Images/Sarah_SpriteSheet"), Game.Content.Load<Texture2D>(@"Images/Megan_SpriteSheet"));
             zombieController = new ZombieController(Game.Content.Load<Texture2D>(@"Images/Zombie_SpriteSheet"));
+            breakableObjectManager = new BreakableObjectManager(Game.Content.Load<Texture2D>(@"Images/Window_Spritesheet"));
 
             cursorTexture = Game.Content.Load<Texture2D>(@"Images/Cursor_Sprite");
             mapTexture = Game.Content.Load<Texture2D>(@"Images/House_Layout(40x40 tiles, 960x960 resolution)");
@@ -69,15 +71,15 @@ namespace ZombieAssault
             {
                 s.Update(gameTime, Game.Window.ClientBounds);
             }
-
             if(GameState == 0 && Keyboard.GetState().IsKeyDown(Keys.Enter))
             {
                 GameState = 1;
             }
             if (GameState == 1)
             {
-                playerManager.Update(gameTime, Game.Window.ClientBounds);
+                playerManager.Update(gameTime, Game.Window.ClientBounds);//updates player units
                 zombieController.Update(gameTime, Game.Window.ClientBounds, playerManager.UnitList);//updates zombie spawner
+                breakableObjectManager.Update(gameTime, Game.Window.ClientBounds);//updates breakable objects
             }
 
             cursorPosition = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
@@ -105,6 +107,8 @@ namespace ZombieAssault
                     s.Draw(gameTime, spriteBatch);
 
                 foreach (Sprite s in playerManager.UnitList)
+                    s.Draw(gameTime, spriteBatch);
+                foreach (Sprite s in breakableObjectManager.BreakableList)
                     s.Draw(gameTime, spriteBatch);
             }
 

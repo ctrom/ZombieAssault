@@ -26,7 +26,7 @@ namespace ZombieAssault
             get { return position; }
             set
             {
-                position = value * new Vector2(SpriteManager.tileSize, SpriteManager.tileSize) + new Vector2(Game1.resOffset - SpriteManager.tileSize, -2*SpriteManager.tileSize);
+                position = value * new Vector2(SpriteManager.tileSize, SpriteManager.tileSize) + new Vector2(Game1.resOffset - SpriteManager.tileSize - SpriteManager.gridOffset, -2*SpriteManager.tileSize);
             }
         }
 

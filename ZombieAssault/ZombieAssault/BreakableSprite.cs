@@ -9,15 +9,17 @@ namespace ZombieAssault
 {
     class BreakableSprite : Sprite
     {
-        Point currentFrame;
         Point frameSize;
+        Point currentFrame;
+        Point sheetSize;
         float rotation;
 
-        public BreakableSprite(Texture2D textureImage, Vector2 position, float scale, int collisionOffset, Point currentFrame, Point frameSize, float rotation)
+        public BreakableSprite(Texture2D textureImage, Vector2 position, float scale, int collisionOffset, Point frameSize, Point currentFrame, Point sheetSize, float rotation)
             : base(textureImage, position, scale, collisionOffset)
         {
-            this.currentFrame = currentFrame;
             this.frameSize = frameSize;
+            this.currentFrame = currentFrame;
+            this.sheetSize = sheetSize;
             this.rotation = rotation;
         }
 
