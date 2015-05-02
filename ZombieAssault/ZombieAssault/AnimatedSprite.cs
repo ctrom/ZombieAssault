@@ -20,6 +20,7 @@ namespace ZombieAssault
         protected float rotation;//in radians
         protected Vector2 direction;
         float speed;
+        protected List<Vector2> path;
 
         public abstract Vector2 Direction
         {
@@ -37,6 +38,15 @@ namespace ZombieAssault
             }
         }
 
+        public List<Vector2> Path
+        {
+            get { return path; }
+            set
+            {
+                path = value;
+            }
+        }
+
         public AnimatedSprite(Texture2D textureImage, Vector2 position, Point frameSize, Point currentFrame, Point sheetSize, float rotation, float speed, float scale, int collisionOffset, Vector2 direction, int millisecondsPerFrame)
             : base(textureImage, position, scale, collisionOffset)
         {
@@ -47,6 +57,7 @@ namespace ZombieAssault
             this.speed = speed;
             this.direction = direction;
             this.millisecondsPerFrame = millisecondsPerFrame;
+            path = new List<Vector2>();
         }
 
         //public virtual List<MapNode> FindPath(MapNode destNode)
@@ -89,6 +100,7 @@ namespace ZombieAssault
         {
             //List<MapNode> path = FindPath(destination);
 
+            
             if(Destination == null)
             {
                 Destination = position + new Vector2(Game1.resOffset, Game1.resOffset);

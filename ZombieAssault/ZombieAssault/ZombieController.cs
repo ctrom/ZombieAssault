@@ -25,6 +25,8 @@ namespace ZombieAssault
         private int timeSinceLastSpawn;
         private int millisecondsTilSpawn;
 
+        private Map map;
+
         public static List<Zombie> ZombieList
         {
             get { return zombieList; }
@@ -41,6 +43,7 @@ namespace ZombieAssault
             zombieList = new List<Zombie>();
             this.zombieTexture = zombieTexture;
             this.millisecondsTilSpawn = millisecondsTilSpawn;
+            map = new Map();
         }
 
         public void Update(GameTime gameTime, Rectangle clientBounds, List<PlayerControlledSprite> targets)
@@ -72,7 +75,7 @@ namespace ZombieAssault
                             position = new Vector2(0, rand.Next(2, 42));
                             break;
                     }
-                    zombieList.Add(new Zombie(zombieTexture, position, .2f * SpriteManager.scaleFactor, .375f * SpriteManager.scaleFactor, 0));
+                    zombieList.Add(new Zombie(zombieTexture, position, .2f * SpriteManager.scaleFactor, .375f * SpriteManager.scaleFactor, 0, map));
                 }
             }
         }

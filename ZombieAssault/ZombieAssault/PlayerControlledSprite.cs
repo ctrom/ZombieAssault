@@ -13,7 +13,6 @@ namespace ZombieAssault
     {
         
         private int unitNumber;
-        private List<Vector2> path;
 
         private Zombie prevTarget;
         private Zombie currTarget;
@@ -31,7 +30,6 @@ namespace ZombieAssault
         {
             destination = new Vector2(position.X * SpriteManager.tileSize + Game1.resOffset - SpriteManager.gridOffset, position.Y * SpriteManager.tileSize);//initializes destination as starting position
             this.unitNumber = unitNumber;
-            path = new List<Vector2>();
         }
 
         public override Vector2 Direction
@@ -39,14 +37,7 @@ namespace ZombieAssault
             get { return direction; }
         }
 
-        public List<Vector2> Path
-        {
-            get { return path; }
-            set
-            {
-                path = value;
-            }
-        }
+        
 
         public void Update(GameTime gameTime, Rectangle clientBounds, List<Zombie> mobList)
         {
@@ -67,6 +58,7 @@ namespace ZombieAssault
             }
             else
                 currentFrame.X = 0;//sets current frame to idle animation
+
             if (path.Count > 0)
             {
                 Destination = path.ElementAt(0);
