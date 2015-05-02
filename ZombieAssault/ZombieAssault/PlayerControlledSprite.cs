@@ -86,8 +86,16 @@ namespace ZombieAssault
             }
             if(path.Count == 0 && ZombieController.ZombieList.Count != 0)
                 rotation = (float)(Math.Atan2(currTarget.Position.Y - position.Y, currTarget.Position.X - position.X)) + (float)Math.PI / 2;
-
+            //playerAttack();
             base.Update(gameTime, clientBounds);
+        }
+
+        private void playerAttack()
+        {
+            if((float)Math.Abs(currTarget.Position.X - this.Position.X) < SpriteManager.tileSize + 1 || (float)Math.Abs(currTarget.Position.Y - this.Position.Y) < SpriteManager.tileSize + 1)
+            {
+                currTarget.health = currTarget.health - 100;
+            }
         }
     }
 }

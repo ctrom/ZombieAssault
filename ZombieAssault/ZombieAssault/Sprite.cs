@@ -19,7 +19,7 @@ namespace ZombieAssault
         protected Vector2 position;
         protected float scale;
         protected int collisionOffset;
-        protected float health;
+        public float health;
 
         public Vector2 Position
         {
@@ -41,7 +41,10 @@ namespace ZombieAssault
 
         public virtual void Update(GameTime gameTime, Rectangle clientBounds)
         {
-            
+            if (this.health < 1)
+                foreach (Sprite s in SpriteManager.spriteList)
+                    if (this == s)
+                        SpriteManager.spriteList.Remove(s);
         }
 
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
