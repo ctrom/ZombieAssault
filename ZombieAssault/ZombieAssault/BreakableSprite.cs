@@ -48,7 +48,7 @@ namespace ZombieAssault
                 origin,
                 scale,
                 SpriteEffects.None,
-                .5f);
+                .25f);
         }
     }
 }
