@@ -30,6 +30,7 @@ namespace ZombieAssault
         private Texture2D titleTexture;
         private Texture2D cursorTexture;
         private Texture2D highlightTexture;
+        private Texture2D unitHudTexture;
         private Vector2 cursorPosition;
         private int gameState;
 
@@ -61,6 +62,7 @@ namespace ZombieAssault
             mapTexture = Game.Content.Load<Texture2D>(@"Images/House_Layout(40x40 tiles, 960x960 resolution)");
             titleTexture = Game.Content.Load<Texture2D>(@"Images/Title_Screen");
             highlightTexture = Game.Content.Load<Texture2D>(@"Images/Highlight_Sprite");
+            unitHudTexture = Game.Content.Load<Texture2D>(@"Images/Hud_UnitInfo");
 
             base.LoadContent();
         }
@@ -103,6 +105,8 @@ namespace ZombieAssault
                     s.Draw(gameTime, spriteBatch);
                 spriteBatch.Draw(mapTexture, new Vector2(Game1.resOffset, 0), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, 0);//draws map
                 spriteBatch.Draw(highlightTexture, new Vector2((int)((cursorPosition.X - gridOffset) / tileSize) * tileSize + gridOffset, (int)(cursorPosition.Y / tileSize) * tileSize), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, .2f);//draws tile highlight
+                spriteBatch.Draw(unitHudTexture, new Vector2((int)(Game1.resOffset - 315 * SpriteManager.scaleFactor), 0), null, Color.White, 0, Vector2.Zero, scaleFactor,  SpriteEffects.None, 1);
+                spriteBatch.Draw(unitHudTexture, new Vector2((int)(Game1.resWidth - Game1.resOffset /*+ 315 * SpriteManager.scaleFactor*/), 0), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, 1);
                 foreach (Sprite s in ZombieController.ZombieList)//draws zombies in the spawner's list
                     s.Draw(gameTime, spriteBatch);
 
