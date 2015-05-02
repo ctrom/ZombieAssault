@@ -18,6 +18,8 @@ namespace ZombieAssault
         private PlayerControlledSprite prevTarget;
         private PlayerControlledSprite currTarget;
         private Pathfinder pathfinder;
+        private Vector2 targetPrevPos;
+        private int timeSinceRepath;
 
         public Zombie(Texture2D textureImage, Vector2 position, float speed, float scale, float rotation, Map map)
             : base(textureImage, position, new Point(64,64), new Point(0,0), new Point(3,1), rotation, speed, scale, 0, new Vector2(0,0), 500)
@@ -27,11 +29,22 @@ namespace ZombieAssault
             temp.Add(2);
             temp.Add(3);
             pathfinder = new Pathfinder(map, temp);
+            timeSinceRepath = 4000;
         }
 
         public override Vector2 Direction
         {
             get { return direction; }
+        }
+
+        private void switchTarget()
+        {
+            path.Clear();
+            timeSinceRepath = 0;
+            MapNode startPoint = Map.getNode(new Vector2(((int)(((position.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2), ((int)((position.Y) / SpriteManager.tileSize) + 2)));
+            //selectedUnit.Destination = Map.getNode(new Vector2(((int)(((currentState.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2), ((int)((currentState.Y) / SpriteManager.tileSize) + 2)));//sets destination to mouse position
+            Point dest = new Point((((int)(((currTarget.Position.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2)), ((int)((currTarget.Position.Y) / SpriteManager.tileSize) + 2));//sets destination to mouse position
+            path = pathfinder.FindPath(new Point((int)startPoint.Index.X, (int)startPoint.Index.Y), dest);//new Point((int)selectedUnit.Destination.Index.X, (int)selectedUnit.Destination.Index.Y));
         }
 
         public void Update(GameTime gameTime, Rectangle clientBounds, List<PlayerControlledSprite> targets)
@@ -43,29 +56,28 @@ namespace ZombieAssault
                 if (prevTarget == null)
                 {
                     prevTarget = s;
-                    
+                    targetPrevPos = s.Position;
                 }
                 if (/*Math.Abs(position.X - s.Position.X) + Math.Abs(position.Y + s.Position.Y) < Math.Abs(position.X - prevTarget.Position.X) + Math.Abs(position.Y - prevTarget.Position.Y))*/Math.Sqrt(Math.Pow(position.X - s.Position.X, 2) + Math.Pow(position.Y - s.Position.Y, 2)) <
                     Math.Sqrt(Math.Pow(position.X - prevTarget.Position.X, 2) + Math.Pow(position.Y - prevTarget.Position.Y, 2)))
                 {
                     currTarget = s;
+                    switchTarget();
                 }
                 if (currTarget == null)
                 {
                     currTarget = s;
                 }
             }
-            if((Math.Abs(prevTarget.Position.X - currTarget.Position.X) > 1 && Math.Abs(prevTarget.Position.Y - currTarget.Position.Y) > 1) || path.Count == 0)
+            timeSinceRepath += gameTime.ElapsedGameTime.Milliseconds;
+            if(((Math.Abs(targetPrevPos.X - currTarget.Position.X) > 1 || Math.Abs(targetPrevPos.Y - currTarget.Position.Y) > 1) || path.Count == 0) && timeSinceRepath > 500)
             {
-                path.Clear();
-                MapNode startPoint = Map.getNode(new Vector2(((int)(((position.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2), ((int)((position.Y) / SpriteManager.tileSize) + 2)));
-                //selectedUnit.Destination = Map.getNode(new Vector2(((int)(((currentState.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2), ((int)((currentState.Y) / SpriteManager.tileSize) + 2)));//sets destination to mouse position
-                Point dest = new Point((((int)(((currTarget.Position.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2)), ((int)((currTarget.Position.Y) / SpriteManager.tileSize) + 2));//sets destination to mouse position
-                path = pathfinder.FindPath(new Point((int)startPoint.Index.X, (int)startPoint.Index.Y), dest);//new Point((int)selectedUnit.Destination.Index.X, (int)selectedUnit.Destination.Index.Y));
+                switchTarget();
             }
 
-            if (path.Count > 0)
+            if (path.Count > 1)
             {
+                rotation = (float)(Math.Atan2(currTarget.Position.Y - position.Y, currTarget.Position.X - position.X)) + (float)Math.PI / 2;
                 Destination = path.ElementAt(0);
                 if (Math.Abs(destination.X - position.X) < 1 && Math.Abs(destination.Y - position.Y) < 1)
                 {
