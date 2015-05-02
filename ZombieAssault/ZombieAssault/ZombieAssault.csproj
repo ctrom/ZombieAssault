@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnimatedSprite.cs" />
+    <Compile Include="BreakableSprite.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Pathfinder.cs" />
     <Compile Include="PlayerControlledSprite.cs" />

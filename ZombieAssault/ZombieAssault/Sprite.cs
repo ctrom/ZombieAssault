@@ -19,6 +19,7 @@ namespace ZombieAssault
         protected Vector2 position;
         protected float scale;
         protected int collisionOffset;
+        protected float health;
 
         public Vector2 Position
         {
@@ -35,6 +36,7 @@ namespace ZombieAssault
             Position = position;
             this.scale = scale;
             this.collisionOffset = collisionOffset;
+            health = 100;
         }
 
         public virtual void Update(GameTime gameTime, Rectangle clientBounds)
