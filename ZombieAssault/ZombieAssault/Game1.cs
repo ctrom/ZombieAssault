@@ -20,7 +20,7 @@ namespace ZombieAssault
         SpriteBatch spriteBatch;
 
         SpriteManager spriteManager;
-
+        Song music;
         Vector2[,] grid;
 
         public readonly static int resHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
@@ -69,7 +69,7 @@ namespace ZombieAssault
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            music = Content.Load<Song>(@"Audio/GameMusic"); 
             // TODO: use this.Content to load your game content here
         }
 
@@ -92,7 +92,10 @@ namespace ZombieAssault
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-
+            if (MediaPlayer.State == MediaState.Stopped)
+            {
+                MediaPlayer.Play(music);
+            }
             
 
             base.Update(gameTime);
