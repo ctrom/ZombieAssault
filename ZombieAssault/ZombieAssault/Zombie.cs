@@ -77,13 +77,15 @@ namespace ZombieAssault
 
             if (path.Count > 1)
             {
-                rotation = (float)(Math.Atan2(currTarget.Position.Y - position.Y, currTarget.Position.X - position.X)) + (float)Math.PI / 2;
                 Destination = path.ElementAt(0);
                 if (Math.Abs(destination.X - position.X) < 1 && Math.Abs(destination.Y - position.Y) < 1)
                 {
                     path.Remove(path.ElementAt(0));
                 }
             }
+            else
+                rotation = (float)(Math.Atan2(currTarget.Position.Y - position.Y, currTarget.Position.X - position.X)) + (float)Math.PI / 2;
+
 
             //algorithm for traversing spritesheet
             currentFrame.Y = 0;
