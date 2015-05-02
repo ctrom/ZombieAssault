@@ -86,14 +86,15 @@ namespace ZombieAssault
             }
             if(path.Count == 0 && ZombieController.ZombieList.Count != 0)
                 rotation = (float)(Math.Atan2(currTarget.Position.Y - position.Y, currTarget.Position.X - position.X)) + (float)Math.PI / 2;
-            //playerAttack();
+            playerAttack();
             base.Update(gameTime, clientBounds);
         }
 
         private void playerAttack()
         {
-            if((float)Math.Abs(currTarget.Position.X - this.Position.X) < SpriteManager.tileSize + 1 || (float)Math.Abs(currTarget.Position.Y - this.Position.Y) < SpriteManager.tileSize + 1)
+            if(currTarget != null && ((float)Math.Abs(currTarget.Position.X - this.Position.X) < SpriteManager.tileSize + 1 || (float)Math.Abs(currTarget.Position.Y - this.Position.Y) < SpriteManager.tileSize + 1))
             {
+                Console.WriteLine("hi");
                 currTarget.health = currTarget.health - 100;
             }
         }

@@ -48,8 +48,17 @@ namespace ZombieAssault
 
         public void Update(GameTime gameTime, Rectangle clientBounds, List<PlayerControlledSprite> targets)
         {
+            List<Zombie> removeList = new List<Zombie>();
             foreach (Zombie z in zombieList)
+            {
+                if (z.health < 1)
+                    removeList.Add(z);
                 z.Update(gameTime, clientBounds, targets);
+            }
+            foreach(Zombie z in removeList)
+            {
+                zombieList.Remove(z);
+            }
             timeSinceLastSpawn += gameTime.ElapsedGameTime.Milliseconds;
             
             if (timeSinceLastSpawn > millisecondsTilSpawn)//checks if required time between spawns has passed
