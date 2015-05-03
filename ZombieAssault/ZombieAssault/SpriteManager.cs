@@ -31,6 +31,7 @@ namespace ZombieAssault
         private Texture2D cursorTexture;
         private Texture2D highlightTexture;
         private Texture2D unitHudTexture;
+        private Texture2D gameInfoHudTexture;
         private Texture2D healthbarGreenTexture;
         private Texture2D healthbarRedTexture;
         private Texture2D startButtonTexture;
@@ -87,6 +88,7 @@ namespace ZombieAssault
             titleTexture = Game.Content.Load<Texture2D>(@"Images/Title_Screen");
             highlightTexture = Game.Content.Load<Texture2D>(@"Images/Highlight_Sprite");
             unitHudTexture = Game.Content.Load<Texture2D>(@"Images/HUD/Hud_UnitInfo");
+            gameInfoHudTexture = Game.Content.Load<Texture2D>(@"Images/HUD/Hud_GameInfo");
             healthbarGreenTexture = Game.Content.Load<Texture2D>(@"Images/HUD/HealthBar/HealthBar");
             healthbarRedTexture = Game.Content.Load<Texture2D>(@"Images/HUD/HealthBar/HealthBarUnder");
             startButtonTexture = Game.Content.Load<Texture2D>(@"Images/Buttons/StartButton");
@@ -159,7 +161,7 @@ namespace ZombieAssault
                 spriteBatch.Draw(mapTexture, new Vector2(Game1.resOffset, 0), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, 0);//draws map
                 spriteBatch.Draw(highlightTexture, new Vector2((int)((cursorPosition.X - gridOffset) / tileSize) * tileSize + gridOffset, (int)(cursorPosition.Y / tileSize) * tileSize), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, .2f);//draws tile highlight
                 spriteBatch.Draw(unitHudTexture, new Vector2((int)(Game1.resOffset - 315 * scaleFactor), 0), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, .8f);
-                spriteBatch.Draw(unitHudTexture, new Vector2((int)(Game1.resWidth - Game1.resOffset /*+ 315 * SpriteManager.scaleFactor*/), 0), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, .8f);
+                spriteBatch.Draw(gameInfoHudTexture, new Vector2((int)(Game1.resWidth - Game1.resOffset /*+ 315 * SpriteManager.scaleFactor*/), 0), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, .8f);
 
                 spriteBatch.Draw(healthbarGreenTexture, jackHealthBar, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
                 spriteBatch.Draw(healthbarRedTexture, new Rectangle(jackHealthBar.X, jackHealthBar.Y, (int)(152 * scaleFactor), 40 * (int)scaleFactor), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
