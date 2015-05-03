@@ -102,7 +102,7 @@ namespace ZombieAssault
                     currTarget = s;
                 }
             }
-            if (path.Count == 0 && ZombieController.ZombieList.Count != 0)
+            if (path.Count == 0 && currTarget != null)
                 rotation = (float)(Math.Atan2(currTarget.Position.Y - position.Y, currTarget.Position.X - position.X)) + (float)Math.PI / 2;
 
             timeSinceAction += gameTime.ElapsedGameTime.Milliseconds;
