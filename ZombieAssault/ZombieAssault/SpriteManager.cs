@@ -89,6 +89,12 @@ namespace ZombieAssault
                 playerManager.Update(gameTime, Game.Window.ClientBounds);//updates player units
                 zombieController.Update(gameTime, Game.Window.ClientBounds, playerManager.UnitList);//updates zombie spawner
                 breakableObjectManager.Update(gameTime, Game.Window.ClientBounds);//updates breakable objects
+                if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+                    GameState = 2;
+            }
+            if(gameState == 2 && Keyboard.GetState().IsKeyDown(Keys.Enter))
+            {
+                GameState = 1;
             }
 
             cursorPosition = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
@@ -106,7 +112,7 @@ namespace ZombieAssault
             {
                 spriteBatch.Draw(titleTexture, new Vector2(Game1.resOffset, 0), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, 0);
             }
-            else if (GameState == 1)
+            else if (GameState == 1 || GameState == 2)
             {
                 foreach (Sprite s in spriteList)
                     s.Draw(gameTime, spriteBatch);
