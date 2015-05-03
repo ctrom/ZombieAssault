@@ -49,12 +49,15 @@ namespace ZombieAssault
         {
             if(health <= 0)
             {
-                currentFrame.X = 0;
-                currentFrame.Y = 2;
+                currentFrame.X = 1;
+                currentFrame.Y = 0;
+            }
+            else if( currentFrame.X == 1 && health > 0)
+            {
+                currentFrame.Y = 1;
             }
             else if( health > 100)
             {
-                currentFrame.X = 0;
                 currentFrame.Y = 1;
             }
             base.Update(gameTime, clientBounds);

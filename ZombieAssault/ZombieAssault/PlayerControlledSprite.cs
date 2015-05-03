@@ -97,7 +97,7 @@ namespace ZombieAssault
                     currTarget = s;
                 
                 if (Math.Sqrt(Math.Pow(position.X - s.Position.X, 2) + Math.Pow(position.Y - s.Position.Y, 2)) <
-                    Math.Sqrt(Math.Pow(position.X - prevTarget.Position.X, 2) + Math.Pow(position.Y - prevTarget.Position.Y, 2)) || prevTarget.health < 1)
+                    Math.Sqrt(Math.Pow(position.X - prevTarget.Position.X, 2) + Math.Pow(position.Y - prevTarget.Position.Y, 2)) || (prevTarget.health < 1 && prevTarget is Zombie))
                 {
                     currTarget = s;
                 }
