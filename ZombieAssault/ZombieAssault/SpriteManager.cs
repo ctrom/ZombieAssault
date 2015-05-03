@@ -172,6 +172,8 @@ namespace ZombieAssault
 
                 foreach (Sprite s in ZombieController.ZombieList)//draws zombies in the spawner's list
                     s.Draw(gameTime, spriteBatch);
+                if (playerManager.UnitList.Count == 0)
+                    gameState = 3;
                 foreach (Sprite s in playerManager.UnitList)
                     s.Draw(gameTime, spriteBatch);
                 foreach (Sprite s in BreakableObjectManager.BreakableList)

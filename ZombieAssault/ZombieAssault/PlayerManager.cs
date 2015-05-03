@@ -81,6 +81,13 @@ namespace ZombieAssault
 
         public void Update(GameTime gameTime, Rectangle clientBounds)
         {
+            List<PlayerControlledSprite> newList = new List<PlayerControlledSprite>();
+            foreach (PlayerControlledSprite s in unitList)
+            {
+                if (s.health > 0)
+                    newList.Add(s);
+            }
+            unitList = newList;
             KeyboardState keyboard = Keyboard.GetState();
 
             if(keyboard.IsKeyDown(Keys.D1))

@@ -102,7 +102,7 @@ namespace ZombieAssault
                 }
             }
             timeSinceRepath += gameTime.ElapsedGameTime.Milliseconds;
-            if (((Math.Abs(targetPrevPos.X - currTarget.Position.X) > 1 || Math.Abs(targetPrevPos.Y - currTarget.Position.Y) > 1) || path.Count == 0) && timeSinceRepath > 500)
+            if (((Math.Abs(targetPrevPos.X - currTarget.Position.X) > 1 || Math.Abs(targetPrevPos.Y - currTarget.Position.Y) > 1) || path.Count == 0 || currTarget.health < 1) && timeSinceRepath > 500)
             {
                 if (currTarget.health < 1)
                 {
