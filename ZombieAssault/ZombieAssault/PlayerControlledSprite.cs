@@ -39,7 +39,7 @@ namespace ZombieAssault
 
         
 
-        public void Update(GameTime gameTime, Rectangle clientBounds, List<Zombie> mobList)
+        public void Update(GameTime gameTime, Rectangle clientBounds)
         {
             //algorithm for traversing sprite sheet
             currentFrame.Y = 0;//initializes as idle animation
@@ -68,21 +68,24 @@ namespace ZombieAssault
                 }
             }
 
+            //if (currTarget == null && mobList.Count != 0)
+            //    currTarget = mobList.ElementAt(0);
+            
             //Algorithm for finding closest zombie to unit
             prevTarget = currTarget;
-            foreach (Zombie s in mobList)
+            foreach (Zombie s in ZombieController.ZombieList)
             {
                 if (prevTarget == null)
                 {
                     prevTarget = s;
                 }
+                if (currTarget == null)
+                    currTarget = s;
                 if (Math.Sqrt(Math.Pow(position.X - s.Position.X, 2) + Math.Pow(position.Y - s.Position.Y, 2)) <
                     Math.Sqrt(Math.Pow(position.X - prevTarget.Position.X, 2) + Math.Pow(position.Y - prevTarget.Position.Y, 2)))
                 {
                     currTarget = s;
                 }
-                if (currTarget == null)
-                    currTarget = s;
             }
             if(path.Count == 0 && ZombieController.ZombieList.Count != 0)
                 rotation = (float)(Math.Atan2(currTarget.Position.Y - position.Y, currTarget.Position.X - position.X)) + (float)Math.PI / 2;
@@ -92,10 +95,11 @@ namespace ZombieAssault
 
         private void playerAttack()
         {
-            if(currTarget != null && (Math.Abs(prevTarget.Position.X - this.Position.X) + Math.Abs(prevTarget.Position.Y - this.Position.Y) < SpriteManager.tileSize + 2))
+            if(currTarget != null && (Math.Abs(currTarget.Position.X - this.Position.X) + Math.Abs(currTarget.Position.Y - this.Position.Y) < SpriteManager.tileSize + 3))
             {
-                Console.WriteLine("hi");
                 currTarget.health = currTarget.health - 100;
+                if (currTarget.health < 1)
+                    currTarget = null;
             }
         }
     }

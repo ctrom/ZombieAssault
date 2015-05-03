@@ -105,7 +105,7 @@ namespace ZombieAssault
             }
 
             foreach (PlayerControlledSprite s in unitList)
-                s.Update(gameTime, clientBounds, ZombieController.ZombieList);
+                s.Update(gameTime, clientBounds);
         }
 
         //attempt at line of sight
