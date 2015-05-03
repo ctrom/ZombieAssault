@@ -69,7 +69,7 @@ namespace ZombieAssault
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            music = Content.Load<Song>(@"Audio/GameMusic"); 
+            music = Content.Load<Song>(@"Audio/GameMusic");
             // TODO: use this.Content to load your game content here
         }
 

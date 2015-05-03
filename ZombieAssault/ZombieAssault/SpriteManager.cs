@@ -64,6 +64,7 @@ namespace ZombieAssault
         public override void Initialize()
         {
             jackHealthBar = new Rectangle((int)(Game1.resOffset - 175 * scaleFactor), 225 * (int)scaleFactor, (int)scaleFactor * 152, (int)scaleFactor * 40);
+
             base.Initialize();
         }
 

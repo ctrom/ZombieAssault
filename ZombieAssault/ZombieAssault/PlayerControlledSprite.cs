@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 
 namespace ZombieAssault
 {
@@ -16,6 +17,8 @@ namespace ZombieAssault
 
         private Zombie prevTarget;
         private Zombie currTarget;
+
+        private int timeSinceAttack;
 
         public int UnitNumber
         {
@@ -39,10 +42,13 @@ namespace ZombieAssault
 
         
 
-        public void Update(GameTime gameTime, Rectangle clientBounds)
+        public override void Update(GameTime gameTime, Rectangle clientBounds)
         {
             //algorithm for traversing sprite sheet
-            currentFrame.Y = 0;//initializes as idle animation
+            if (currTarget != null)
+                currentFrame.Y = 2;
+            else
+                currentFrame.Y = 0;//initializes as idle animation
             if (path.Count != 0)
             {
                 timeSinceLastFrame += gameTime.ElapsedGameTime.Milliseconds;
@@ -92,8 +98,11 @@ namespace ZombieAssault
             }
             if (path.Count == 0 && ZombieController.ZombieList.Count != 0)
                 rotation = (float)(Math.Atan2(currTarget.Position.Y - position.Y, currTarget.Position.X - position.X)) + (float)Math.PI / 2;
-            
-            playerAttack();
+
+            timeSinceAttack += gameTime.ElapsedGameTime.Milliseconds;
+            if (timeSinceAttack > 1000)
+                playerAttack();
+
             base.Update(gameTime, clientBounds);
         }
 
@@ -101,6 +110,7 @@ namespace ZombieAssault
         {
             if(currTarget != null && (Math.Abs(currTarget.Position.X - this.Position.X) + Math.Abs(currTarget.Position.Y - this.Position.Y) < SpriteManager.tileSize + 4))
             {
+                timeSinceAttack = 0;
                 currTarget.health = currTarget.health - 100;
             }
         }
