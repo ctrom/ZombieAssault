@@ -9,9 +9,9 @@ namespace ZombieAssault
 {
     class BreakableObjectManager
     {
-        private List<BreakableSprite> breakableList;
+        private static List<BreakableSprite> breakableList;
 
-        public List<BreakableSprite> BreakableList
+        public static List<BreakableSprite> BreakableList
         {
             get { return breakableList; }
         }
@@ -36,6 +36,7 @@ namespace ZombieAssault
             breakableList.Add(new BreakableSprite(windowTexture, new Vector2(30, 15), 1f * SpriteManager.scaleFactor, 0, new Point(24, 24), new Point(0, 0), new Point(1, 3), (float)Math.PI / 2));
             breakableList.Add(new BreakableSprite(windowTexture, new Vector2(26, 15), 1f * SpriteManager.scaleFactor, 0, new Point(24, 24), new Point(0, 0), new Point(1, 3), (float)Math.PI / 2));
         }
+
 
         public void Update(GameTime gameTime, Rectangle clientBounds)
         {

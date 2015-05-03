@@ -155,7 +155,7 @@ namespace ZombieAssault
                     s.Draw(gameTime, spriteBatch);
                 foreach (Sprite s in playerManager.UnitList)
                     s.Draw(gameTime, spriteBatch);
-                foreach (Sprite s in breakableObjectManager.BreakableList)
+                foreach (Sprite s in BreakableObjectManager.BreakableList)
                     s.Draw(gameTime, spriteBatch);
             }
 

@@ -80,14 +80,15 @@ namespace ZombieAssault
                 {
                     prevTarget = s;
                 }
+
+                if (currTarget == null)
+                    currTarget = s;
                 
                 if (Math.Sqrt(Math.Pow(position.X - s.Position.X, 2) + Math.Pow(position.Y - s.Position.Y, 2)) <
-                    Math.Sqrt(Math.Pow(position.X - prevTarget.Position.X, 2) + Math.Pow(position.Y - prevTarget.Position.Y, 2)))
+                    Math.Sqrt(Math.Pow(position.X - prevTarget.Position.X, 2) + Math.Pow(position.Y - prevTarget.Position.Y, 2)) || prevTarget.health < 1)
                 {
                     currTarget = s;
                 }
-                if (currTarget == null)
-                    currTarget = s;
             }
             if (path.Count == 0 && ZombieController.ZombieList.Count != 0)
                 rotation = (float)(Math.Atan2(currTarget.Position.Y - position.Y, currTarget.Position.X - position.X)) + (float)Math.PI / 2;
@@ -98,11 +99,9 @@ namespace ZombieAssault
 
         private void playerAttack()
         {
-            if(currTarget != null && (Math.Abs(currTarget.Position.X - this.Position.X) + Math.Abs(currTarget.Position.Y - this.Position.Y) < SpriteManager.tileSize + 3))
+            if(currTarget != null && (Math.Abs(currTarget.Position.X - this.Position.X) + Math.Abs(currTarget.Position.Y - this.Position.Y) < SpriteManager.tileSize + 4))
             {
                 currTarget.health = currTarget.health - 100;
-                if (currTarget.health < 1)
-                    currTarget = null;
             }
         }
     }
