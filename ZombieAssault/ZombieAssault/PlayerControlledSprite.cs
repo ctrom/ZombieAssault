@@ -92,7 +92,7 @@ namespace ZombieAssault
 
         private void playerAttack()
         {
-            if(currTarget != null && ((float)Math.Abs(currTarget.Position.X - this.Position.X) < SpriteManager.tileSize + 1 || (float)Math.Abs(currTarget.Position.Y - this.Position.Y) < SpriteManager.tileSize + 1))
+            if(currTarget != null && (Math.Abs(prevTarget.Position.X - this.Position.X) + Math.Abs(prevTarget.Position.Y - this.Position.Y) < SpriteManager.tileSize + 2))
             {
                 Console.WriteLine("hi");
                 currTarget.health = currTarget.health - 100;
