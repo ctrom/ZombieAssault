@@ -20,6 +20,11 @@ namespace ZombieAssault
         private List<PlayerControlledSprite> unitList;
         private PlayerControlledSprite selectedUnit;
 
+        private PlayerControlledSprite jack;
+        private PlayerControlledSprite eric;
+        private PlayerControlledSprite sarah;
+        private PlayerControlledSprite megan;
+
         Map map = new Map();
         private Pathfinder pathfinder;
 
@@ -35,6 +40,25 @@ namespace ZombieAssault
             }
         }
 
+        public PlayerControlledSprite Jack
+        {
+            get { return jack; }
+        }
+        public PlayerControlledSprite Eric
+        {
+            get { return eric; }
+        }
+
+        public PlayerControlledSprite Sarah
+        {
+            get { return sarah; }
+        }
+
+        public PlayerControlledSprite Megan
+        {
+            get { return megan; }
+        }
+        
         public PlayerManager(Texture2D jackTexture, Texture2D ericTexture, Texture2D sarahTexture, Texture2D meganTexture)
         {
             unitList = new List<PlayerControlledSprite>();
@@ -44,10 +68,15 @@ namespace ZombieAssault
             passableTiles.Add(3);
             pathfinder = new Pathfinder(map, passableTiles);
 
-            unitList.Add(new PlayerControlledSprite(jackTexture, new Vector2(20, 20), 1f * SpriteManager.scaleFactor, .375f*SpriteManager.scaleFactor, 0, 1));
-            unitList.Add(new PlayerControlledSprite(ericTexture, new Vector2(15, 10), 1f * SpriteManager.scaleFactor, .375f*SpriteManager.scaleFactor, 0, 2));
-            unitList.Add(new PlayerControlledSprite(sarahTexture, new Vector2(30, 30), 1f * SpriteManager.scaleFactor, .375f*SpriteManager.scaleFactor, 0, 3));
-            unitList.Add(new PlayerControlledSprite(meganTexture, new Vector2(15, 15), 1f * SpriteManager.scaleFactor, .375f*SpriteManager.scaleFactor, 0, 4));
+            jack = new PlayerControlledSprite(jackTexture, new Vector2(20, 20), 1f * SpriteManager.scaleFactor, .375f * SpriteManager.scaleFactor, 0, 1);
+            eric = new PlayerControlledSprite(ericTexture, new Vector2(15, 10), 1f * SpriteManager.scaleFactor, .375f * SpriteManager.scaleFactor, 0, 2);
+            sarah = new PlayerControlledSprite(sarahTexture, new Vector2(30, 30), 1f * SpriteManager.scaleFactor, .375f * SpriteManager.scaleFactor, 0, 3);
+            megan = new PlayerControlledSprite(meganTexture, new Vector2(15, 15), 1f * SpriteManager.scaleFactor, .375f * SpriteManager.scaleFactor, 0, 4);
+
+            unitList.Add(jack);
+            unitList.Add(eric);
+            unitList.Add(sarah);
+            unitList.Add(megan);
         }
 
         public void Update(GameTime gameTime, Rectangle clientBounds)

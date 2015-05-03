@@ -63,7 +63,7 @@ namespace ZombieAssault
 
         public override void Initialize()
         {
-            jackHealthBar = new Rectangle((int)(Game1.resOffset - 175 * scaleFactor), 225 * (int)scaleFactor, (int)scaleFactor * 152, (int)scaleFactor * 40);
+            jackHealthBar = new Rectangle((int)(Game1.resOffset - 175 * scaleFactor), 225 * (int)scaleFactor, (int)(scaleFactor * 152), (int)scaleFactor * 40);
 
             base.Initialize();
         }
@@ -143,14 +143,15 @@ namespace ZombieAssault
             }
             else if (GameState == 1 || GameState == 2)
             {
+                jackHealthBar.Width = (int)((playerManager.Jack.health / 100) * 152 * scaleFactor);
                 foreach (Sprite s in spriteList)
                     s.Draw(gameTime, spriteBatch);
                 spriteBatch.Draw(mapTexture, new Vector2(Game1.resOffset, 0), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, 0);//draws map
                 spriteBatch.Draw(highlightTexture, new Vector2((int)((cursorPosition.X - gridOffset) / tileSize) * tileSize + gridOffset, (int)(cursorPosition.Y / tileSize) * tileSize), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, .2f);//draws tile highlight
-                spriteBatch.Draw(unitHudTexture, new Vector2((int)(Game1.resOffset - 315 * scaleFactor), 0), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, 1);
-                spriteBatch.Draw(unitHudTexture, new Vector2((int)(Game1.resWidth - Game1.resOffset /*+ 315 * SpriteManager.scaleFactor*/), 0), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, 1);
+                spriteBatch.Draw(unitHudTexture, new Vector2((int)(Game1.resOffset - 315 * scaleFactor), 0), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, .8f);
+                spriteBatch.Draw(unitHudTexture, new Vector2((int)(Game1.resWidth - Game1.resOffset /*+ 315 * SpriteManager.scaleFactor*/), 0), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, .8f);
                 spriteBatch.Draw(healthbarGreenTexture, jackHealthBar, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
-                spriteBatch.Draw(healthbarRedTexture, new Rectangle(jackHealthBar.X, jackHealthBar.Y, 152 * (int)scaleFactor, 40 * (int)scaleFactor), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
+                spriteBatch.Draw(healthbarRedTexture, new Rectangle(jackHealthBar.X, jackHealthBar.Y, (int)(152 * scaleFactor), 40 * (int)scaleFactor), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
 
                 foreach (Sprite s in ZombieController.ZombieList)//draws zombies in the spawner's list
                     s.Draw(gameTime, spriteBatch);
