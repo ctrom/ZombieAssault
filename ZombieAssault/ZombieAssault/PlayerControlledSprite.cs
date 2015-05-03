@@ -15,10 +15,10 @@ namespace ZombieAssault
         
         private int unitNumber;
 
-        private Zombie prevTarget;
-        private Zombie currTarget;
+        private Sprite prevTarget;
+        private Sprite currTarget;
 
-        private int timeSinceAttack;
+        private int timeSinceAction;
 
         public int UnitNumber
         {
@@ -26,6 +26,12 @@ namespace ZombieAssault
             {
                 return unitNumber;
             }
+        }
+
+        public Sprite CurrTarget
+        {
+            get { return currTarget; }
+            set { currTarget = value; }
         }
 
         public PlayerControlledSprite(Texture2D textureImage, Vector2 position, float speed, float scale, float rotation, int unitNumber)
@@ -45,7 +51,7 @@ namespace ZombieAssault
         public override void Update(GameTime gameTime, Rectangle clientBounds)
         {
             //algorithm for traversing sprite sheet
-            if (currTarget != null)
+            if (currTarget != null && currTarget is Zombie)
                 currentFrame.Y = 2;
             else
                 currentFrame.Y = 0;//initializes as idle animation
@@ -99,9 +105,11 @@ namespace ZombieAssault
             if (path.Count == 0 && ZombieController.ZombieList.Count != 0)
                 rotation = (float)(Math.Atan2(currTarget.Position.Y - position.Y, currTarget.Position.X - position.X)) + (float)Math.PI / 2;
 
-            timeSinceAttack += gameTime.ElapsedGameTime.Milliseconds;
-            if (timeSinceAttack > 1000)
+            timeSinceAction += gameTime.ElapsedGameTime.Milliseconds;
+            if (timeSinceAction > 1000 && currTarget is Zombie)
                 playerAttack();
+            else if(timeSinceAction > 1000 && currTarget is BreakableSprite)
+                playerRepair();
 
             base.Update(gameTime, clientBounds);
         }
@@ -110,8 +118,17 @@ namespace ZombieAssault
         {
             if(currTarget != null && (Math.Abs(currTarget.Position.X - this.Position.X) + Math.Abs(currTarget.Position.Y - this.Position.Y) < SpriteManager.tileSize + 4))
             {
-                timeSinceAttack = 0;
+                timeSinceAction = 0;
                 currTarget.health = currTarget.health - 100;
+            }
+        }
+
+        private void playerRepair()
+        {
+            if (currTarget != null && (Math.Abs(currTarget.Position.X - this.Position.X) + Math.Abs(currTarget.Position.Y - this.Position.Y) < SpriteManager.tileSize + 4))
+            {
+                timeSinceAction = 0;
+                currTarget.health = currTarget.health + 10;
             }
         }
     }

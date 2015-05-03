@@ -97,8 +97,21 @@ namespace ZombieAssault
                 if (previousState.RightButton == ButtonState.Released && currentState.RightButton == ButtonState.Pressed)
                 {
                     MapNode startPoint = Map.getNode(new Vector2(((int)(((selectedUnit.Position.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2), ((int)((selectedUnit.Position.Y) / SpriteManager.tileSize) + 2)));
-                    //selectedUnit.Destination = Map.getNode(new Vector2(((int)(((currentState.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2), ((int)((currentState.Y) / SpriteManager.tileSize) + 2)));//sets destination to mouse position
                     Point dest = new Point((((int)(((currentState.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2)), ((int)((currentState.Y) / SpriteManager.tileSize) + 2));//sets destination to mouse position
+                    MapNode destNode = Map.getNode(new Vector2((int)((((currentState.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2), ((int)((currentState.Y) / SpriteManager.tileSize) + 2)));
+                    if(destNode.Type == 1)
+                    {
+                        foreach (BreakableSprite b in BreakableObjectManager.BreakableList)
+                        {
+                            //Console.WriteLine(destNode.Position + ":" + b.Position);
+                            if (destNode.Position.X - b.Position.X < 3 && destNode.Position.Y - b.Position.Y < 3)
+                            {
+                                dest = new Point((int)b.RepairSide.X, (int)b.RepairSide.Y);
+                                selectedUnit.CurrTarget = b;
+                                break;
+                            }
+                        }
+                    }
                     List<Vector2> path = pathfinder.FindPath(new Point((int)startPoint.Index.X, (int)startPoint.Index.Y), dest);//new Point((int)selectedUnit.Destination.Index.X, (int)selectedUnit.Destination.Index.Y));
                     selectedUnit.Path = path;
                 }

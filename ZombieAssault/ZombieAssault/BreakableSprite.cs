@@ -12,7 +12,13 @@ namespace ZombieAssault
         Point frameSize;
         Point currentFrame;
         Point sheetSize;
+        Vector2 repairSide;
         float rotation;
+
+        public Vector2 RepairSide
+        {
+            get { return repairSide; }
+        }
 
         public BreakableSprite(Texture2D textureImage, Vector2 position, float scale, int collisionOffset, Point frameSize, Point currentFrame, Point sheetSize, float rotation)
             : base(textureImage, position, scale, collisionOffset)
@@ -21,6 +27,22 @@ namespace ZombieAssault
             this.currentFrame = currentFrame;
             this.sheetSize = sheetSize;
             this.rotation = rotation;
+            if(rotation == 0)
+            {
+                repairSide = position + new Vector2(1, 0);
+            }
+            else if(rotation == (float)Math.PI/2)
+            {
+                repairSide = position + new Vector2(0, 1);
+            }
+            else if(rotation == (float)(Math.PI * 3)/2)
+            {
+                repairSide = position - new Vector2(0, 1);
+            }
+            else
+            {
+                repairSide = position - new Vector2(1, 0);
+            }
         }
 
         public override void Update(GameTime gameTime, Rectangle clientBounds)
@@ -29,6 +51,11 @@ namespace ZombieAssault
             {
                 currentFrame.X = 0;
                 currentFrame.Y = 2;
+            }
+            else if( health > 100)
+            {
+                currentFrame.X = 0;
+                currentFrame.Y = 1;
             }
             base.Update(gameTime, clientBounds);
         }
