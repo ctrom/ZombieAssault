@@ -12,10 +12,10 @@ namespace ZombieAssault
         Point frameSize;
         Point currentFrame;
         Point sheetSize;
-        Vector2 repairSide;
+        Point repairSide;
         float rotation;
 
-        public Vector2 RepairSide
+        public Point RepairSide
         {
             get { return repairSide; }
         }
@@ -29,19 +29,19 @@ namespace ZombieAssault
             this.rotation = rotation;
             if(rotation == 0)
             {
-                repairSide = position + new Vector2(1, 0);
+                repairSide = new Point((int)position.X + 1, (int)position.Y);
             }
             else if(rotation == (float)Math.PI/2)
             {
-                repairSide = position + new Vector2(0, 1);
+                repairSide = new Point((int)position.X, (int)position.Y + 1);
             }
             else if(rotation == (float)(Math.PI * 3)/2)
             {
-                repairSide = position - new Vector2(0, 1);
+                repairSide = new Point((int)position.X, (int)position.Y - 1);
             }
             else
             {
-                repairSide = position - new Vector2(1, 0);
+                repairSide = new Point((int)position.X - 1, (int)position.Y);
             }
         }
 

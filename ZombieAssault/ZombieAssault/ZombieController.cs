@@ -39,7 +39,7 @@ namespace ZombieAssault
             set { millisecondsTilSpawn = value; }
         }
 
-        public ZombieController(Texture2D zombieTexture, int millisecondsTilSpawn = 10000)
+        public ZombieController(Texture2D zombieTexture, int millisecondsTilSpawn = 30000)
         {
             zombieList = new List<Zombie>();
             this.zombieTexture = zombieTexture;
