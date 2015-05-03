@@ -68,27 +68,30 @@ namespace ZombieAssault
                 }
             }
 
-            //if (currTarget == null && mobList.Count != 0)
-            //    currTarget = mobList.ElementAt(0);
+            //if (currTarget == null && ZombieController.ZombieList.Count != 0)
+            //    currTarget = ZombieController.ZombieList.ElementAt(0);
             
             //Algorithm for finding closest zombie to unit
             prevTarget = currTarget;
+            
             foreach (Zombie s in ZombieController.ZombieList)
             {
                 if (prevTarget == null)
                 {
                     prevTarget = s;
                 }
-                if (currTarget == null)
-                    currTarget = s;
+                
                 if (Math.Sqrt(Math.Pow(position.X - s.Position.X, 2) + Math.Pow(position.Y - s.Position.Y, 2)) <
                     Math.Sqrt(Math.Pow(position.X - prevTarget.Position.X, 2) + Math.Pow(position.Y - prevTarget.Position.Y, 2)))
                 {
                     currTarget = s;
                 }
+                if (currTarget == null)
+                    currTarget = s;
             }
-            if(path.Count == 0 && ZombieController.ZombieList.Count != 0)
+            if (path.Count == 0 && ZombieController.ZombieList.Count != 0)
                 rotation = (float)(Math.Atan2(currTarget.Position.Y - position.Y, currTarget.Position.X - position.X)) + (float)Math.PI / 2;
+            
             playerAttack();
             base.Update(gameTime, clientBounds);
         }
