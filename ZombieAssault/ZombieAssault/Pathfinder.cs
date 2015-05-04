@@ -195,62 +195,67 @@ namespace ZombieAssault
 
         public List<Vector2> FindPath(Point startPoint, Point endPoint)
         {
-            if (startPoint == endPoint)
+            try
             {
-                return new List<Vector2>();
-            }
-            ResetSearchNodes();
-            SearchNode startNode = searchNodes[startPoint.X, startPoint.Y];
-            SearchNode endNode = searchNodes[endPoint.X, endPoint.Y];
-            startNode.InOpenList = true;
-
-            startNode.DistanceToGoal = Heuristic(startPoint, endPoint);
-            startNode.DistanceTraveled = 0;
-
-            openList.Add(startNode);
-            while (openList.Count > 0)
-            {
-                SearchNode currentNode = FindBestNode();
-                if (currentNode == null)
+                if (startPoint == endPoint)
                 {
-                    break;
+                    return new List<Vector2>();
                 }
-                if (currentNode == endNode)
+                ResetSearchNodes();
+                SearchNode startNode = searchNodes[startPoint.X, startPoint.Y];
+                SearchNode endNode = searchNodes[endPoint.X, endPoint.Y];
+                startNode.InOpenList = true;
+
+                startNode.DistanceToGoal = Heuristic(startPoint, endPoint);
+                startNode.DistanceTraveled = 0;
+
+                openList.Add(startNode);
+                while (openList.Count > 0)
                 {
-                    return FindFinalPath(startNode, endNode);
-                }
-                for (int i = 0; i < currentNode.Neighbors.Length; i++)
-                {
-                    SearchNode neighbor = currentNode.Neighbors[i];
-                    if (neighbor == null || neighbor.Walkable == false)
+                    SearchNode currentNode = FindBestNode();
+                    if (currentNode == null)
                     {
-                        continue;
+                        break;
                     }
-                    float distanceTraveled = currentNode.DistanceTraveled + 1;
-                    float heuristic = Heuristic(neighbor.Position, endPoint);
-                    if (neighbor.InOpenList == false && neighbor.InClosedList == false)
+                    if (currentNode == endNode)
                     {
-                        neighbor.DistanceTraveled = distanceTraveled;
-                        neighbor.DistanceToGoal = distanceTraveled + heuristic;
-                        neighbor.Parent = currentNode;
-                        neighbor.InOpenList = true;
-                        openList.Add(neighbor);
+                        return FindFinalPath(startNode, endNode);
                     }
-                    else if (neighbor.InOpenList || neighbor.InClosedList)
+                    for (int i = 0; i < currentNode.Neighbors.Length; i++)
                     {
-                        if (neighbor.DistanceTraveled > distanceTraveled)
+                        SearchNode neighbor = currentNode.Neighbors[i];
+                        if (neighbor == null || neighbor.Walkable == false)
+                        {
+                            continue;
+                        }
+                        float distanceTraveled = currentNode.DistanceTraveled + 1;
+                        float heuristic = Heuristic(neighbor.Position, endPoint);
+                        if (neighbor.InOpenList == false && neighbor.InClosedList == false)
                         {
                             neighbor.DistanceTraveled = distanceTraveled;
                             neighbor.DistanceToGoal = distanceTraveled + heuristic;
-
                             neighbor.Parent = currentNode;
+                            neighbor.InOpenList = true;
+                            openList.Add(neighbor);
+                        }
+                        else if (neighbor.InOpenList || neighbor.InClosedList)
+                        {
+                            if (neighbor.DistanceTraveled > distanceTraveled)
+                            {
+                                neighbor.DistanceTraveled = distanceTraveled;
+                                neighbor.DistanceToGoal = distanceTraveled + heuristic;
+
+                                neighbor.Parent = currentNode;
+                            }
                         }
                     }
+                    openList.Remove(currentNode);
+                    currentNode.InClosedList = true;
                 }
-                openList.Remove(currentNode);
-                currentNode.InClosedList = true;
+                return new List<Vector2>();
             }
-            return new List<Vector2>();
+            catch (Exception)
+            { return new List<Vector2>(); }
         }
 
         private class SearchNode

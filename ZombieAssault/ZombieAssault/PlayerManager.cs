@@ -142,12 +142,10 @@ namespace ZombieAssault
                     {
                         foreach (BreakableSprite b in BreakableObjectManager.BreakableList)
                         {
-                            Console.WriteLine(destNode + ":" + b.Position);
                             if (Math.Abs(destNode.Position.X - b.Position.X) < 3 && Math.Abs(destNode.Position.Y - b.Position.Y) < 3)
                             {
                                 dest = new Point((int)b.RepairSide.X, (int)b.RepairSide.Y);
                                 selectedUnit.CurrTarget = b;
-                                Console.WriteLine(dest+ ":" + b.RepairSide);
                                 break;
                             }
                         }

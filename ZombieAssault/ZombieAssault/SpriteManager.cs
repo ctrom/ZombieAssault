@@ -80,10 +80,10 @@ namespace ZombieAssault
 
         public override void Initialize()
         {
-            jackHealthBar = new Rectangle((int)(Game1.resOffset - 175 * scaleFactor), (int)(210 * scaleFactor), (int)(scaleFactor * 152), (int)scaleFactor * 40);
-            ericHealthBar = new Rectangle((int)(Game1.resOffset - 175 * scaleFactor), (int)(403 * scaleFactor), (int)(scaleFactor * 152), (int)scaleFactor * 40);
-            sarahHealthBar = new Rectangle((int)(Game1.resOffset - 175 * scaleFactor), (int)(595 * scaleFactor), (int)(scaleFactor * 152), (int)scaleFactor * 40);
-            meganHealthBar = new Rectangle((int)(Game1.resOffset - 175 * scaleFactor), (int)(787 * scaleFactor), (int)(scaleFactor * 152), (int)scaleFactor * 40);
+            jackHealthBar = new Rectangle((int)(Game1.resOffset - 175 * scaleFactor), (int)(210 * scaleFactor), (int)(scaleFactor * 152), (int)(scaleFactor * 40));
+            ericHealthBar = new Rectangle((int)(Game1.resOffset - 175 * scaleFactor), (int)(403 * scaleFactor), (int)(scaleFactor * 152), (int)(scaleFactor * 40));
+            sarahHealthBar = new Rectangle((int)(Game1.resOffset - 175 * scaleFactor), (int)(595 * scaleFactor), (int)(scaleFactor * 152), (int)(scaleFactor * 40));
+            meganHealthBar = new Rectangle((int)(Game1.resOffset - 175 * scaleFactor), (int)(787 * scaleFactor), (int)(scaleFactor * 152), (int)(scaleFactor * 40));
 
 
             base.Initialize();
@@ -192,13 +192,13 @@ namespace ZombieAssault
                 spriteBatch.Draw(gameInfoHudTexture, new Vector2((int)(Game1.resWidth - Game1.resOffset), 0), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, .8f);
 
                 spriteBatch.Draw(healthbarGreenTexture, jackHealthBar, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
-                spriteBatch.Draw(healthbarRedTexture, new Rectangle(jackHealthBar.X, jackHealthBar.Y, (int)(152 * scaleFactor), 40 * (int)scaleFactor), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
+                spriteBatch.Draw(healthbarRedTexture, new Rectangle(jackHealthBar.X, jackHealthBar.Y, (int)(152 * scaleFactor), (int)(40 * scaleFactor)), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
                 spriteBatch.Draw(healthbarGreenTexture, ericHealthBar, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
-                spriteBatch.Draw(healthbarRedTexture, new Rectangle(ericHealthBar.X, ericHealthBar.Y, (int)(152 * scaleFactor), 40 * (int)scaleFactor), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
+                spriteBatch.Draw(healthbarRedTexture, new Rectangle(ericHealthBar.X, ericHealthBar.Y, (int)(152 * scaleFactor), (int)(40 * scaleFactor)), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
                 spriteBatch.Draw(healthbarGreenTexture, sarahHealthBar, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
-                spriteBatch.Draw(healthbarRedTexture, new Rectangle(sarahHealthBar.X, sarahHealthBar.Y, (int)(152 * scaleFactor), 40 * (int)scaleFactor), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
+                spriteBatch.Draw(healthbarRedTexture, new Rectangle(sarahHealthBar.X, sarahHealthBar.Y, (int)(152 * scaleFactor), (int)(40 * scaleFactor)), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
                 spriteBatch.Draw(healthbarGreenTexture, meganHealthBar, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
-                spriteBatch.Draw(healthbarRedTexture, new Rectangle(meganHealthBar.X, meganHealthBar.Y, (int)(152 * scaleFactor), 40 * (int)scaleFactor), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
+                spriteBatch.Draw(healthbarRedTexture, new Rectangle(meganHealthBar.X, meganHealthBar.Y, (int)(152 * scaleFactor), (int)(40 * scaleFactor)), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
 
                 spriteBatch.DrawString(font, ((zombieController.MillisecondsTilSpawn - zombieController.TimeSinceLastSpawn)/1000).ToString(), new Vector2((int)(Game1.resWidth - Game1.resOffset + (140 * scaleFactor)), (int)(215 * scaleFactor)), Color.Black, 0, Vector2.Zero, scaleFactor * 2, SpriteEffects.None, 1);
                 spriteBatch.DrawString(font, zombieController.Wave.ToString(), new Vector2((int)(Game1.resWidth - Game1.resOffset + (140 * scaleFactor)), (int)(415 * scaleFactor)), Color.Black, 0, Vector2.Zero, scaleFactor * 2, SpriteEffects.None, 1);
