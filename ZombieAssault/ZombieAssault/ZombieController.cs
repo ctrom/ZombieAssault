@@ -24,6 +24,7 @@ namespace ZombieAssault
         //experimental zombie spawn counter
         private int timeSinceLastSpawn;
         private int millisecondsTilSpawn;
+        private int wave;
 
         private Map map;
 
@@ -44,12 +45,18 @@ namespace ZombieAssault
             set { millisecondsTilSpawn = value; }
         }
 
+        public int Wave
+        {
+            get { return wave; }
+        }
+
         public ZombieController(Texture2D zombieTexture, int millisecondsTilSpawn = 10000)
         {
             zombieList = new List<Zombie>();
             this.zombieTexture = zombieTexture;
             this.millisecondsTilSpawn = millisecondsTilSpawn;
             map = new Map();
+            wave = 0;
         }
 
         public void Update(GameTime gameTime, Rectangle clientBounds, List<PlayerControlledSprite> targets)
@@ -66,6 +73,7 @@ namespace ZombieAssault
             
             if (timeSinceLastSpawn > millisecondsTilSpawn)//checks if required time between spawns has passed
             {
+                wave++;
                 timeSinceLastSpawn = 0;//resets spawn timer
                 Random rand = new Random();
                 for(int i = 0; i < 10; i++)//adds 10 zombies to the list at random position off the screen

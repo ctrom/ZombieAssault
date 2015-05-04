@@ -102,19 +102,23 @@ namespace ZombieAssault
                 }
             }
             timeSinceRepath += gameTime.ElapsedGameTime.Milliseconds;
-            if (((Math.Abs(targetPrevPos.X - currTarget.Position.X) > 1 || Math.Abs(targetPrevPos.Y - currTarget.Position.Y) > 1) || path.Count == 0 || currTarget.health < 1) && timeSinceRepath > 500)
+            try
             {
-                if (currTarget.health < 1)
+                if (((Math.Abs(targetPrevPos.X - currTarget.Position.X) > 1 || Math.Abs(targetPrevPos.Y - currTarget.Position.Y) > 1) || path.Count == 0 || currTarget.health < 1) && timeSinceRepath > 500)
                 {
-                    currTarget = null;
-                    prevTarget = null;
+                    if (currTarget.health < 1)
+                    {
+                        currTarget = null;
+                        prevTarget = null;
+                    }
+                    else
+                    {
+                        switchTarget(currTarget);
+                        queryPath(path);
+                    }
                 }
-                else
-                {
-                    switchTarget(currTarget);
-                    queryPath(path);
-                }
-            }
+            }catch(Exception)
+            { }
 
             if (path.Count > 1)
             {

@@ -28,6 +28,7 @@ namespace ZombieAssault
 
         private Texture2D mapTexture;
         private Texture2D titleTexture;
+        private Texture2D gameOverTexture;
         private Texture2D cursorTexture;
         private Texture2D highlightTexture;
         private Texture2D unitHudTexture;
@@ -74,6 +75,7 @@ namespace ZombieAssault
             sarahHealthBar = new Rectangle((int)(Game1.resOffset - 175 * scaleFactor), (int)(595 * scaleFactor), (int)(scaleFactor * 152), (int)scaleFactor * 40);
             meganHealthBar = new Rectangle((int)(Game1.resOffset - 175 * scaleFactor), (int)(787 * scaleFactor), (int)(scaleFactor * 152), (int)scaleFactor * 40);
 
+
             base.Initialize();
         }
 
@@ -84,10 +86,10 @@ namespace ZombieAssault
             playerManager = new PlayerManager(Game.Content.Load<Texture2D>(@"Images/Jack_SpriteSheet"), Game.Content.Load<Texture2D>(@"Images/Eric_SpriteSheet"), Game.Content.Load<Texture2D>(@"Images/Sarah_SpriteSheet"), Game.Content.Load<Texture2D>(@"Images/Megan_SpriteSheet"));
             zombieController = new ZombieController(Game.Content.Load<Texture2D>(@"Images/Zombie_SpriteSheet"));
             breakableObjectManager = new BreakableObjectManager(Game.Content.Load<Texture2D>(@"Images/Window_Spritesheet"));
-
             cursorTexture = Game.Content.Load<Texture2D>(@"Images/Cursor_Sprite");
             mapTexture = Game.Content.Load<Texture2D>(@"Images/House_Layout(40x40 tiles, 960x960 resolution)");
             titleTexture = Game.Content.Load<Texture2D>(@"Images/Title_Screen");
+            gameOverTexture = Game.Content.Load<Texture2D>(@"Images/GameOverScreen");
             highlightTexture = Game.Content.Load<Texture2D>(@"Images/Highlight_Sprite");
             unitHudTexture = Game.Content.Load<Texture2D>(@"Images/HUD/Hud_UnitInfo");
             gameInfoHudTexture = Game.Content.Load<Texture2D>(@"Images/HUD/Hud_GameInfo");
@@ -124,6 +126,8 @@ namespace ZombieAssault
             }
             if (GameState == 1)
             {
+                if (playerManager.UnitList.Count == 0)
+                    gameState = 3;
                 playerManager.Update(gameTime, Game.Window.ClientBounds);//updates player units
                 zombieController.Update(gameTime, Game.Window.ClientBounds, playerManager.UnitList);//updates zombie spawner
                 breakableObjectManager.Update(gameTime, Game.Window.ClientBounds);//updates breakable objects
@@ -153,7 +157,7 @@ namespace ZombieAssault
                 spriteBatch.Draw(controlsButtonTexture, controlsButtonRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .5f);
                 spriteBatch.Draw(exitButtonTexture, exitButtonRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .5f);
             }
-            else if (GameState == 1 || GameState == 2)
+            if (GameState == 1 || GameState == 2 || gameState == 3)
             {
                 jackHealthBar.Width = (int)((playerManager.Jack.health / 100) * 152 * scaleFactor);
                 ericHealthBar.Width = (int)((playerManager.Eric.health / 100) * 152 * scaleFactor);
@@ -177,15 +181,21 @@ namespace ZombieAssault
                 spriteBatch.Draw(healthbarRedTexture, new Rectangle(meganHealthBar.X, meganHealthBar.Y, (int)(152 * scaleFactor), 40 * (int)scaleFactor), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
 
                 spriteBatch.DrawString(font, ((zombieController.MillisecondsTilSpawn - zombieController.TimeSinceLastSpawn)/60).ToString(), new Vector2((int)(Game1.resWidth - Game1.resOffset + (140 * scaleFactor)), (int)(215 * scaleFactor)), Color.Black, 0, Vector2.Zero, scaleFactor * 2, SpriteEffects.None, 1);
+                spriteBatch.DrawString(font, zombieController.Wave.ToString(), new Vector2((int)(Game1.resWidth - Game1.resOffset + (140 * scaleFactor)), (int)(415 * scaleFactor)), Color.Black, 0, Vector2.Zero, scaleFactor * 2, SpriteEffects.None, 1);
 
                 foreach (Sprite s in ZombieController.ZombieList)//draws zombies in the spawner's list
                     s.Draw(gameTime, spriteBatch);
-                if (playerManager.UnitList.Count == 0)
-                    gameState = 3;
                 foreach (Sprite s in playerManager.UnitList)
                     s.Draw(gameTime, spriteBatch);
                 foreach (Sprite s in BreakableObjectManager.BreakableList)
                     s.Draw(gameTime, spriteBatch);
+            }
+            if(gameState == 3)
+            {
+                spriteBatch.Draw(gameOverTexture, new Vector2(Game1.resOffset, 0), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, 1);
+                spriteBatch.Draw(startButtonTexture, startButtonRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
+                spriteBatch.Draw(controlsButtonTexture, controlsButtonRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
+                spriteBatch.Draw(exitButtonTexture, exitButtonRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
             }
 
             spriteBatch.End();
@@ -201,6 +211,20 @@ namespace ZombieAssault
             {
                 if (mouseClickRect.Intersects(startButtonRectangle)) //player clicked start button
                 {
+                    gameState = 1;
+                }
+                else if (mouseClickRect.Intersects(exitButtonRectangle)) //player clicked exit button
+                {
+                    Game.Exit();
+                }
+            }
+            if(gameState == 3)
+            {
+                if (mouseClickRect.Intersects(startButtonRectangle)) //player clicked start button
+                {
+                    playerManager = new PlayerManager(Game.Content.Load<Texture2D>(@"Images/Jack_SpriteSheet"), Game.Content.Load<Texture2D>(@"Images/Eric_SpriteSheet"), Game.Content.Load<Texture2D>(@"Images/Sarah_SpriteSheet"), Game.Content.Load<Texture2D>(@"Images/Megan_SpriteSheet")); 
+                    zombieController = new ZombieController(Game.Content.Load<Texture2D>(@"Images/Zombie_SpriteSheet"));
+                    breakableObjectManager = new BreakableObjectManager(Game.Content.Load<Texture2D>(@"Images/Window_Spritesheet"));
                     gameState = 1;
                 }
                 else if (mouseClickRect.Intersects(exitButtonRectangle)) //player clicked exit button
