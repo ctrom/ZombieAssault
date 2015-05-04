@@ -38,6 +38,8 @@ namespace ZombieAssault
         private Texture2D exitButtonTexture;
         private Texture2D controlsButtonTexture;
 
+        private SpriteFont font;
+
         private Vector2 cursorPosition;
         private Vector2 screenCenter;
 
@@ -94,6 +96,8 @@ namespace ZombieAssault
             startButtonTexture = Game.Content.Load<Texture2D>(@"Images/Buttons/StartButton");
             exitButtonTexture = Game.Content.Load<Texture2D>(@"Images/Buttons/ExitButton");
             controlsButtonTexture = Game.Content.Load<Texture2D>(@"Images/Buttons/ControlsButton");
+
+            font = Game.Content.Load<SpriteFont>(@"Font/courier");
 
             screenCenter = new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2);
 
@@ -161,7 +165,7 @@ namespace ZombieAssault
                 spriteBatch.Draw(mapTexture, new Vector2(Game1.resOffset, 0), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, 0);//draws map
                 spriteBatch.Draw(highlightTexture, new Vector2((int)((cursorPosition.X - gridOffset) / tileSize) * tileSize + gridOffset, (int)(cursorPosition.Y / tileSize) * tileSize), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, .2f);//draws tile highlight
                 spriteBatch.Draw(unitHudTexture, new Vector2((int)(Game1.resOffset - 315 * scaleFactor), 0), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, .8f);
-                spriteBatch.Draw(gameInfoHudTexture, new Vector2((int)(Game1.resWidth - Game1.resOffset /*+ 315 * SpriteManager.scaleFactor*/), 0), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, .8f);
+                spriteBatch.Draw(gameInfoHudTexture, new Vector2((int)(Game1.resWidth - Game1.resOffset), 0), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, .8f);
 
                 spriteBatch.Draw(healthbarGreenTexture, jackHealthBar, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
                 spriteBatch.Draw(healthbarRedTexture, new Rectangle(jackHealthBar.X, jackHealthBar.Y, (int)(152 * scaleFactor), 40 * (int)scaleFactor), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
@@ -171,6 +175,8 @@ namespace ZombieAssault
                 spriteBatch.Draw(healthbarRedTexture, new Rectangle(sarahHealthBar.X, sarahHealthBar.Y, (int)(152 * scaleFactor), 40 * (int)scaleFactor), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
                 spriteBatch.Draw(healthbarGreenTexture, meganHealthBar, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
                 spriteBatch.Draw(healthbarRedTexture, new Rectangle(meganHealthBar.X, meganHealthBar.Y, (int)(152 * scaleFactor), 40 * (int)scaleFactor), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
+
+                spriteBatch.DrawString(font, ((zombieController.MillisecondsTilSpawn - zombieController.TimeSinceLastSpawn)/60).ToString(), new Vector2((int)(Game1.resWidth - Game1.resOffset + (140 * scaleFactor)), (int)(215 * scaleFactor)), Color.Black, 0, Vector2.Zero, scaleFactor * 2, SpriteEffects.None, 1);
 
                 foreach (Sprite s in ZombieController.ZombieList)//draws zombies in the spawner's list
                     s.Draw(gameTime, spriteBatch);

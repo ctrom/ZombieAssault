@@ -33,6 +33,11 @@ namespace ZombieAssault
             set { zombieList = value; }
         }
 
+        public int TimeSinceLastSpawn
+        {
+            get { return timeSinceLastSpawn; }
+        }
+
         public int MillisecondsTilSpawn
         {
             get { return millisecondsTilSpawn; }
