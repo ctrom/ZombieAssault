@@ -28,6 +28,7 @@ namespace ZombieAssault
 
         private Texture2D mapTexture;
         private Texture2D titleTexture;
+        private Texture2D pauseMenuTexture;
         private Texture2D gameOverTexture;
         private Texture2D cursorTexture;
         private Texture2D highlightTexture;
@@ -38,6 +39,8 @@ namespace ZombieAssault
         private Texture2D startButtonTexture;
         private Texture2D exitButtonTexture;
         private Texture2D controlsButtonTexture;
+        private Texture2D restartButtonTexture;
+        private Texture2D resumeButtonTexture;
 
         private SoundEffect hitZombie;
         private SoundEffect zombieGroan;
@@ -99,6 +102,7 @@ namespace ZombieAssault
             mapTexture = Game.Content.Load<Texture2D>(@"Images/House_Layout(40x40 tiles, 960x960 resolution)");
             titleTexture = Game.Content.Load<Texture2D>(@"Images/Title_Screen");
             gameOverTexture = Game.Content.Load<Texture2D>(@"Images/GameOverScreen");
+            pauseMenuTexture = Game.Content.Load<Texture2D>(@"Images/PauseMenu");
             highlightTexture = Game.Content.Load<Texture2D>(@"Images/Highlight_Sprite");
             unitHudTexture = Game.Content.Load<Texture2D>(@"Images/HUD/Hud_UnitInfo");
             gameInfoHudTexture = Game.Content.Load<Texture2D>(@"Images/HUD/Hud_GameInfo");
@@ -107,6 +111,8 @@ namespace ZombieAssault
             startButtonTexture = Game.Content.Load<Texture2D>(@"Images/Buttons/StartButton");
             exitButtonTexture = Game.Content.Load<Texture2D>(@"Images/Buttons/ExitButton");
             controlsButtonTexture = Game.Content.Load<Texture2D>(@"Images/Buttons/ControlsButton");
+            restartButtonTexture = Game.Content.Load<Texture2D>(@"Images/Buttons/RestartButton");
+            resumeButtonTexture = Game.Content.Load<Texture2D>(@"Images/Buttons/ResumeButton");
 
             font = Game.Content.Load<SpriteFont>(@"Font/courier");
 
@@ -142,10 +148,6 @@ namespace ZombieAssault
                 breakableObjectManager.Update(gameTime, Game.Window.ClientBounds);//updates breakable objects
                 if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                     GameState = 2;
-            }
-            if (gameState == 2 && Keyboard.GetState().IsKeyDown(Keys.Enter))
-            {
-                GameState = 1;
             }
 
             cursorPosition = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
@@ -204,10 +206,17 @@ namespace ZombieAssault
                     playerManager.healUnits();
                 }
             }
-            if(gameState == 2 || gameState == 3)
+            if(gameState == 3)
             {
                 spriteBatch.Draw(gameOverTexture, new Vector2(Game1.resOffset, 0), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, 1);
-                spriteBatch.Draw(startButtonTexture, startButtonRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
+                spriteBatch.Draw(restartButtonTexture, startButtonRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
+                spriteBatch.Draw(controlsButtonTexture, controlsButtonRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
+                spriteBatch.Draw(exitButtonTexture, exitButtonRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
+            }
+            if(gameState == 2)
+            {
+                spriteBatch.Draw(pauseMenuTexture, new Vector2(Game1.resOffset, 0), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, 1);
+                spriteBatch.Draw(resumeButtonTexture, startButtonRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
                 spriteBatch.Draw(controlsButtonTexture, controlsButtonRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
                 spriteBatch.Draw(exitButtonTexture, exitButtonRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
             }
@@ -225,6 +234,9 @@ namespace ZombieAssault
             {
                 if (mouseClickRect.Intersects(startButtonRectangle)) //player clicked start button
                 {
+                    playerManager = new PlayerManager(Game.Content.Load<Texture2D>(@"Images/Jack_SpriteSheet"), Game.Content.Load<Texture2D>(@"Images/Eric_SpriteSheet"), Game.Content.Load<Texture2D>(@"Images/Sarah_SpriteSheet"), Game.Content.Load<Texture2D>(@"Images/Megan_SpriteSheet"), humanDeath, hitZombie);
+                    zombieController = new ZombieController(Game.Content.Load<Texture2D>(@"Images/Zombie_SpriteSheet"), zombieDeath, zombieGroan);
+                    breakableObjectManager = new BreakableObjectManager(Game.Content.Load<Texture2D>(@"Images/Window_Spritesheet"));
                     gameState = 1;
                 }
                 else if (mouseClickRect.Intersects(exitButtonRectangle)) //player clicked exit button
@@ -240,7 +252,7 @@ namespace ZombieAssault
                 }
                 else if (mouseClickRect.Intersects(exitButtonRectangle)) //player clicked exit button
                 {
-                    Game.Exit();
+                    gameState = 0;
                 }
             }
             if(gameState == 3)
