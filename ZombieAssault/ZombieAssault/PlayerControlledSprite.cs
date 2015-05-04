@@ -18,6 +18,9 @@ namespace ZombieAssault
         private Sprite prevTarget;
         private Sprite currTarget;
 
+        private SoundEffect humanDeath;
+        private SoundEffect hitZombie;
+
         private int timeSinceAction;
 
         public int UnitNumber
@@ -34,11 +37,13 @@ namespace ZombieAssault
             set { currTarget = value; }
         }
 
-        public PlayerControlledSprite(Texture2D textureImage, Vector2 position, float speed, float scale, float rotation, int unitNumber)
+        public PlayerControlledSprite(Texture2D textureImage, Vector2 position, float speed, float scale, float rotation, int unitNumber, SoundEffect humanDeath, SoundEffect hitZombie)
             : base (textureImage, position, new Point(64, 64), new Point(0,0), new Point(3,3), rotation, speed, scale, 0, new Vector2(0,0), 200)
         {
             destination = new Vector2(position.X * SpriteManager.tileSize + Game1.resOffset - SpriteManager.gridOffset, position.Y * SpriteManager.tileSize);//initializes destination as starting position
             this.unitNumber = unitNumber;
+            this.humanDeath = humanDeath;
+            this.hitZombie = hitZombie;
         }
 
         public override Vector2 Direction
@@ -50,6 +55,8 @@ namespace ZombieAssault
 
         public override void Update(GameTime gameTime, Rectangle clientBounds)
         {
+            if (health < 1)
+                humanDeath.Play();
             //algorithm for traversing sprite sheet
             if (currTarget != null && currTarget is Zombie)
                 currentFrame.Y = 2;
@@ -120,6 +127,7 @@ namespace ZombieAssault
             {
                 timeSinceAction = 0;
                 currTarget.health = currTarget.health - 100;
+                hitZombie.Play();
             }
         }
 

@@ -110,12 +110,12 @@
     <Compile Include="Audio\HittingZombie.mp3">
       <Name>HittingZombie</Name>
       <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
+      <Processor>SoundEffectProcessor</Processor>
     </Compile>
     <Compile Include="Audio\HumanDeath.mp3">
       <Name>HumanDeath</Name>
       <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
+      <Processor>SoundEffectProcessor</Processor>
     </Compile>
     <Compile Include="Audio\HumanHitReaction.mp3">
       <Name>HumanHitReaction</Name>
@@ -130,17 +130,17 @@
     <Compile Include="Audio\ZombieDeath.mp3">
       <Name>ZombieDeath</Name>
       <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
+      <Processor>SoundEffectProcessor</Processor>
     </Compile>
     <Compile Include="Audio\ZombieGroans.mp3">
       <Name>ZombieGroans</Name>
       <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
+      <Processor>SoundEffectProcessor</Processor>
     </Compile>
     <Compile Include="Audio\ZombieHitReaction.mp3">
       <Name>ZombieHitReaction</Name>
       <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
+      <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>

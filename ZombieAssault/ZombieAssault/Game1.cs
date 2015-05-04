@@ -94,7 +94,7 @@ namespace ZombieAssault
                 this.Exit();
             if (MediaPlayer.State == MediaState.Stopped)
             {
-                //MediaPlayer.Play(music);
+                MediaPlayer.Play(music);
             }
             
 

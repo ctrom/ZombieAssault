@@ -26,6 +26,9 @@ namespace ZombieAssault
         private int millisecondsTilSpawn;
         private int wave;
 
+        private SoundEffect zombieDeath;
+        private SoundEffect zombieGroan;
+
         private Map map;
 
         public static List<Zombie> ZombieList
@@ -50,10 +53,12 @@ namespace ZombieAssault
             get { return wave; }
         }
 
-        public ZombieController(Texture2D zombieTexture, int millisecondsTilSpawn = 10000)
+        public ZombieController(Texture2D zombieTexture, SoundEffect zombieDeath, SoundEffect zombieGroan, int millisecondsTilSpawn = 10000)
         {
             zombieList = new List<Zombie>();
             this.zombieTexture = zombieTexture;
+            this.zombieDeath = zombieDeath;
+            this.zombieGroan = zombieGroan;
             this.millisecondsTilSpawn = millisecondsTilSpawn;
             map = new Map();
             wave = 0;
@@ -74,6 +79,7 @@ namespace ZombieAssault
             if (timeSinceLastSpawn > millisecondsTilSpawn)//checks if required time between spawns has passed
             {
                 wave++;
+                zombieGroan.Play();
                 timeSinceLastSpawn = 0;//resets spawn timer
                 Random rand = new Random();
                 for(int i = 0; i < 10; i++)//adds 10 zombies to the list at random position off the screen
@@ -95,7 +101,7 @@ namespace ZombieAssault
                             position = new Vector2(0, rand.Next(2, 42));
                             break;
                     }
-                    zombieList.Add(new Zombie(zombieTexture, position, .2f * SpriteManager.scaleFactor, .375f * SpriteManager.scaleFactor, 0, map));
+                    zombieList.Add(new Zombie(zombieTexture, position, .2f * SpriteManager.scaleFactor, .375f * SpriteManager.scaleFactor, 0, map, zombieDeath));
                 }
             }
         }

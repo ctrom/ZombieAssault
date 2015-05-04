@@ -22,9 +22,12 @@ namespace ZombieAssault
         private int timeSinceRepath;
         private int timeSinceAttack;
 
-        public Zombie(Texture2D textureImage, Vector2 position, float speed, float scale, float rotation, Map map)
+        private SoundEffect zombieDeath;
+
+        public Zombie(Texture2D textureImage, Vector2 position, float speed, float scale, float rotation, Map map, SoundEffect zombieDeath)
             : base(textureImage, position, new Point(64,64), new Point(0,0), new Point(3,1), rotation, speed, scale, 0, new Vector2(0,0), 500)
         {
+            this.zombieDeath = zombieDeath;
             List<int> temp = new List<int>();
             temp.Add(1);
             temp.Add(2);
@@ -153,6 +156,9 @@ namespace ZombieAssault
             timeSinceAttack += gameTime.ElapsedGameTime.Milliseconds;
             if(timeSinceAttack > 2000)
                 attack();
+
+            if (health < 1)
+                zombieDeath.Play();
 
             base.Update(gameTime, clientBounds);
         }

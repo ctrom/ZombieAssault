@@ -59,7 +59,7 @@ namespace ZombieAssault
             get { return megan; }
         }
         
-        public PlayerManager(Texture2D jackTexture, Texture2D ericTexture, Texture2D sarahTexture, Texture2D meganTexture)
+        public PlayerManager(Texture2D jackTexture, Texture2D ericTexture, Texture2D sarahTexture, Texture2D meganTexture, SoundEffect humanDeath, SoundEffect hitZombie)
         {
             unitList = new List<PlayerControlledSprite>();
 
@@ -68,10 +68,10 @@ namespace ZombieAssault
             passableTiles.Add(3);
             pathfinder = new Pathfinder(map, passableTiles);
 
-            jack = new PlayerControlledSprite(jackTexture, new Vector2(20, 20), 1f * SpriteManager.scaleFactor, .375f * SpriteManager.scaleFactor, 0, 1);
-            eric = new PlayerControlledSprite(ericTexture, new Vector2(15, 10), 1f * SpriteManager.scaleFactor, .375f * SpriteManager.scaleFactor, 0, 2);
-            sarah = new PlayerControlledSprite(sarahTexture, new Vector2(30, 30), 1f * SpriteManager.scaleFactor, .375f * SpriteManager.scaleFactor, 0, 3);
-            megan = new PlayerControlledSprite(meganTexture, new Vector2(15, 15), 1f * SpriteManager.scaleFactor, .375f * SpriteManager.scaleFactor, 0, 4);
+            jack = new PlayerControlledSprite(jackTexture, new Vector2(20, 20), 1f * SpriteManager.scaleFactor, .375f * SpriteManager.scaleFactor, 0, 1, humanDeath, hitZombie);
+            eric = new PlayerControlledSprite(ericTexture, new Vector2(15, 10), 1f * SpriteManager.scaleFactor, .375f * SpriteManager.scaleFactor, 0, 2, humanDeath, hitZombie);
+            sarah = new PlayerControlledSprite(sarahTexture, new Vector2(30, 30), 1f * SpriteManager.scaleFactor, .375f * SpriteManager.scaleFactor, 0, 3, humanDeath, hitZombie);
+            megan = new PlayerControlledSprite(meganTexture, new Vector2(15, 15), 1f * SpriteManager.scaleFactor, .375f * SpriteManager.scaleFactor, 0, 4, humanDeath, hitZombie);
 
             unitList.Add(jack);
             unitList.Add(eric);

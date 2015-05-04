@@ -39,6 +39,11 @@ namespace ZombieAssault
         private Texture2D exitButtonTexture;
         private Texture2D controlsButtonTexture;
 
+        private SoundEffect hitZombie;
+        private SoundEffect zombieGroan;
+        private SoundEffect humanDeath;
+        private SoundEffect zombieDeath;
+
         private SpriteFont font;
 
         private Vector2 cursorPosition;
@@ -82,9 +87,13 @@ namespace ZombieAssault
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(Game.GraphicsDevice);
+            zombieGroan = Game.Content.Load<SoundEffect>(@"Audio/ZombieGroans");
+            hitZombie = Game.Content.Load<SoundEffect>(@"Audio/HittingZombie");
+            humanDeath = Game.Content.Load<SoundEffect>(@"Audio/HumanDeath");
+            zombieDeath = Game.Content.Load<SoundEffect>(@"AUdio/ZombieDeath");
 
-            playerManager = new PlayerManager(Game.Content.Load<Texture2D>(@"Images/Jack_SpriteSheet"), Game.Content.Load<Texture2D>(@"Images/Eric_SpriteSheet"), Game.Content.Load<Texture2D>(@"Images/Sarah_SpriteSheet"), Game.Content.Load<Texture2D>(@"Images/Megan_SpriteSheet"));
-            zombieController = new ZombieController(Game.Content.Load<Texture2D>(@"Images/Zombie_SpriteSheet"));
+            playerManager = new PlayerManager(Game.Content.Load<Texture2D>(@"Images/Jack_SpriteSheet"), Game.Content.Load<Texture2D>(@"Images/Eric_SpriteSheet"), Game.Content.Load<Texture2D>(@"Images/Sarah_SpriteSheet"), Game.Content.Load<Texture2D>(@"Images/Megan_SpriteSheet"), humanDeath, hitZombie);
+            zombieController = new ZombieController(Game.Content.Load<Texture2D>(@"Images/Zombie_SpriteSheet"), zombieDeath, zombieGroan);
             breakableObjectManager = new BreakableObjectManager(Game.Content.Load<Texture2D>(@"Images/Window_Spritesheet"));
             cursorTexture = Game.Content.Load<Texture2D>(@"Images/Cursor_Sprite");
             mapTexture = Game.Content.Load<Texture2D>(@"Images/House_Layout(40x40 tiles, 960x960 resolution)");
@@ -222,8 +231,8 @@ namespace ZombieAssault
             {
                 if (mouseClickRect.Intersects(startButtonRectangle)) //player clicked start button
                 {
-                    playerManager = new PlayerManager(Game.Content.Load<Texture2D>(@"Images/Jack_SpriteSheet"), Game.Content.Load<Texture2D>(@"Images/Eric_SpriteSheet"), Game.Content.Load<Texture2D>(@"Images/Sarah_SpriteSheet"), Game.Content.Load<Texture2D>(@"Images/Megan_SpriteSheet")); 
-                    zombieController = new ZombieController(Game.Content.Load<Texture2D>(@"Images/Zombie_SpriteSheet"));
+                    playerManager = new PlayerManager(Game.Content.Load<Texture2D>(@"Images/Jack_SpriteSheet"), Game.Content.Load<Texture2D>(@"Images/Eric_SpriteSheet"), Game.Content.Load<Texture2D>(@"Images/Sarah_SpriteSheet"), Game.Content.Load<Texture2D>(@"Images/Megan_SpriteSheet"), humanDeath, hitZombie); 
+                    zombieController = new ZombieController(Game.Content.Load<Texture2D>(@"Images/Zombie_SpriteSheet"), zombieDeath, zombieGroan);
                     breakableObjectManager = new BreakableObjectManager(Game.Content.Load<Texture2D>(@"Images/Window_Spritesheet"));
                     gameState = 1;
                 }
