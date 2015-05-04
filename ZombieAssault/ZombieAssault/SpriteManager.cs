@@ -112,9 +112,9 @@ namespace ZombieAssault
 
             screenCenter = new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2);
 
-            startButtonRectangle = new Rectangle((int)(screenCenter.X - 100 * scaleFactor), (int)(screenCenter.Y - 50 * scaleFactor), 200 * (int)scaleFactor, 60 * (int)scaleFactor);
-            controlsButtonRectangle = new Rectangle((int)(screenCenter.X - 100 * scaleFactor), (int)(screenCenter.Y + 50 * scaleFactor), 200 * (int)scaleFactor, 60 * (int)scaleFactor);
-            exitButtonRectangle = new Rectangle((int)(screenCenter.X - 100 * scaleFactor), (int)(screenCenter.Y + 150 * scaleFactor), 200 * (int)scaleFactor, 60 * (int)scaleFactor);
+            startButtonRectangle = new Rectangle((int)(screenCenter.X - 100 * scaleFactor), (int)(screenCenter.Y - 50 * scaleFactor), (int)(200 * scaleFactor), (int)(60 * scaleFactor));
+            controlsButtonRectangle = new Rectangle((int)(screenCenter.X - 100 * scaleFactor), (int)(screenCenter.Y + 50 * scaleFactor), (int)(200 * scaleFactor), (int)(60 * scaleFactor));
+            exitButtonRectangle = new Rectangle((int)(screenCenter.X - 100 * scaleFactor), (int)(screenCenter.Y + 150 * scaleFactor), (int)(200 * scaleFactor), (int)(60 * scaleFactor));
 
             base.LoadContent();
         }
