@@ -53,7 +53,7 @@ namespace ZombieAssault
             get { return wave; }
         }
 
-        public ZombieController(Texture2D zombieTexture, SoundEffect zombieDeath, SoundEffect zombieGroan, int millisecondsTilSpawn = 90000)
+        public ZombieController(Texture2D zombieTexture, SoundEffect zombieDeath, SoundEffect zombieGroan, int millisecondsTilSpawn = 60000)
         {
             zombieList = new List<Zombie>();
             this.zombieTexture = zombieTexture;

@@ -113,7 +113,7 @@ namespace ZombieAssault
                 rotation = (float)(Math.Atan2(currTarget.Position.Y - position.Y, currTarget.Position.X - position.X)) + (float)Math.PI / 2;
 
             timeSinceAction += gameTime.ElapsedGameTime.Milliseconds;
-            if (timeSinceAction > 1000 && currTarget is Zombie)
+            if (timeSinceAction > 750 && currTarget is Zombie)
                 playerAttack();
             else if(timeSinceAction > 1000 && currTarget is BreakableSprite)
                 playerRepair();
@@ -123,7 +123,7 @@ namespace ZombieAssault
 
         private void playerAttack()
         {
-            if(currTarget != null && (Math.Abs(currTarget.Position.X - this.Position.X) + Math.Abs(currTarget.Position.Y - this.Position.Y) < SpriteManager.tileSize + 4))
+            if(currTarget != null && (Math.Abs(currTarget.Position.X - this.Position.X) + Math.Abs(currTarget.Position.Y - this.Position.Y) < SpriteManager.tileSize + 6))
             {
                 timeSinceAction = 0;
                 currTarget.health = currTarget.health - 100;
@@ -136,7 +136,7 @@ namespace ZombieAssault
             if (currTarget != null && (Math.Abs(currTarget.Position.X - this.Position.X) + Math.Abs(currTarget.Position.Y - this.Position.Y) < SpriteManager.tileSize + 4))
             {
                 timeSinceAction = 0;
-                currTarget.health = currTarget.health + 10;
+                currTarget.health = currTarget.health + 20;
             }
         }
     }

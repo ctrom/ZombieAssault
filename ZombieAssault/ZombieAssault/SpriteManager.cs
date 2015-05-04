@@ -21,6 +21,7 @@ namespace ZombieAssault
         ZombieController zombieController;//zombie manager component, handles spawns and list of zombies
         PlayerManager playerManager;
         BreakableObjectManager breakableObjectManager;
+        private int timeSinceHeal;
 
         public static readonly float scaleFactor = Game1.resHeight / 960f;//factor by which sprites will be scaled to, based on resolution
         public static readonly float tileSize = scaleFactor * 24;
@@ -74,6 +75,7 @@ namespace ZombieAssault
         public SpriteManager(Game game)
             : base(game)
         {
+            timeSinceHeal = 0;
         }
 
         public override void Initialize()
@@ -152,6 +154,13 @@ namespace ZombieAssault
 
             cursorPosition = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
 
+            timeSinceHeal += gameTime.ElapsedGameTime.Milliseconds;
+            if(timeSinceHeal > 180000)
+            {
+                timeSinceHeal = 0;
+                playerManager.healUnits();
+            }
+
             base.Update(gameTime);
         }
 
@@ -200,11 +209,6 @@ namespace ZombieAssault
                     s.Draw(gameTime, spriteBatch);
                 foreach (Sprite s in BreakableObjectManager.BreakableList)
                     s.Draw(gameTime, spriteBatch);
-
-                if(zombieController.Wave % 5 == 0)
-                {
-                    playerManager.healUnits();
-                }
             }
             if(gameState == 3)
             {

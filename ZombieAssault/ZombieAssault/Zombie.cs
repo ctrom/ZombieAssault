@@ -57,7 +57,7 @@ namespace ZombieAssault
             if (currTarget != null && currTarget.health > 0 && (Math.Abs(currTarget.Position.X - this.Position.X) + Math.Abs(currTarget.Position.Y - this.Position.Y) < SpriteManager.tileSize + 3))
             {
                 timeSinceAttack = 0;
-                currTarget.health = currTarget.health - 10;
+                currTarget.health = currTarget.health - 5;
             }
         }
 
