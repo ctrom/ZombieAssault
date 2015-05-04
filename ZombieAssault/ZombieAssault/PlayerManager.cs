@@ -85,7 +85,9 @@ namespace ZombieAssault
             foreach (PlayerControlledSprite s in unitList)
             {
                 if (s.health > 0)
+                {
                     newList.Add(s);
+                }
             }
             unitList = newList;
             KeyboardState keyboard = Keyboard.GetState();
@@ -182,6 +184,14 @@ namespace ZombieAssault
                 }
             }
             return true;
+        }
+
+        public void healUnits()
+        {
+            foreach(PlayerControlledSprite s in unitList)
+            {
+                s.health = 100;
+            }
         }
     }
 }

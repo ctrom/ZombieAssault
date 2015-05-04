@@ -189,7 +189,7 @@ namespace ZombieAssault
                 spriteBatch.Draw(healthbarGreenTexture, meganHealthBar, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
                 spriteBatch.Draw(healthbarRedTexture, new Rectangle(meganHealthBar.X, meganHealthBar.Y, (int)(152 * scaleFactor), 40 * (int)scaleFactor), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
 
-                spriteBatch.DrawString(font, ((zombieController.MillisecondsTilSpawn - zombieController.TimeSinceLastSpawn)/60).ToString(), new Vector2((int)(Game1.resWidth - Game1.resOffset + (140 * scaleFactor)), (int)(215 * scaleFactor)), Color.Black, 0, Vector2.Zero, scaleFactor * 2, SpriteEffects.None, 1);
+                spriteBatch.DrawString(font, ((zombieController.MillisecondsTilSpawn - zombieController.TimeSinceLastSpawn)/1000).ToString(), new Vector2((int)(Game1.resWidth - Game1.resOffset + (140 * scaleFactor)), (int)(215 * scaleFactor)), Color.Black, 0, Vector2.Zero, scaleFactor * 2, SpriteEffects.None, 1);
                 spriteBatch.DrawString(font, zombieController.Wave.ToString(), new Vector2((int)(Game1.resWidth - Game1.resOffset + (140 * scaleFactor)), (int)(415 * scaleFactor)), Color.Black, 0, Vector2.Zero, scaleFactor * 2, SpriteEffects.None, 1);
 
                 foreach (Sprite s in ZombieController.ZombieList)//draws zombies in the spawner's list
@@ -198,8 +198,13 @@ namespace ZombieAssault
                     s.Draw(gameTime, spriteBatch);
                 foreach (Sprite s in BreakableObjectManager.BreakableList)
                     s.Draw(gameTime, spriteBatch);
+
+                if(zombieController.Wave % 5 == 0)
+                {
+                    playerManager.healUnits();
+                }
             }
-            if(gameState == 3)
+            if(gameState == 2 || gameState == 3)
             {
                 spriteBatch.Draw(gameOverTexture, new Vector2(Game1.resOffset, 0), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, 1);
                 spriteBatch.Draw(startButtonTexture, startButtonRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
@@ -217,6 +222,17 @@ namespace ZombieAssault
             Rectangle mouseClickRect = new Rectangle(x, y, 1, 1);
 
             if (gameState == 0)
+            {
+                if (mouseClickRect.Intersects(startButtonRectangle)) //player clicked start button
+                {
+                    gameState = 1;
+                }
+                else if (mouseClickRect.Intersects(exitButtonRectangle)) //player clicked exit button
+                {
+                    Game.Exit();
+                }
+            }
+            if(gameState == 2)
             {
                 if (mouseClickRect.Intersects(startButtonRectangle)) //player clicked start button
                 {
