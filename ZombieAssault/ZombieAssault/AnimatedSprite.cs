@@ -200,7 +200,7 @@ namespace ZombieAssault
                 origin,
                 scale,
                 SpriteEffects.None, 
-                1f);
+                .5f);
         }
 
         //holdover from lab code, not sure how it works or what it does
