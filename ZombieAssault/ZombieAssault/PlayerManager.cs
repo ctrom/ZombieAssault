@@ -134,9 +134,9 @@ namespace ZombieAssault
                 //checks if mouse was right clicked
                 if (previousState.RightButton == ButtonState.Released && currentState.RightButton == ButtonState.Pressed)
                 {
-                    Point startPoint = new Point(((int)(((selectedUnit.Position.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2), ((int)((selectedUnit.Position.Y) / SpriteManager.tileSize) + 2));
-                    Point dest = new Point((((int)(((currentState.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2)), ((int)((currentState.Y) / SpriteManager.tileSize) + 2));//sets destination to mouse position
-                    MapNode destNode = Map.getNode(new Vector2((int)((((currentState.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2), ((int)((currentState.Y) / SpriteManager.tileSize) + 2)));
+                    Point startPoint = new Point(((int)(((selectedUnit.Position.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2), ((int)((selectedUnit.Position.Y + 1) / SpriteManager.tileSize) + 2));
+                    Point dest = new Point((((int)(((currentState.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2)), ((int)((currentState.Y + 1) / SpriteManager.tileSize) + 2));//sets destination to mouse position
+                    MapNode destNode = Map.getNode(new Vector2((int)((((currentState.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2), ((int)((currentState.Y + 1) / SpriteManager.tileSize) + 2)));
                     //Console.WriteLine(destNode + ":" + Map.Matrix[destNode.X, destNode.Y]);
                     if(destNode.Type == 1)
                     {

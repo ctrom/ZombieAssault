@@ -88,7 +88,7 @@ namespace ZombieAssault
 
         private Vector2 findIndex(Vector2 pos)
         {
-            return new Vector2(((int)(((pos.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2), ((int)((pos.Y) / SpriteManager.tileSize) + 2));
+            return new Vector2(((int)(((pos.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2), ((int)((pos.Y + 1) / SpriteManager.tileSize) + 2));
         }
 
         private float distance(Vector2 pos)
@@ -200,7 +200,7 @@ namespace ZombieAssault
                 origin,
                 scale,
                 SpriteEffects.None, 
-                .5f);
+                1f);
         }
 
         //holdover from lab code, not sure how it works or what it does

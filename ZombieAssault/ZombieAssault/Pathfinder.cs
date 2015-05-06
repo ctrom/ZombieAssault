@@ -195,8 +195,8 @@ namespace ZombieAssault
 
         public List<Vector2> FindPath(Point startPoint, Point endPoint)
         {
-            try
-            {
+            //try
+            //{
                 if (startPoint == endPoint)
                 {
                     return new List<Vector2>();
@@ -204,12 +204,15 @@ namespace ZombieAssault
                 ResetSearchNodes();
                 SearchNode startNode = searchNodes[startPoint.X, startPoint.Y];
                 SearchNode endNode = searchNodes[endPoint.X, endPoint.Y];
-                startNode.InOpenList = true;
+                if (startNode != null)
+                {
+                    startNode.InOpenList = true;
 
-                startNode.DistanceToGoal = Heuristic(startPoint, endPoint);
-                startNode.DistanceTraveled = 0;
+                    startNode.DistanceToGoal = Heuristic(startPoint, endPoint);
+                    startNode.DistanceTraveled = 0;
 
-                openList.Add(startNode);
+                    openList.Add(startNode);
+                }
                 while (openList.Count > 0)
                 {
                     SearchNode currentNode = FindBestNode();
@@ -253,9 +256,11 @@ namespace ZombieAssault
                     currentNode.InClosedList = true;
                 }
                 return new List<Vector2>();
-            }
-            catch (Exception)
-            { return new List<Vector2>(); }
+            //}
+            //catch (Exception)
+            //{ Console.WriteLine(startPoint.X+":"+ startPoint.Y);
+            //return new List<Vector2>();
+            //}
         }
 
         private class SearchNode

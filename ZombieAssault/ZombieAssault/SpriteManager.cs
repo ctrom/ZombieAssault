@@ -23,7 +23,8 @@ namespace ZombieAssault
         BreakableObjectManager breakableObjectManager;
         private int timeSinceHeal;
 
-        public static readonly float scaleFactor = Game1.resHeight / 960f;//factor by which sprites will be scaled to, based on resolution
+        public static float scaleFactor = Game1.resHeight / 960f;//factor by which sprites will be scaled to, based on resolution
+
         public static readonly float tileSize = scaleFactor * 24;
         public static readonly float gridOffset = ((float)Game1.resHeight / Game1.resWidth) * tileSize + 1;
 
@@ -85,6 +86,8 @@ namespace ZombieAssault
             sarahHealthBar = new Rectangle((int)(Game1.resOffset - 175 * scaleFactor), (int)(595 * scaleFactor), (int)(scaleFactor * 152), (int)(scaleFactor * 40));
             meganHealthBar = new Rectangle((int)(Game1.resOffset - 175 * scaleFactor), (int)(787 * scaleFactor), (int)(scaleFactor * 152), (int)(scaleFactor * 40));
 
+            //if (scaleFactor < 1)
+            //    scaleFactor = 1;
 
             base.Initialize();
         }

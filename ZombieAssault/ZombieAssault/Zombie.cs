@@ -33,7 +33,7 @@ namespace ZombieAssault
             temp.Add(2);
             temp.Add(3);
             pathfinder = new Pathfinder(map, temp);
-            timeSinceRepath = 4000;
+            timeSinceRepath = 0;
             timeSinceAttack = 0;
         }
 
@@ -44,12 +44,20 @@ namespace ZombieAssault
 
         private void switchTarget(Sprite target)
         {
-            path.Clear();
-            timeSinceRepath = 0;
-            MapNode startPoint = Map.getNode(new Vector2(((int)(((position.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2), ((int)((position.Y) / SpriteManager.tileSize) + 2)));
-            //selectedUnit.Destination = Map.getNode(new Vector2(((int)(((currentState.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2), ((int)((currentState.Y) / SpriteManager.tileSize) + 2)));//sets destination to mouse position
-            Point dest = new Point((((int)(((target.Position.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2)), ((int)((target.Position.Y) / SpriteManager.tileSize) + 2));//sets destination to mouse position
-            path = pathfinder.FindPath(new Point((int)startPoint.Index.X, (int)startPoint.Index.Y), dest);//new Point((int)selectedUnit.Destination.Index.X, (int)selectedUnit.Destination.Index.Y));
+            
+                path.Clear();
+                timeSinceRepath = 0;
+                MapNode startPoint = Map.getNode(new Vector2(((int)(((position.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2), ((int)((position.Y + 1) / SpriteManager.tileSize) + 2)));
+                //selectedUnit.Destination = Map.getNode(new Vector2(((int)(((currentState.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2), ((int)((currentState.Y) / SpriteManager.tileSize) + 2)));//sets destination to mouse position
+                Point dest = new Point((((int)(((target.Position.X /*- 4*/) - Game1.resOffset) / SpriteManager.tileSize) + 2)), ((int)((target.Position.Y + 1) / SpriteManager.tileSize) + 2));//sets destination to mouse position
+                //if(startPoint != null )//&& dest != null)
+            try{
+                path = pathfinder.FindPath(new Point((int)startPoint.Index.X, (int)startPoint.Index.Y), dest);//new Point((int)selectedUnit.Destination.Index.X, (int)selectedUnit.Destination.Index.Y));
+            }
+            catch (Exception)
+            {
+                Console.WriteLine(position+":"+startPoint + ":" + dest);
+            }
         }
 
         private void attack()
@@ -66,10 +74,10 @@ namespace ZombieAssault
             Outer:
             foreach(Vector2 v in path)
             {
-                if (Map.getNode(new Vector2(((int)(((v.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2), ((int)((v.Y) / SpriteManager.tileSize) + 2))).Type == 1)
+                if (Map.getNode(new Vector2(((int)(((v.X - 4) - Game1.resOffset) / SpriteManager.tileSize) + 2), ((int)((v.Y + 1) / SpriteManager.tileSize) + 2))).Type == 1)
                     foreach(BreakableSprite b in BreakableObjectManager.BreakableList)
                     {
-                        if (v == b.Position && b.health > 0)
+                        if (v == b.Position/*v.X - b.Position.X < .1f && v.Y - b.Position.Y < .1f*/ && b.health > 0)
                         {
                             switchTarget(b);
                             currTarget = b;
@@ -120,7 +128,8 @@ namespace ZombieAssault
                         queryPath(path);
                     }
                 }
-            }catch(Exception)
+            }
+            catch (Exception)
             { }
 
             if (path.Count > 1)
