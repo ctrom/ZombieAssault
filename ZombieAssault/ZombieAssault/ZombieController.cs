@@ -82,7 +82,7 @@ namespace ZombieAssault
                 zombieGroan.Play();
                 timeSinceLastSpawn = 0;//resets spawn timer
                 Random rand = new Random();
-                for(int i = 0; i < (5 * (wave + 1)); i++)//adds zombies to the list at random position off the screen
+                for(int i = 0; i < (8 * (wave + 1)); i++)//adds zombies to the list at random position off the screen
                 {
                     Vector2 position = Vector2.Zero;
                     int x = rand.Next(0, 4);

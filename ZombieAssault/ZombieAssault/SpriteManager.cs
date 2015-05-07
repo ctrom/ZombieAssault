@@ -32,6 +32,7 @@ namespace ZombieAssault
         private Texture2D titleTexture;
         private Texture2D pauseMenuTexture;
         private Texture2D gameOverTexture;
+        private Texture2D controlsMenuTexture;
         private Texture2D cursorTexture;
         private Texture2D highlightTexture;
         private Texture2D unitHudTexture;
@@ -108,6 +109,7 @@ namespace ZombieAssault
             titleTexture = Game.Content.Load<Texture2D>(@"Images/Title_Screen");
             gameOverTexture = Game.Content.Load<Texture2D>(@"Images/GameOverScreen");
             pauseMenuTexture = Game.Content.Load<Texture2D>(@"Images/PauseMenu");
+            controlsMenuTexture = Game.Content.Load<Texture2D>(@"Images/ControlsMenu");
             highlightTexture = Game.Content.Load<Texture2D>(@"Images/Highlight_Sprite");
             unitHudTexture = Game.Content.Load<Texture2D>(@"Images/HUD/Hud_UnitInfo");
             gameInfoHudTexture = Game.Content.Load<Texture2D>(@"Images/HUD/Hud_GameInfo");
@@ -158,7 +160,7 @@ namespace ZombieAssault
             cursorPosition = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
 
             timeSinceHeal += gameTime.ElapsedGameTime.Milliseconds;
-            if(timeSinceHeal > 180000)
+            if(timeSinceHeal > 300000)
             {
                 timeSinceHeal = 0;
                 playerManager.healUnits();
@@ -217,14 +219,20 @@ namespace ZombieAssault
             {
                 spriteBatch.Draw(gameOverTexture, new Vector2(Game1.resOffset, 0), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, 1);
                 spriteBatch.Draw(restartButtonTexture, startButtonRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
-                spriteBatch.Draw(controlsButtonTexture, controlsButtonRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
                 spriteBatch.Draw(exitButtonTexture, exitButtonRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
             }
             if(gameState == 2)
             {
                 spriteBatch.Draw(pauseMenuTexture, new Vector2(Game1.resOffset, 0), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, 1);
                 spriteBatch.Draw(resumeButtonTexture, startButtonRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
-                spriteBatch.Draw(controlsButtonTexture, controlsButtonRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
+                spriteBatch.Draw(exitButtonTexture, exitButtonRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
+            }
+            if(gameState == 4)
+            {
+                spriteBatch.Draw(mapTexture, new Vector2(Game1.resOffset, 0), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, 0);//draws map
+                foreach (Sprite s in BreakableObjectManager.BreakableList)
+                    s.Draw(gameTime, spriteBatch);
+                spriteBatch.Draw(controlsMenuTexture, new Vector2(Game1.resOffset, 0), null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, 1);
                 spriteBatch.Draw(exitButtonTexture, exitButtonRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
             }
 
@@ -245,6 +253,10 @@ namespace ZombieAssault
                     zombieController = new ZombieController(Game.Content.Load<Texture2D>(@"Images/Zombie_SpriteSheet"), zombieDeath, zombieGroan);
                     breakableObjectManager = new BreakableObjectManager(Game.Content.Load<Texture2D>(@"Images/Window_Spritesheet"));
                     gameState = 1;
+                }
+                else if(mouseClickRect.Intersects(controlsButtonRectangle))
+                {
+                    gameState = 4;
                 }
                 else if (mouseClickRect.Intersects(exitButtonRectangle)) //player clicked exit button
                 {
@@ -274,6 +286,13 @@ namespace ZombieAssault
                 else if (mouseClickRect.Intersects(exitButtonRectangle)) //player clicked exit button
                 {
                     Game.Exit();
+                }
+            }
+            if(gameState == 4)
+            {
+                if(mouseClickRect.Intersects(exitButtonRectangle))
+                {
+                    gameState = 0;
                 }
             }
         }
